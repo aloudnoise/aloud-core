@@ -90,42 +90,6 @@ class ActiveQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     * @param integer $organization_id
-     * @return $this
-     */
-    public function byOrganization($organization_id = null)
-    {
-        if ($organization_id === null AND Organizations::getCurrentOrganizationId() === 0 AND \Yii::$app->user->can("SUPER"))
-            return $this;
-
-        return $this->andWhere([
-            "$this->alias.organization_id" => $organization_id ?: Organizations::getCurrentOrganizationId()
-        ]);
-    }
-
-    /**
-     * @param integer $organization_id
-     * @return $this
-     */
-    public function byOrganizationOrNull($organization_id = null)
-    {
-        return $this->andWhere("$this->alias.organization_id IS NULL OR $this->alias.organization_id = :oid", [
-            ':oid' => $organization_id ?: Organizations::getCurrentOrganizationId()
-        ]);
-    }
-
-    /**
-     * @param null $organization_type
-     * @return $this
-     */
-    public function byOrganizationTypeOrNull($organization_type = null) {
-        return $this->andWhere("$this->alias.organization_type IS NULL OR $this->alias.organization_type = :btype", [
-            ':btype' => $organization_type ?: Organizations::getCurrentOrganization()->type
-        ]);
-    }
-
-
-    /**
      * Только текущего пользователя
      */
     public function byOwner() {

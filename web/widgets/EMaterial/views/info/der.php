@@ -1,3 +1,0 @@
-<a class="btn btn-warning der-fullscreen pointer text-white" style="margin-bottom:5px;"><?=Yii::t("main","Развернуть")?></a>
-<iframe class="der" src="<?=$this->context->material->derUrl.Yii::$app->tincan->getUrlCredentials()?>" style="width:100%;"></iframe>
-<a style="z-index:9999; position: fixed; bottom:20px; right:60px; display:none;" class="btn btn-danger btn-sm der-fullscreen-cancel  pointer text-white"><?=Yii::t("main","Свернуть")?></a>

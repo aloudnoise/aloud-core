@@ -9,16 +9,17 @@ class CKEditorBundle extends AssetBundle
 {
     public $sourcePath = '@app/bundles/ckeditor/assets';
     public $js = [
-        'ckeditor.js',
+        'ckeditor/ckeditor.js',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
     public static function register($view) {
         $view->registerJs("
-           CKEDITOR_BASEPATH = '".\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/';
+           CKEDITOR_BASEPATH = '".\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/ckeditor/';
+           MATHJAX_LIB_PATH = '".\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/mathjax/MathJax.js';
         ", View::POS_HEAD, 'ckeditor_config_path');
         $r = parent::register($view);
-        $view->registerJsFile(\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/ckeditor.js", \Yii::$app->assetManager->getBundle("ckeditor")->jsOptions);
+        $view->registerJsFile(\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/ckeditor/ckeditor.js", \Yii::$app->assetManager->getBundle("ckeditor")->jsOptions);
         return $r;
     }
 
