@@ -1,0 +1,59 @@
+2018-02-19 16:04:31 [127.0.0.1][94][-][error][Error] Error: Call to undefined function common\models\relations\EventOrganization() in E:\dists\openServer\OpenServer\domains\krw\protected\common\models\Assign.php:56
+Stack trace:
+#0 E:\dists\openServer\OpenServer\domains\krw\protected\api\components\ActiveController.php(187): common\models\Assign->save()
+#1 [internal function]: api\components\ActiveController->actionCreate()
+#2 E:\dists\openServer\OpenServer\domains\krw\protected\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#3 E:\dists\openServer\OpenServer\domains\krw\protected\vendor\yiisoft\yii2\base\Controller.php(157): yii\base\InlineAction->runWithParams(Array)
+#4 E:\dists\openServer\OpenServer\domains\krw\protected\vendor\yiisoft\yii2\base\Module.php(528): yii\base\Controller->runAction('create', Array)
+#5 E:\dists\openServer\OpenServer\domains\krw\protected\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('assign/create', Array)
+#6 E:\dists\openServer\OpenServer\domains\krw\protected\vendor\yiisoft\yii2\base\Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#7 E:\dists\openServer\OpenServer\domains\krw\api.php(37): yii\base\Application->run()
+#8 {main}
+2018-02-19 16:04:31 [127.0.0.1][94][-][info][application] $_SERVER = [
+    'REDIRECT_THEME' => 'bilimal'
+    'REDIRECT_STATUS' => '200'
+    'THEME' => 'bilimal'
+    'HTTP_HOST' => 'lms-api'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '103'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_ORIGIN' => 'http://lms'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_ACCEPT' => 'application/json, text/javascript, */*; q=0.01'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
+    'HTTP_X_ORGANIZATION_ID' => '15'
+    'HTTP_REFERER' => 'http://lms/15/organizations/assign?filter%5Bexclude_ids%5D=314&from%5B0%5D=event&from%5B1%5D=5&from%5B2%5D=assign&from%5B3%5D=9dbb46cd06e6bdca612793fb656e31e7&return=%2F15%2Fevents%2Fview%3Fid%3D5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'e:\\dists\\openserver\\openserver\\modules\\php\\PHP-7.1-x64\\ext;e:\\dists\\openserver\\openserver\\modules\\php\\PHP-7.1-x64\\pear;e:\\dists\\openserver\\openserver\\modules\\php\\PHP-7.1-x64\\pear\\bin;e:\\dists\\openserver\\openserver\\modules\\php\\PHP-7.1-x64;e:\\dists\\openserver\\openserver\\modules\\imagemagick;e:\\dists\\openserver\\openserver\\modules\\wget\\bin;e:\\dists\\openserver\\openserver\\modules\\git;e:\\dists\\openserver\\openserver\\modules\\git\\bin;e:\\dists\\openserver\\openserver\\modules\\git\\mingw\\bin;e:\\dists\\openserver\\openserver\\modules\\git\\cmd;e:\\dists\\openserver\\openserver\\modules\\database\\MongoDB-3.4-x64;e:\\dists\\openserver\\openserver\\modules\\memcached\\Memcached-1.4-x64;e:\\dists\\openserver\\openserver\\modules\\redis\\Redis-3.2-x64;e:\\dists\\openserver\\openserver\\modules\\http\\Apache-PHP-7-x64\\bin;e:\\dists\\openserver\\openserver\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.RB;.RBW'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'lms-api'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'E:/dists/openServer/OpenServer/domains/krw'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'E:/dists/openServer/OpenServer/domains/krw'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'E:/dists/openServer/OpenServer/domains/krw/api.php'
+    'REMOTE_PORT' => '10843'
+    'REDIRECT_URL' => '/assign'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/assign'
+    'SCRIPT_NAME' => '/api.php'
+    'PHP_SELF' => '/api.php'
+    'REQUEST_TIME_FLOAT' => 1519034671.182
+    'REQUEST_TIME' => 1519034671
+    'argv' => []
+    'argc' => 0
+]

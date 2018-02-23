@@ -1,0 +1,7 @@
+$(function() {
+
+    CabinetModule = BaseModule.extend({
+
+    })
+
+})

@@ -1,0 +1,42 @@
+
+# Self Logger
+LOGGER: { log_format: 'bunyan', # 'self'
+          log_name:   'socket',
+          log_folder: './log',
+          log_form:   1
+        }
+
+# Aplication
+SERVER: {
+  port: 8888,
+  host: 127.0.0.1,
+  # protocol: 'https',
+  # options: {
+  #   key:  './path/to/key',
+  #   cert: './path/to/crt'
+  # },
+  # redirect: {
+  #   port: 8080,
+  #   host: '127.0.0.1'
+  # }
+}
+
+REDIS: {
+  url: 'redis://127.0.0.1:6379/0'
+  # options: {
+  #   tls: {
+  #     requestCert: true,
+  #     rejectUnauthorized: false,
+  #     cert: './path/to/key',
+  #     key:  './path/to/key'
+  #   },
+  #   password: 'PASSWORD'
+  # }
+}
+
+SOCKET: {
+  authTimeout:      1000,
+  roomsLimit:       10000,
+  roomMaxLength:    100,
+  roomsAtOnceLimit: 100
+}

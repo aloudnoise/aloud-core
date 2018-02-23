@@ -1,0 +1,98 @@
+{{ void(this.setTitle(translate('main','Карточка предприятия'))) }}
+<div class="action-content">
+
+    {{ use('app/widgets/EForm/EForm') }}
+    {% set form = e_form_begin({
+        'htmlOptions' : {
+            'id' : 'newOrganizationsForm',
+            'method' : 'post',
+            'action' : path({0:'/admin/organizations/add'})
+        }
+    }) %}
+
+    {{ use('app/widgets/EUploader/EUploader') }}
+    {{ e_uploader_widget({'standalone': true}) }}
+    {{ use('app/widgets/ECropper/ECropper') }}
+    {{ e_cropper_widget() }}
+
+    <script type="text/template" id="file_template">
+        <div class="attached-file" style="margin-bottom:15px;">
+            <input type="hidden" value='<%=JSON.stringify(data.model.toJSON())%>' name="uploaded[]"/>
+            <a target='_blank' href="<%=data.model.get("url")%>"><%=data.model.get("name")%></a>
+            <a style="margin-left:15px; cursor:pointer;" class="delete-file btn-link">&times;</a>
+        </div>
+    </script>
+
+    <script id="attached_file_template" type="text/template">
+        <div class='uploaded-file'>
+            <% if (!data.error && data.percent>0 && data.percent < 100) { %>
+            <div style='margin-top:5px; margin-bottom:5px;' class="progress progress-striped">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                     aria-valuemax="100" style="width: <%=data.percent%>%">
+                    <span><%=(Math.ceil(data.loaded/1024)) + "kb" %>/<%=(Math.ceil(data.total/1024)) + "kb"%></span>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </script>
+
+    <div class="asm-wrapper">
+        <div class="asm-block" style="width: 100%;">
+            <div class="cont">
+                <h4 style="margin-bottom:30px;">{{ translate('main','Регистрация Организации') }}</h4>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 style="margin-bottom:30px;">{{ translate('main','Лого организации') }}</h5>
+                        <div class="uploader pull-left">
+                            <input type="hidden" name="logo" id="logo" value="{{ model.logo }}"/>
+                            <div class="uploaded-photo">
+                                {% if (model.logo!= "") %}
+                                    <img class="img-thumbnail" style="max-width:150px;"
+                                         alt="{{ translate('main', 'Лого организации') }}" src="{{ model.logoUrl.url }}">
+                                {% endif %}
+                            </div>
+                            <h4 style="margin-top: 10px"><a style="color:#fff; cursor:pointer;" class="btn btn-info upload-button">
+                                    <li class="fa fa-file"></li> {{ translate("main","Загрузить") }}</a></h4>
+                            <input style="display:none" type="file" name="file"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" attribute="name">
+                                    <input class="form-control" type="text" name="name" id="name"
+                                           placeholder="{{ translate('main','Название организации') }}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" attribute="login">
+                                    <input placeholder="{{ translate('main','Логин администратора') }}" class="form-control" type="text" name="login" id="login" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group" attribute="password">
+                                    <input placeholder="{{ translate('main','Пароль администратора') }}" class="form-control" type="password" name="password" id="password" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group text-center" style="margin-bottom:0; margin-top:30px;">
+                    <button type="submit"
+                            class="btn btn-success">{{ translate('main','Сохранить организацию') }}</button>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {{ e_form_end() }}
+</div>

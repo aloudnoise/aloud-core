@@ -1,0 +1,34 @@
+<div class="action-content"> <!-- Обязательный тег в каждом action, для того чтобы action в бэкбоне определял область видимости -->
+
+    <!-- шаблон на бекбоне -->
+    <script type="text/template" id="column_info_template">
+        <div class="column-info-item">
+            one_attr : <%=data.model.get("one_attr")%> , two_attr : <%=data.model.get("two_attr")%> , three_attr : <%=data.model.get("three_attr")%>
+        </div>
+    </script>
+
+    <div class="column-info-content"></div>
+
+    <div class="row justify-content-end">
+        <div class="col col-auto">
+            <a href="{{ organizationPath({0: '/example/add'}) }}" class="btn btn-primary">{{ translate('main', 'Добавить запись') }}</a>
+            <a href="{{ organizationPath({0: '/example/add'}) }}" target="modal" class="ml-5 pull-right btn btn-success">{{ translate('main', 'Добавить запись через модалку') }}</a>
+        </div>
+    </div>
+
+    <table class="table table-bordered mt-3">
+    {% set list = provider.getModels() %}
+    {% if list %}
+        {% for item in list %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>one_attr: {{ item.one_attr }}, two_attr: {{ item.two_attr }}, three_attr: {{ item.three_attr }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </table>
+
+    {{ use('app/widgets/EPager/EPager') }}
+    {{ e_pager_widget({'pagination': provider.pagination}) }}
+
+</div>

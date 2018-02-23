@@ -1,0 +1,9 @@
+$(function() {
+
+    AdminModule = BaseModule.extend({
+
+
+
+    })
+
+})

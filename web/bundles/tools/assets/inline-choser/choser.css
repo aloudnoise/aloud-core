@@ -1,0 +1,8 @@
+.inline-choser .choser-item {
+    display:inline-block;
+    cursor:pointer;
+    margin-bottom:5px;
+}
+.inline-choser .choser-item.active {
+    text-decoration: underline;
+}

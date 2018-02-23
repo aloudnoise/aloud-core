@@ -1,0 +1,9 @@
+$(function() {
+
+    TestsModule = BaseModule.extend({
+
+
+
+    })
+
+})

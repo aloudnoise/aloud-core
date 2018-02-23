@@ -1,0 +1,22 @@
+
+LOGGER: { log_format: 'self',
+          log_name:   'socket',
+          log_folder: './log',
+          log_form:   1
+        }
+
+SERVER: {
+  port: 8888,
+  host: 127.0.0.1
+}
+
+REDIS: {
+  url: 'redis://127.0.0.1:6379/0'
+}
+
+SOCKET: {
+  authTimeout:      1000,
+  roomsLimit:       10000,
+  roomMaxLength:    100,
+  roomsAtOnceLimit: 100
+}

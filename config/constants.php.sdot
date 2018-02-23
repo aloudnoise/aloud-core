@@ -1,0 +1,47 @@
+<?php
+return [
+    'secret_word' => 'mysecretword',
+    'socket_server' => 'https://s.sdot.bilimal.kz',
+    'api_url' => 'https://api.sdot.bilimal.kz/',
+    'host' => 'https://sdot.bilimal.kz/',
+    'forum_host' => 'https://forum.sdot.bilimal.kz/',
+    'files_host' => "https://ff.sdot.bilimal.kz/upload",
+    'db' => [
+        'host' => 'db0.sdot',
+        'port' => 5432,
+        'name' => 'db_sdot',
+        'name_test' => 'db_sdot_test',
+        'user' => 'sdot',
+        'password' => 'v3rte1l0',
+    ],
+    'tincan' => [
+            'endpoint' => 'https://lrs.sdot.bilimal.kz/data/xAPI',
+            'version' => '1.0.0',
+            'username' => 'eddda675fe8d1e42e91b7a2c5b53cf578b82e4e5',
+            'password' => '58b21491f6b36713e1bdcc7f61a4a8c322120ed6'
+        ],
+    'fcm_global_api' => '',
+    'mailer' => [
+        'class' => 'Swift_SmtpTransport',
+        'host' => 'smtp.mail.ru',
+        'username' => 'noreply@bilimal.kz',
+        'password' => 'CWEqcd93',
+        'port' => '587',
+        'encryption' => 'tls',
+    ],
+    'redis' => [
+        'class' => 'yii\redis\Connection',
+        'hostname' => '127.0.0.1',
+        'port' => 6379,
+    ],
+    'rabbit' => [
+            'host' => '127.0.0.1',
+            'port' => 5672,
+            'user' => 'sdot',
+            'password' => 'rekab1P0',
+        ],
+    'bigbluebutton' => [
+            'url' => 'https://bbb.sdot.bilimal.kz/bigbluebutton/',
+            'secret' => '88b293eab060d638764b6f892f767686'
+        ]
+];

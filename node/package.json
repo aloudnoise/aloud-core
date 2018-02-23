@@ -1,0 +1,43 @@
+{
+  "name": "Node_socket_server",
+  "version": "0.0.1",
+  "description": "Node_socket_server",
+  "man": [
+    "README.md"
+  ],
+  "scripts": {
+    "start": "forever start --uid skt --minUptime 5000 --spinSleepTime 1000 -p ./log -l forever.log -a ./app.js",
+    "stop": "forever stop skt",
+    "dev": "node ./app.js",
+    "run": "./bin/run.sh"
+  },
+  "author": {
+    "name": "CIT ORLEU",
+    "email": "git@cit-orleu.kz"
+  },
+  "private": true,
+  "license": "Proprietary Software",
+  "dependencies": {
+    "bunyan": "1.8.10",
+    "express": "4.15.3",
+    "js-yaml": "3.8.4",
+    "redis": "2.7.1",
+    "socket.io": "2.0.1",
+    "socket.io-redis": "5.0.1",
+    "underscore": "1.8.3"
+  },
+  "engines": {
+    "npm": ">=3",
+    "node": ">=6",
+    "redis": ">=3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.vpn:backend/krw.git"
+  },
+  "homepage": "http://gitlab.vpn/backend/krw",
+  "keywords": [
+    "sockets",
+    "redis"
+  ]
+}

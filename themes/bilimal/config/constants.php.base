@@ -1,0 +1,32 @@
+<?php
+return [
+    'secret_word' => 'mysecretword',
+    'socket_server' => 'http://127.0.0.1:8888',
+    'db' => [
+        'host' => 'localhost',
+        'port' => 5432,
+        'name' => 'lms',
+        'name_test' => 'lms',
+        'user' => 'postgres',
+        'password' => 'postgres',
+    ],
+    'db_bilimal' => [
+        'host' => 'localhost',
+        'port' => 5432,
+        'name' => 'db_bilimal',
+        'user' => 'postgres',
+        'password' => 'postgres',
+    ],
+    'fcm_global_api' => '',
+    'mailer' => [
+        'transport' => 'smtp',
+        'host' => 'smtp.mail.ru',
+        'port' => 587,
+        'username' => 'noreply@bilimal.kz',
+        'password' => 'CWEqcd93',
+        'encryption' => 'tls'
+    ],
+    'redis' => [
+            'class' => 'yii\redis\Connection'
+        ]
+];

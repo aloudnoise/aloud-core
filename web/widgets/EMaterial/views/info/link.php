@@ -1,0 +1,1 @@
+<a target="<?=isset($this->context->link['target']) ? "target='".$this->context->link['target']."'" : "_blank"?>" class='inline-block file-name' href='<?=$this->context->material->infoJson['external_link']['name']?>'><?=$this->context->material->infoJson['external_link']['name']?></a>
