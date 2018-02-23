@@ -1,0 +1,14 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/aloudnoise/aloud-core"
+        }
+    ],
+    "name": "aloudnoise/aloud-core",
+    "autoload": {
+        "psr-0" : {
+            "aloud_core\\" : ""
+        }
+    }
+}

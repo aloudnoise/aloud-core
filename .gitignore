@@ -1,0 +1,15 @@
+.idea
+.vscode
+*.DS_Store
+*.orig
+*.sublime-workspace
+*.sublime-project
+terminal.glue
+Thumbs.db
+.jshintrc
+node_modules/
+npm-debug.log
+package-lock.json
+/.idea/*
+Nginx-*
+.htaccess
