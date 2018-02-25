@@ -1,6 +1,6 @@
 <?php
 
-namespace common\components;
+namespace aloud_core\common\components;
 
 class PhoneNumberValidator extends \yii\validators\Validator
 {

@@ -1,5 +1,5 @@
 <?php
-namespace app\components;
+namespace aloud_core\web\components;
 
 use yii\base\Component;
 

@@ -6,10 +6,10 @@
  * Time: 22:01
  */
 
-namespace app\widgets\EMessages;
+namespace aloud_core\web\widgets\EMessages;
 
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class EMessages extends Widget
 {

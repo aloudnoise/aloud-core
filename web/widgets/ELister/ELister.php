@@ -1,6 +1,6 @@
 <?php
 
-namespace app\widgets\ELister;
+namespace aloud_core\web\widgets\ELister;
 use yii\widgets\ListView;
 
 // TODO REWORK
@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 class ELister extends ListView
 {
     public $pager = [
-        "class"=>'\app\widgets\EPager\EPager',
+        "class"=>'\aloud_core\web\widgets\EPager\EPager',
         'firstPageLabel'=>'<<',
         'prevPageLabel'=>'<',
         'nextPageLabel'=>'>',

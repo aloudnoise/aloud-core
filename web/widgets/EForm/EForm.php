@@ -1,9 +1,9 @@
 <?php
-namespace app\widgets\EForm;
+namespace aloud_core\web\widgets\EForm;
 
 use yii\helpers\Html;
 
-class EForm extends \app\components\Widget
+class EForm extends \aloud_core\web\components\Widget
 {
 
     protected $backbone = true;

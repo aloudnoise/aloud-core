@@ -1,25 +1,28 @@
 <?php
 
-namespace app\bundles\ckeditor;
+namespace aloud_core\web\bundles\ckeditor;
 
-use app\components\View;
+use aloud_core\web\components\View;
 use yii\web\AssetBundle;
 
 class CKEditorBundle extends AssetBundle
 {
-    public $sourcePath = '@app/bundles/ckeditor/assets';
+    public $sourcePath = '@aloud_core/web/bundles/ckeditor/assets';
     public $js = [
         'ckeditor/ckeditor.js',
+    ];
+    public $depends = [
+        'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
     public static function register($view) {
-        $view->registerJs("
-           CKEDITOR_BASEPATH = '".\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/ckeditor/';
-           MATHJAX_LIB_PATH = '".\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/mathjax/MathJax.js';
-        ", View::POS_HEAD, 'ckeditor_config_path');
         $r = parent::register($view);
-        $view->registerJsFile(\Yii::$app->assetManager->getBundle("ckeditor")->baseUrl."/ckeditor/ckeditor.js", \Yii::$app->assetManager->getBundle("ckeditor")->jsOptions);
+        $view->registerJs("
+           CKEDITOR_BASEPATH = '".$r->baseUrl."/ckeditor/';
+           MATHJAX_LIB_PATH = '".$r->baseUrl."/mathjax/MathJax.js';
+        ", View::POS_HEAD, 'ckeditor_config_path');
+        $view->registerJsFile($r->baseUrl."/ckeditor/ckeditor.js", $r->jsOptions);
         return $r;
     }
 

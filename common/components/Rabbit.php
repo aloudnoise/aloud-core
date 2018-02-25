@@ -6,7 +6,7 @@
  * Time: 1:37
  */
 
-namespace common\components;
+namespace aloud_core\common\components;
 
 
 use PhpAmqpLib\Channel\AMQPChannel;

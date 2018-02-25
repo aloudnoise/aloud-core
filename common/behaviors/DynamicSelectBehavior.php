@@ -1,8 +1,8 @@
 <?php
 
-namespace common\behaviors;
+namespace aloud_core\common\behaviors;
 
-use common\components\ActiveRecord;
+use aloud_core\common\components\ActiveRecord;
 use yii\base\Behavior;
 
 class DynamicSelectBehavior extends Behavior

@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\ECropper;
+namespace aloud_core\web\widgets\ECropper;
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class ECropper extends Widget
 {

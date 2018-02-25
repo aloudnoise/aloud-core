@@ -6,7 +6,7 @@
  * Time: 17:12
  */
 
-namespace app\traits;
+namespace aloud_core\web\traits;
 
 
 trait BackboneRequestTrait

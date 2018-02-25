@@ -1,8 +1,8 @@
 <?php
-namespace app\widgets\ELiveField;
+namespace aloud_core\web\widgets\ELiveField;
 
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class ELiveField extends Widget
 {

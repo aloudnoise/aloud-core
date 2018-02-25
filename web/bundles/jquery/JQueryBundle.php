@@ -1,13 +1,13 @@
 <?php
 
-namespace app\bundles\jquery;
+namespace aloud_core\web\bundles\jquery;
 
 use yii\web\AssetBundle;
 
 class JQueryBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@app/bundles/jquery/assets';
+    public $sourcePath = '@aloud_core/web/bundles/jquery/assets';
     public $css = [
         //'css/jquery-ui.min.css'
         'css/jquery-ui-1.12.1.css'

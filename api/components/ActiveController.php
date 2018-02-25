@@ -1,8 +1,8 @@
 <?php
 
-namespace api\components;
+namespace aloud_core\api\components;
 
-use common\components\ActiveRecord;
+use aloud_core\common\components\ActiveRecord;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -17,7 +17,7 @@ use yii\web\ServerErrorHttpException;
 /**
  * Базовый контроллер всех контроллеров
  * Class ActiveController
- * @package api\components
+ * @package aloud_core\api\components
  */
 class ActiveController extends \yii\rest\ActiveController
 {
@@ -27,7 +27,7 @@ class ActiveController extends \yii\rest\ActiveController
 
     public $deep_cache = false;
 
-    public $serializer = 'api\components\Serializer';
+    public $serializer = 'aloud_core\api\components\Serializer';
     public $scenario = 'default';
 
     public function actionInfo()
@@ -52,7 +52,7 @@ class ActiveController extends \yii\rest\ActiveController
         $actions['view']['findModel'] = [$this, 'findModel'];
 
         $actions['options'] = [
-            'class' => 'api\components\OptionsAction',
+            'class' => 'aloud_core\api\components\OptionsAction',
         ];
 
         return $actions;
@@ -238,7 +238,7 @@ class ActiveController extends \yii\rest\ActiveController
 
         $result = ArrayHelper::merge(parent::behaviors(), [
             'actionTime' => [
-                'class' => 'api\components\ActionTimeFilter',
+                'class' => 'aloud_core\api\components\ActionTimeFilter',
             ],
             'authenticator' => [
                 'class' => HttpBearerAuth::className(),

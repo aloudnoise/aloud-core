@@ -1,7 +1,8 @@
 <?php
 
-namespace app\bundles\base;
+namespace aloud_core\web\bundles\base;
 
+use aloud_core\web\bundles\jquery\JQueryBundle;
 use yii\web\AssetBundle;
 
 class BaseBundle extends AssetBundle
@@ -20,9 +21,9 @@ class BaseBundle extends AssetBundle
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $depends = [
-        'jquery',
-        'bootstrap',
-        'urlmanager',
-        'backbone'
+        'aloud_core\web\bundles\jquery\JQueryBundle',
+        'aloud_core\web\bundles\jquery\BootstrapBundle',
+        'aloud_core\web\bundles\jquery\UrlManagerBundle',
+        'aloud_core\web\bundles\jquery\BackboneBundle',
     ];
 }

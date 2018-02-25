@@ -1,5 +1,5 @@
 <?php
-namespace common\helpers;
+namespace aloud_core\common\helpers;
 
 class Common {
 

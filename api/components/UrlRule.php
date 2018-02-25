@@ -1,6 +1,6 @@
 <?php
 
-namespace api\components;
+namespace aloud_core\api\components;
 
 class UrlRule extends \yii\rest\UrlRule
 {

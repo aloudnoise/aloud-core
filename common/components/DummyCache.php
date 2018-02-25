@@ -6,7 +6,7 @@
  * Time: 15:37
  */
 
-namespace common\components;
+namespace aloud_core\common\components;
 
 
 class DummyCache extends \yii\caching\DummyCache

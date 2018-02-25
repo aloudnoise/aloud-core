@@ -1,20 +1,20 @@
 <?php
 
-namespace app\bundles\tools;
+namespace aloud_core\web\bundles\tools;
 
-use app\components\View;
+use aloud_core\web\components\View;
 use yii\web\AssetBundle;
 
 class ToolsBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@app/bundles/tools/assets';
+    public $sourcePath = '@aloud_core/web/bundles/tools/assets';
     public $css = [
     ];
     public $js = [
     ];
     public $depends = [
-        'jquery'
+        'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
@@ -23,7 +23,7 @@ class ToolsBundle extends AssetBundle
      */
     public static function registerJgrowl($view)
     {
-        $bundle = self::register($view);
+        $bundle = static::register($view);
         $view->registerJsFile($bundle->baseUrl."/jgrowl/jquery.jgrowl.min.js", [
             'position' => $bundle->jsOptions['position'],
             "depends" => $bundle->depends
@@ -39,7 +39,7 @@ class ToolsBundle extends AssetBundle
      */
     public static function registerJCrop($view)
     {
-        $bundle = self::register($view);
+        $bundle = static::register($view);
 
         $view->registerJsFile($bundle->baseUrl."/jcrop/jquery.Jcrop.js", [
             'position' => $bundle->jsOptions['position'],
@@ -57,7 +57,7 @@ class ToolsBundle extends AssetBundle
     public static function registerChosen($view)
     {
 
-        $bundle = self::register($view);
+        $bundle = static::register($view);
 
         $view->registerJsFile($bundle->baseUrl."/chosen/chosen.jquery.min.js", [
             'position' => $bundle->jsOptions['position'],
@@ -79,7 +79,7 @@ class ToolsBundle extends AssetBundle
     public static function registerRange($view)
     {
 
-        $bundle = self::register($view);
+        $bundle = static::register($view);
 
         $view->registerJsFile($bundle->baseUrl."/range/js/ion.rangeSlider.min.js", [
             'position' => $bundle->jsOptions['position'],
@@ -101,7 +101,7 @@ class ToolsBundle extends AssetBundle
     public static function registerInlineChoser($view)
     {
 
-        $bundle = self::register($view);
+        $bundle = static::register($view);
 
         $view->registerJsFile($bundle->baseUrl."/inline-choser/choser.js", [
             'position' => $bundle->jsOptions['position'],
@@ -115,7 +115,7 @@ class ToolsBundle extends AssetBundle
 
 
     public static function registerTool($view, $name) {
-        $bundle = self::register($view);
+        $bundle = static::register($view);
 
         if (file_exists($bundle->basePath."/$name/js/$name.js")) {
             $view->registerJsFile($bundle->baseUrl . "/$name/js/$name.js", [

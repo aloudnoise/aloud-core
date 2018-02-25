@@ -1,6 +1,6 @@
 <?php
 
-namespace app\widgets\ECaptcha;
+namespace aloud_core\web\widgets\ECaptcha;
 
 
 use yii\captcha\Captcha;

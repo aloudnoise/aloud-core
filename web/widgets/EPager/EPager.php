@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\EPager;
+namespace aloud_core\web\widgets\EPager;
 
-use app\helpers\Html;
+use aloud_core\web\helpers\Html;
 use yii\widgets\LinkPager;
 
 // TODO REWORK

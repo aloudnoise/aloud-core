@@ -1,6 +1,6 @@
 <?php
 
-namespace api\components;
+namespace aloud_core\api\components;
 
 use yii\base\ActionFilter;
 use yii\web\MethodNotAllowedHttpException;

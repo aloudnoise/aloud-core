@@ -1,12 +1,12 @@
 <?php
-namespace app\bundles\backbone;
+namespace aloud_core\web\bundles\backbone;
 
 use yii\web\AssetBundle;
 
 class BackboneBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@app/bundles/backbone/assets';
+    public $sourcePath = '@aloud_core/bundles/backbone/assets';
     public $css = [
 
     ];
@@ -26,17 +26,17 @@ class BackboneBundle extends AssetBundle
         'components/action.js',
         'components/widget.js'
     ];
-    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $depends = [
-        'jquery'
+        'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
+    public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
     public static function registerWidget($view, $name)
     {
         $bundle = self::register($view);
         $view->registerJsFile($bundle->baseUrl."/widgets/".$name.".js", [
-                'depends' => [self::className()],
-                'position'=> \app\components\View::POS_HEAD
+                'depends' => [static::className()],
+                'position'=> \aloud_core\web\components\View::POS_HEAD
         ]);
     }
 

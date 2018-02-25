@@ -1,6 +1,6 @@
 <?php
 
-namespace app\bundles\jstrans;
+namespace aloud_core\web\bundles\jstrans;
 
 use yii\web\View;
 use yii\helpers\Json;
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
 class JSTransBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@app/bundles/jstrans/assets';
+    public $sourcePath = '@aloud_core/web/bundles/jstrans/assets';
     public $css = [];
     public $js = [
         'JsTrans.min.js',

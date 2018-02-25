@@ -1,8 +1,8 @@
 <?php
 
-namespace common\components;
+namespace aloud_core\common\components;
 
-use common\traits\DateFormatTrait;
+use aloud_core\common\traits\DateFormatTrait;
 
 class Model extends \yii\base\Model
 {

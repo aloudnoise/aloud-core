@@ -1,11 +1,8 @@
 <?php
 
-namespace common\components;
+namespace aloud_core\common\components;
 
-use common\models\Business;
-use common\models\Organizations;
-use common\traits\AttributesToInfoTrait;
-use common\traits\DateFormatTrait;
+use aloud_core\common\traits\DateFormatTrait;
 use yii;
 
 /**
@@ -109,14 +106,6 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
             $this->info = json_encode($this->info);
         }
 
-        if (in_array("organization_id", $this->attributes()) && $this->isNewRecord && empty($this->organization_id)) {
-            $this->organization_id = Organizations::getCurrentOrganizationId();
-        }
-
-        if (in_array("user_id", $this->attributes()) && $this->isNewRecord && empty($this->user_id)) {
-            $this->user_id = \Yii::$app->user->id;
-        }
-
         return parent::beforeSave($insert);
     }
 
@@ -183,16 +172,6 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
             return true;
         }
         return false;
-    }
-
-    public function getIsInOrganization()
-    {
-        return $this->organization_id == Organizations::getCurrentOrganizationId();
-    }
-
-    public function getTestSourceName()
-    {
-        return static::tableName();
     }
 
     public function getHash()

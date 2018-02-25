@@ -6,9 +6,9 @@
         <div class="d-block message-item" message_id="<%=data.id%>">
 
             <div class="user-profile">
-                <?=\app\widgets\EProfile\EProfile::widget([
+                <?=\aloud_core\web\widgets\EProfile\EProfile::widget([
                     'model' => "data.user",
-                    'type' => \app\components\Widget::TYPE_TEMPLATE
+                    'type' => \aloud_core\web\components\Widget::TYPE_TEMPLATE
                 ])?>
             </div>
 
@@ -23,10 +23,10 @@
 <!--                <div class="col-auto ml-auto">-->
 <!--                    <p class="date text-muted">-->
 <!--                        <small>-->
-<!--                            --><?//= \app\widgets\EDisplayDate\EDisplayDate::widget([
+<!--                            --><?//= \aloud_core\web\widgets\EDisplayDate\EDisplayDate::widget([
 //                                "time" => "data.ts",
 //                                "formatType" => 1,
-//                                "type" => \app\components\Widget::TYPE_TEMPLATE
+//                                "type" => \aloud_core\web\components\Widget::TYPE_TEMPLATE
 //                            ]) ?>
 <!--                        </small>-->
 <!--                    </p>-->

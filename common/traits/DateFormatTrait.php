@@ -1,5 +1,5 @@
 <?php
-namespace common\traits;
+namespace aloud_core\common\traits;
 
 
 trait DateFormatTrait

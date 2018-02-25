@@ -6,7 +6,7 @@
  * Time: 15:22
  */
 
-namespace common\components;
+namespace aloud_core\common\components;
 
 
 class Migration extends \yii\db\Migration

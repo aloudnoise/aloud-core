@@ -1,6 +1,6 @@
 <?php
 
-namespace app\helpers;
+namespace aloud_core\web\helpers;
 
 class Html extends \yii\helpers\Html
 {

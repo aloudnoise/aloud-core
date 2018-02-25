@@ -1,8 +1,6 @@
 <?php
 
-namespace common\components;
-
-use common\models\Organizations;
+namespace aloud_core\common\components;
 
 class ActiveQuery extends \yii\db\ActiveQuery
 {

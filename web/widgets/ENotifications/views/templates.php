@@ -60,9 +60,9 @@
             <div style='margin-right:30px;'>
                 <span class="notification_title"></span>
                 <a href='<%=data.actionSite.url%>' class="notification_message"><%=data.actionSite.message%></a>
-                <div style='margin-top:5px;' class="display-date"><?php echo \app\widgets\EDisplayDate\EDisplayDate::widget([
+                <div style='margin-top:5px;' class="display-date"><?php echo \aloud_core\web\widgets\EDisplayDate\EDisplayDate::widget([
                         "time"=>"data.ts",
-                        "type"=>\app\components\Widget::TYPE_TEMPLATE
+                        "type"=>\aloud_core\web\components\Widget::TYPE_TEMPLATE
                     ]); ?></div>
                 <div class='clear'></div>
             </div>

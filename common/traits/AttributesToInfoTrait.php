@@ -6,7 +6,7 @@
  * Time: 20:00
  */
 
-namespace common\traits;
+namespace aloud_core\common\traits;
 
 
 trait AttributesToInfoTrait

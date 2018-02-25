@@ -1,6 +1,6 @@
 <?php
 
-    namespace app\components;
+    namespace aloud_core\web\components;
 
     class View extends \yii\web\View
     {

@@ -1,7 +1,7 @@
 <?php
 echo "<?php \n";
 ?>
-use common\components\Migration;
+use aloud_core\common\components\Migration;
 
 class <?=$className?> extends Migration
 {

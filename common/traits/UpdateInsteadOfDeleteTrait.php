@@ -1,7 +1,7 @@
 <?php
-namespace common\traits;
+namespace aloud_core\common\traits;
 
-use common\components\ActiveRecord;
+use aloud_core\common\components\ActiveRecord;
 
 /**
  * Используйте данный трейт во всех моделях где нужно чтобы запись не удалялась при delete()

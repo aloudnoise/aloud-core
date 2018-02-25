@@ -1,7 +1,7 @@
 <?php
-namespace app\components;
+namespace aloud_core\web\components;
 
-use app\components\InstitutionFilter;
+use aloud_core\web\components\InstitutionFilter;
 use common\models\Organizations;
 use common\models\redis\OnlineUsers;
 use yii;

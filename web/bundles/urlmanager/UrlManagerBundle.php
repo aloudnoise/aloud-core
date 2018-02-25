@@ -1,6 +1,6 @@
 <?php
 
-namespace app\bundles\urlmanager;
+namespace aloud_core\web\bundles\urlmanager;
 
 use yii\web\View;
 use yii\helpers\Json;
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
 class UrlManagerBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@app/bundles/urlmanager/assets';
+    public $sourcePath = '@aloud_core/web/bundles/urlmanager/assets';
     public $css = [];
     public $js = [
         'PHPJS.dependencies.js',
@@ -25,8 +25,6 @@ class UrlManagerBundle extends AssetBundle
         }
         parent::registerAssetFiles($view);
 
-
-
     }
 
 
@@ -36,8 +34,7 @@ class UrlManagerBundle extends AssetBundle
         $managerVars = get_object_vars($urlManager);
         $managerVars['urlFormat'] = $urlManager->enablePrettyUrl ? "path" : false;
 
-        $config = include (\Yii::getAlias("@webroot/protected/config/web.php"));
-        $managerVars['rules'] = $config['components']['urlManager']['rules'];
+        $managerVars['rules'] = \Yii::$app->urlManager->rules;
 
         foreach ($managerVars['rules'] as $pattern => $route) {
             //Ignore custom URL classes

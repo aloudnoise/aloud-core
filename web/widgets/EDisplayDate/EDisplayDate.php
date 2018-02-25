@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\EDisplayDate;
+namespace aloud_core\web\widgets\EDisplayDate;
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class EDisplayDate extends Widget
 {

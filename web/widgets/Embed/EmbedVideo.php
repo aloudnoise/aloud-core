@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\Embed;
+namespace aloud_core\web\widgets\Embed;
 
-class EmbedVideo extends \app\components\Widget
+class EmbedVideo extends \aloud_core\web\components\Widget
 {
     public $backbone = true;
     public $video_id = null;

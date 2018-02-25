@@ -1,16 +1,16 @@
 <?php
-namespace app\bundles\bootstrap;
+namespace aloud_core\web\bundles\bootstrap;
 
 use yii\web\AssetBundle;
 
 /**
  * Class BootstrapBundle
- * @package app\bundles
+ * @package aloud_core\web\bundles
  * @configuration http://getbootstrap.com/customize/?id=4a3a25795c9c6758361c
  */
 class BootstrapBundle extends AssetBundle
 {
-    public $sourcePath = '@app/bundles/bootstrap/assets';
+    public $sourcePath = '@aloud_core/web/bundles/bootstrap/assets';
     public $css = [
         'css/tether.css',
         'css/bootstrap.css',
@@ -26,18 +26,18 @@ class BootstrapBundle extends AssetBundle
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $depends = [
-        'jquery'
+        'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
 
     public static function registerTimePicker($view)
     {
-        $bundle = self::register($view);
+        $bundle = static::register($view);
         $view->registerJsFile($bundle->baseUrl. '/js/bootstrap-timepicker.min.js', [
             'position' => $bundle->jsOptions['position'],
             'depends' => $bundle->depends
         ], 'timepicker');
 
-        $view->registerCssFile(self::register($view)->baseUrl. '/css/bootstrap-timepicker.min.css', [
+        $view->registerCssFile($bundle->baseUrl. '/css/bootstrap-timepicker.min.css', [
             'position' => $bundle->jsOptions['position'],
             'depends' => $bundle->depends
         ], 'timepicker-css');

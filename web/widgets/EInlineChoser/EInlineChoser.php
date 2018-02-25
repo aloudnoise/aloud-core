@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\EInlineChoser;
+namespace aloud_core\web\widgets\EInlineChoser;
 
-class EInlineChoser extends \app\components\Widget
+class EInlineChoser extends \aloud_core\web\components\Widget
 {
 
     protected $backbone = false;

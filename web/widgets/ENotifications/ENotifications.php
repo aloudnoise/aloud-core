@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\ENotifications;
+namespace aloud_core\web\widgets\ENotifications;
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class ENotifications extends Widget
 {

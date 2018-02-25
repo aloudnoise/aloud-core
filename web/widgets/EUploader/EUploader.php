@@ -1,8 +1,8 @@
 <?php
 
-namespace app\widgets\EUploader;
+namespace aloud_core\web\widgets\EUploader;
 
-use app\components\Widget;
+use aloud_core\web\components\Widget;
 
 class EUploader extends Widget
 {

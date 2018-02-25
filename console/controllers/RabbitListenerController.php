@@ -1,7 +1,7 @@
 <?php
-namespace commands;
+namespace aloud_core\console\controllers;
 
-use common\components\Rabbit;
+use aloud_core\common\components\Rabbit;
 use yii\console\Controller;
 use PhpAmqpLib\Message\AMQPMessage;
 

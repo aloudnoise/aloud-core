@@ -1,12 +1,12 @@
 <?php
-namespace api\components;
+namespace aloud_core\api\components;
 
 use yii\base\Component;
 
 /**
  * Определяет переданный в заголовках язык и устанавливает его в качестве используемеого языка.
  * Class LanguageDetector
- * @package api\components
+ * @package aloud_core\api\components
  */
 class LanguageDetector extends Component
 {

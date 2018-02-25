@@ -1,5 +1,5 @@
 <?php
-namespace app\helpers;
+namespace aloud_core\web\helpers;
 
 class ArrayHelper extends \yii\helpers\ArrayHelper
 {

@@ -1,5 +1,5 @@
 <?php
-namespace api\components;
+namespace aloud_core\api\components;
 
 class Serializer extends \yii\rest\Serializer
 {

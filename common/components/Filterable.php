@@ -1,5 +1,5 @@
 <?php
-namespace common\components;
+namespace aloud_core\common\components;
 
 interface Filterable
 {
