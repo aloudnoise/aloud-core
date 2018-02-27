@@ -13,13 +13,13 @@ $(function() {
      * @param msg
      */
 
-    if (!DEBUG) {
+    if (!CORE.DEBUG) {
         console = {};
         console.log = function(){};
     }
 
     log = function(msg) {
-        if (DEBUG) {
+        if (CORE.DEBUG) {
             console.log(msg);
         }
     }
@@ -78,12 +78,12 @@ $(function() {
                 return that.navigate(event);
             })
 
-            if (TRACKING_CODE) {
+            if (CORE.TRACKING_CODE) {
                 window.ga = window.ga || function () {
                     (ga.q = ga.q || []).push(arguments)
                 };
                 ga.l = +new Date;
-                ga('create', TRACKING_CODE, 'auto');
+                ga('create', CORE.TRACKING_CODE, 'auto');
             }
 
             // Инициируем лонг поллинг
@@ -443,7 +443,7 @@ $(function() {
                     obj = window;
                 }
                 if (obj && typeof obj[controller] == 'undefined') {
-                    $.getScript(BACKBONE_ASSETS + (module_path ? (module_path) : "") + "/controllers/" + controller + ".js", function (data, textStatus, jqxhr) {
+                    $.getScript(CORE.BACKBONE_ASSETS + (module_path ? (module_path) : "") + "/controllers/" + controller + ".js", function (data, textStatus, jqxhr) {
                         renderCurrentController(module_class);
                     }).fail(function (jqxhr, settings, exception) {
                         // $.jGrowl(exception.message, {
@@ -491,7 +491,7 @@ $(function() {
                 module_class = module_class + module_file_class;
 
                 if (typeof window[module_class] == "undefined") {
-                    $.getScript(BACKBONE_ASSETS + module_path + "/" + module_file_class + ".js", function (data, textStatus, jqxhr) {
+                    $.getScript(CORE.BACKBONE_ASSETS + module_path + "/" + module_file_class + ".js", function (data, textStatus, jqxhr) {
                         renderCurrentModule(module_class, module, module_path);
                     }).fail(function (jqxhr, settings, exception) {
                         $.jGrowl(exception.message, {
@@ -522,7 +522,7 @@ $(function() {
          * @param name
          */
         widget : function(name, args, callback) {
-            var widget_path = BACKBONE_ASSETS + "/widgets/" + name + ".js";
+            var widget_path = CORE.BACKBONE_ASSETS + "/widgets/" + name + ".js";
 
             var returnWidget = function() {
                 if (typeof(callback) == "function") {

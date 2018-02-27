@@ -15,7 +15,7 @@ $(function() {
             this.options = $.extend(_.clone(this.defaultOptions), args.options);
         },
         loadTemplate: function (name, callback) {
-            Yii.app.loadTemplate(BACKBONE_ASSETS + "/templates/" + name + ".html", callback);
+            Yii.app.loadTemplate(CORE.BACKBONE_ASSETS + "/templates/" + name + ".html", callback);
         }
 
     })

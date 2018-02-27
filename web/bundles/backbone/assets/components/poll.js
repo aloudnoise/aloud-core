@@ -41,7 +41,7 @@ $(function() {
                         data[n] = e.data;
                     });
 
-                    $.ajax(POLL_URL + "?access-token=" + Yii.app.user.model.poll,{
+                    $.ajax(CORE.POLL_URL + "?access-token=" + Yii.app.user.model.poll,{
                         method : "post",
                         crossDomain : true,
                         dataType : "json",

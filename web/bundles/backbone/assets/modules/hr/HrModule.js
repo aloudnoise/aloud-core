@@ -1,9 +1,0 @@
-$(function() {
-
-    HrModule = BaseModule.extend({
-
-
-
-    })
-
-})

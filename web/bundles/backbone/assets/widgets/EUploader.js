@@ -415,7 +415,7 @@ $(function() {
 
     EFileModel = BaseModel.extend({
         yModel : "Upload",
-        url:FILES_HOST,
+        url:CORE.FILES_HOST,
         defaults : {
             error : false,
             percent : 0,

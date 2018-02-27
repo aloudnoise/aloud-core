@@ -19,7 +19,7 @@ $(function() {
             var that = this;
             if (typeof io != "undefined") {
 
-                this.connection = io(SOCKET_URL);
+                this.connection = io(CORE.SOCKET_URL);
                 this.connection.on("connect", function () {
 
                     console.log('connected');

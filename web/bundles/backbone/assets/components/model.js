@@ -13,7 +13,7 @@ $(function() {
         },
         live: false,
         hash: null,
-        urlRoot: API_URL,
+        urlRoot: CORE.API_URL,
         rules : [],
         attributeLabels : null,
         fileAttribute: 'file',

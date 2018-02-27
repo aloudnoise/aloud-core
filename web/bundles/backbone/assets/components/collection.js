@@ -6,7 +6,7 @@ $(function() {
     BaseCollection = Backbone.Collection.extend({
         yModel : null,
         pager : false,
-        urlRoot:API_URL,
+        urlRoot:CORE.API_URL,
         model: BaseModel,
         schema : null,
         sync:BaseSync,
