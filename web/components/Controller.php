@@ -10,9 +10,7 @@ use yii\filters\AccessControl;
 class Controller extends yii\base\Controller
 {
 
-    public $layout = '@app/views/layouts/main';
     public $isModal = false;
-
     public $external = false;
 
     /**
@@ -22,8 +20,6 @@ class Controller extends yii\base\Controller
      */
     public function beforeAction($action)
     {
-
-        OnlineUsers::setOnline();
 
         if ($this->module->id !== 'app') {
             $modules = [];
@@ -40,7 +36,6 @@ class Controller extends yii\base\Controller
         \Yii::$app->data->action = $action->id;
         \Yii::$app->data->size = 'lg';
 
-        \Yii::$app->data->organization = Organizations::getCurrentOrganization() ? Organizations::getCurrentOrganization()->toArray() : [];
         if (in_array(\Yii::$app->request->post('target'), ['modal'])) {
             \Yii::$app->data->isModal = true;
             $this->isModal = true;
@@ -82,7 +77,7 @@ class Controller extends yii\base\Controller
             $modelClass = static::$modelClass;
             $model = new $modelClass();
             if ($id) {
-                $model = $modelClass::find()->byPk($id)->byBusiness()->notDeleted()->one();
+                $model = $modelClass::find()->byPk($id)->notDeleted()->one();
                 if (!$model AND $throwOnEmpty) {
                     throw new \Exception("NO");
                 }
@@ -93,46 +88,20 @@ class Controller extends yii\base\Controller
     }
 
 
-    public function behaviors()
-    {
-
-        $behaviors = [];
-        if (\Yii::$app->user->isGuest AND \Yii::$app->request->get("access-token")) {
-            $behaviors['authenticator'] = [
-                'class' => yii\filters\auth\QueryParamAuth::className(),
-            ];
-        }
-
-        return array_merge($behaviors, [
-            'organization' => [
-                'class' => OrganizationFilter::className()
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    // allow authenticated users
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'allow' => false,
-                        'roles' => ['?']
-                    ]
-                    // everything else is denied by default
-                ],
-            ],
-        ]);
-    }
-
     public function render($view, $params = [])
     {
         if ($this->external) {
-            return parent::renderPartial("@app/views/common/controller", [
+            return parent::renderPartial("@aloud_core/web/views/common/controller_layout", [
                     "content" => $this->renderPartial($view, $params)
                 ]);
         }
-        return parent::render($view, $params);
+
+        $content = $this->getView()->render($view, $params, $this);
+        $content = parent::renderPartial("@aloud_core/web/views/common/controller_layout", [
+            "content" => $content
+        ]);
+        return $this->renderContent($content);
+
     }
 
 }

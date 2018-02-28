@@ -56,7 +56,7 @@
     <div  class='file <%=data.error ? 'upload-error' : ''%> clearfix well well-sm'>
         <div style='position:relative' class='clearfix'>
             <div style='width:40; height:50px;' class='inline-block file-icon'>
-                <img src='<?=Yii::$app->assetManager->getBundle("base")->baseUrl."/img/icons/"?><%=getFileIcon(data.file)%>.png' />
+                <img src='<?=\aloud_core\web\bundles\base\BaseBundle::register($this)->baseUrl."/img/icons/"?><%=getFileIcon(data.file)%>.png' />
             </div>
             <div style='margin-left:10px;' class='inline-block file-name'><%=data.name%></div>
 

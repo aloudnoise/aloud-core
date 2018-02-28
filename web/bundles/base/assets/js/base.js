@@ -29,13 +29,11 @@ $(function() {
      * @type {*}
      */
     BaseApplication = Backbone.View.extend({
+        el : "body",
         backbone_bundle : null,
         currentModule : null,
         // Текущий загруженный контроллер
         currentController : null,
-        // Элемент контроллера .controller-content по умолчанию
-        controllerEl : null,
-        innerEl : null,
         // Загруженные скрипты и стили
         assets : {
             css : [],
