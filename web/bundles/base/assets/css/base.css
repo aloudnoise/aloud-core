@@ -1,0 +1,35 @@
+.autocomplete-suggestions {
+    width:auto !important; border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+    color: #2c3e50;
+    background-color: #ffffff;
+    background-image: none;
+    border: 2px solid #2c3e50;
+    margin-top:3px;
+    border-radius:4px;
+}
+.autocomplete-suggestion { padding: 4px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-no-suggestion { padding: 2px 5px;}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: #000; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
+
+.datepicker, .bootstrap-timepicker-widget {
+    z-index:9999 !important;
+}
+
+
+.modal-llg {
+    width:auto;
+    max-width:80%;
+}
+
+.modal-fullscreen {
+    width:100%;
+    max-width: 100%;
+    height:98%;
+    margin:5px;
+}
+.modal-fullscreen .modal-content, .modal-fullscreen .modal-content .modal-body, .modal-fullscreen .inner-wrapper, .modal-fullscreen .action-content {
+    height:100%;
+}

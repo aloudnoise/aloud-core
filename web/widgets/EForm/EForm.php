@@ -6,7 +6,10 @@ use yii\helpers\Html;
 class EForm extends \aloud_core\web\components\Widget
 {
 
-    protected $backbone = true;
+    public $js = [
+        '@app/widgets/EForm/assets/EForm.js'
+    ];
+
     public $htmlOptions = [];
 
     public function init()

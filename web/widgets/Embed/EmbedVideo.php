@@ -4,7 +4,11 @@ namespace aloud_core\web\widgets\Embed;
 
 class EmbedVideo extends \aloud_core\web\components\Widget
 {
-    public $backbone = true;
+
+    public $js = [
+        '@app/widgets/Embed/assets/EmbedVideo.js'
+    ];
+
     public $video_id = null;
     public $type = null;
     public $height = null;

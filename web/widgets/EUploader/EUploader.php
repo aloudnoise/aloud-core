@@ -6,7 +6,14 @@ use aloud_core\web\components\Widget;
 
 class EUploader extends Widget
 {
-    public $backbone = true;
+
+    public $js = [
+        '@app/widgets/EUploader/assets/EUploader.js',
+    ];
+
+    public $css = [
+        '@app/widgets/EUploader/assets/EUploader.css'
+    ];
 
     public $standalone = true;
 

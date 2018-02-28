@@ -6,7 +6,10 @@ use aloud_core\web\components\Widget;
 
 class ENotifications extends Widget
 {
-    public $backbone = true;
+
+    public $js = [
+        '@app/widgets/ENotifications/assets/ENotifications.js'
+    ];
 
     public function run()
     {

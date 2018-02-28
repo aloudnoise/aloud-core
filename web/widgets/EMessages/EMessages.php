@@ -14,7 +14,9 @@ use aloud_core\web\components\Widget;
 class EMessages extends Widget
 {
 
-    public $backbone = true;
+    public $js = [
+        '@app/widgets/EMessages/assets/EMessages.js'
+    ];
 
     public function run()
     {

@@ -5,7 +5,9 @@
     class Widget extends \yii\base\Widget
     {
 
-        protected $backbone = false;
+        public $js = [];
+        public $css = [];
+
         protected $auto_start = false;
 
         const TYPE_STATIC = 0;
@@ -17,12 +19,23 @@
         public function init()
         {
             $c = (new \ReflectionClass($this))->getShortName();
-            if ($this->backbone)
-            {
-                (\Yii::$app->assetManager->getBundle("backbone"))::registerWidget($this->view, $c);
-                if ($this->auto_start) {
-                    \Yii::$app->data->append("widgets", $c);
+
+            if (!empty($this->js)) {
+                foreach ($this->js as $js) {
+                    $this->view->registerJsFile($js, [
+                        View::POS_END
+                    ]);
                 }
+            }
+
+            if (!empty($this->css)) {
+                foreach ($this->css as $css) {
+                    $this->view->registerCssFile($css);
+                }
+            }
+
+            if ($this->auto_start) {
+                \Yii::$app->data->append("widgets", $c);
             }
 
             if ($this->id == null) $this->id = $this->getId();

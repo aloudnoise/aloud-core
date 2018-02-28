@@ -1,0 +1,56 @@
+
+img.croppr {
+    max-width:none;
+}
+.jcrop-keymgr
+{
+    display:none;
+}
+
+/* FILE UPLOADER */
+
+.uploader-widget {
+
+}
+.uploader-widget .file-upload
+{
+    padding:30px;
+    border:8px dashed #eee;
+    border-radius:10px;
+}
+.uploader-widget .file-upload.dragging {
+    border-color:#28a4c9;
+}
+.uploader-widget .file-upload.hovered {
+    border-color:#68d286;
+}
+.uploader-widget .uploader-inner
+{
+    position:relative
+}
+.uploader-widget input[type='file']
+{
+    opacity:0;
+    filter:alpha(opacity = 0);
+}
+.uploader-widget .uploaded_list
+{
+}
+
+.file {
+    vertical-align: middle;
+    padding:5px
+}
+.file .file-icon {
+    width:40px;
+}
+.file.upload-error
+{
+    border-color:#dca7a7;
+    background:#f2dede ;
+}
+
+#medium_insert_upload_modal
+{
+    z-index:1049;
+}

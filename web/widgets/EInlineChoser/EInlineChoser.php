@@ -5,9 +5,7 @@ namespace aloud_core\web\widgets\EInlineChoser;
 class EInlineChoser extends \aloud_core\web\components\Widget
 {
 
-    protected $backbone = false;
     public $htmlOptions = [];
-
     public $name = "";
     public $values = "";
     public $list = "";

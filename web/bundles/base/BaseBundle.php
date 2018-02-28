@@ -12,7 +12,8 @@ class BaseBundle extends AssetBundle
     public $static = true;
     public $sourcePath = '@app/bundles/base/assets';
     public $js = [
-        'js/base.js'
+        'js/base.js',
+        'css/base.css'
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $depends = [

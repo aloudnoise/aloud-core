@@ -7,7 +7,9 @@ use aloud_core\web\components\Widget;
 class EDisplayDate extends Widget
 {
 
-    protected $backbone = true;
+    public $js = [
+        '@app/widgets/EDisplayDate/assets/EDisplayDate.js'
+    ];
 
     public $time = 0;
     public $formatType =1; //type : 1 - 26 мая, 12.30;  2 26 мая в 12.30

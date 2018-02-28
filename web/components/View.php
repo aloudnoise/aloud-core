@@ -2,55 +2,18 @@
 namespace aloud_core\web\components;
 
 use aloud_core\web\bundles\base\BaseBundle;
+use yii\helpers\Url;
 
 class View extends \yii\web\View
 {
 
     public function head()
     {
-        BaseBundle::register($this);
         return parent::head();
     }
 
     public function endBody()
     {
-        $p = \Yii::$app->request->get();
-        if (isset($p['z'])) {
-            $murl = $p['z'];
-        }
-        unset($p['z']);
-        $baseUrl = Url::to(array_merge(['/'.$this->context->route], $p));
-
-        $this->registerJs('
-                    
-                Yii.app = _.extend(new BaseApplication({
-                    el : $(".main-el"),
-                    innerEl : $(".inner-el"),
-                    controllerEl : ".controller-content"
-                }), Yii.app);
-
-                // Init current controller
-                Yii.app.user = <?=json_encode(Yii::$app->user->identity ? Yii::$app->user->identity->backboneArray() : [\'isGuest\' => true])?>;
-
-                <?php $model = Yii::$app->response->getModelData(); ?>
-
-                Yii.app.renderController({
-                        model: <?=json_encode($model)?>,
-                    },
-                    "normal",
-                    {
-                        loaded : true,
-                        href : \'<?=$baseUrl?>\',
-                        baseUrl : \'<?=$baseUrl?>\',
-                        noState : <?=$model[\'isModal\'] ? "true" : "false"?>,
-                        transaction : true
-                    }
-                );
-
-                Yii.app.render();
-        
-        ', self::POS_READY, 'application_init');
-
         parent::endBody();
     }
 

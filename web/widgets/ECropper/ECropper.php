@@ -6,7 +6,10 @@ use aloud_core\web\components\Widget;
 
 class ECropper extends Widget
 {
-    public $backbone = true;
+
+    public $js = [
+        '@app/widgets/ECropper/assets/ECropper.js'
+    ];
 
     public function run()
     {
