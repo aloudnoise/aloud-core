@@ -115,7 +115,7 @@ $(function() {
             }
 
             if (this.loaded) {
-                this.setElement($(Yii.app.el).find(".controller-content"));
+                this.setElement($(Yii.app.el));
             } else {
                 // Если указан шаблон контроллера, а не элемент, то вызываем шаблон и заполняем данными
                 if (this.template) {
@@ -135,9 +135,15 @@ $(function() {
 
                     // Если контроллер загружается в модальном окне, по добавляем в дом, если нет, то заменяем
                     if (this.target == "modal") {
-                        $(Yii.app.innerEl).append($(this.el));
+                        $(Yii.app.el).append($(this.el));
                     } else {
-                        $(Yii.app.innerEl).find(".body").html($(this.el));
+                        var cls = $(this.el).attr("class");
+                        cls = cls.split(" ");
+                        var selector = '';
+                        _(cls).each(function(c) {
+                            selector += '.' + c;
+                        });
+                        $(Yii.app.el).find(selector).replaceWith($(this.el));
                     }
                 } else {
                     // Если же указан элемент, то заполняем его вернутым хтмлом
