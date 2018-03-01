@@ -30,7 +30,6 @@ $(function() {
      */
     BaseApplication = Backbone.View.extend({
         el : "body",
-        backbone_bundle : null,
         currentModule : null,
         // Текущий загруженный контроллер
         currentController : null,
@@ -68,9 +67,6 @@ $(function() {
         initialize : function(args) {
 
             var that = this;
-            this.controllerEl = args.controllerEl;
-            this.innerEl = args.innerEl;
-            this.backbone_bundle = args.backbone_bundle;
 
             $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
                 return that.navigate(event);
@@ -201,8 +197,6 @@ $(function() {
                     }
                 }
 
-                console.log($(link).parents(".action-element"));
-                options.action = $(link).parents(".action-element").data("action") ? $(link).data("action") : null;
                 href = $(link).attr('href');
                 target = $(link).attr("target");
 
@@ -234,8 +228,6 @@ $(function() {
                 Yii.app.currentController.navigating = true;
                 $(Yii.app.currentController.el).modal("hide");
             }
-
-            console.log(options.action);
 
             that.loadControllers(href, target, options);
 
@@ -415,7 +407,6 @@ $(function() {
                             _(response.model.external).each(function (controller) {
                                 _(controller).each(function (action) {
                                     that.registerScripts(action, function () {
-                                        console.log('rendering ' + action.action);
                                         if (action.action) {
                                             that.renderController({
                                                 model: action
