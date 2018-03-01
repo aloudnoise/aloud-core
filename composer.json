@@ -9,7 +9,7 @@
     "type": "library",
     "name": "aloudnoise/aloud-core",
     "autoload": {
-        "psr-0" : {
+        "psr-4" : {
             "aloud_core\\" : ""
         }
     },

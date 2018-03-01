@@ -8,7 +8,7 @@ trait ApplicationTrait
         'socket_url' => null,
         'api_url' => null,
         'files_host' => null,
-        'backbone_client_assets' => null,
+        'backbone_client_bundle' => null,
         'js_application_class' => 'BaseApplication'
     ];
 

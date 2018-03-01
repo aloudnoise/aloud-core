@@ -30,7 +30,7 @@ class BaseBundle extends AssetBundle
         $view->registerJs("// Some php vars
                 window.CORE = {};
                 CORE.BACKBONE_ASSETS = '".BackboneBundle::register($view)->baseUrl."';
-                CORE_BACKBONE_CLIENT_ASSETS = '".\Yii::$app->aloud_core['backbone_client_assets']."';
+                CORE_BACKBONE_CLIENT_ASSETS = '".(\Yii::$app->aloud_core['backbone_client_bundle'])::register($view)->baseUrl."';
                 CORE.BASE_ASSETS = '".BaseBundle::register($view)->baseUrl."';
                 CORE.DEBUG = ".intval(YII_DEBUG).";
                 CORE.URL_ROOT = '';

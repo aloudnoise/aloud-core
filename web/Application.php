@@ -5,13 +5,19 @@ use aloud_core\common\traits\ApplicationTrait;
 
 class Application extends \yii\web\Application
 {
-
-    use ApplicationTrait;
+    
+    public $aloud_core = [
+        'socket_url' => null,
+        'api_url' => null,
+        'files_host' => null,
+        'backbone_client_bundle' => null,
+        'js_application_class' => 'BaseApplication'
+    ];
 
     public function coreComponents()
     {
-        array_merge(parent::coreComponents(), [
-            'data' => ['aloud_core\web\components\BackboneControllerInformation'],
+        return array_merge(parent::coreComponents(), [
+            'data' => ['class' => 'aloud_core\web\components\BackboneControllerInformation'],
             'response' => ['class' => 'aloud_core\web\components\Response'],
         ]);
     }
