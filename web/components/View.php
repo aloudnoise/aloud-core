@@ -20,7 +20,7 @@ class View extends \yii\web\View
             $murl = $p['z'];
         }
         unset($p['z']);
-        $baseUrl = Url::to(array_merge(['/'.$this->context->route], $p));
+        $baseUrl = Url::to(array_merge(['/'.\Yii::$app->controller->route], $p));
 
         $model = \Yii::$app->response->getModelData();
 

@@ -5,7 +5,13 @@ use aloud_core\common\traits\ApplicationTrait;
 
 class Application extends \yii\web\Application
 {
-    
+
+    public function bootstrap()
+    {
+        \Yii::setAlias("@aloud_core", "@vendor/aloudnoise/aloud-core");
+        parent::bootstrap();
+    }
+
     public $aloud_core = [
         'socket_url' => null,
         'api_url' => null,
