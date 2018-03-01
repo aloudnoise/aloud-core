@@ -5,7 +5,7 @@ use aloud_core\common\traits\ApplicationTrait;
 
 class Application extends \yii\web\Application
 {
-    
+
     public $aloud_core = [
         'socket_url' => null,
         'api_url' => null,
