@@ -8,9 +8,6 @@ use yii\web\AssetBundle;
 class CKEditorBundle extends AssetBundle
 {
     public $sourcePath = '@aloud_core/web/bundles/ckeditor/assets';
-    public $js = [
-        'ckeditor/ckeditor.js',
-    ];
     public $depends = [
         'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
