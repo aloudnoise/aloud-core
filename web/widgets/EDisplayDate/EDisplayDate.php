@@ -7,8 +7,9 @@ use aloud_core\web\components\Widget;
 class EDisplayDate extends Widget
 {
 
+    public $assets_path = '@aloud_core/web/widgets/EDisplayDate/assets';
     public $js = [
-        '@app/widgets/EDisplayDate/assets/EDisplayDate.js'
+        'EDisplayDate.js'
     ];
 
     public $time = 0;

@@ -6,8 +6,9 @@ use yii\helpers\Html;
 class EForm extends \aloud_core\web\components\Widget
 {
 
+    public $assets_path = '@aloud_core/web/widgets/EForm/assets';
     public $js = [
-        '@app/widgets/EForm/assets/EForm.js'
+        'EForm.js'
     ];
 
     public $htmlOptions = [];

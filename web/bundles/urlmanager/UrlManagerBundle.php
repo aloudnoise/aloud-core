@@ -2,6 +2,7 @@
 
 namespace aloud_core\web\bundles\urlmanager;
 
+use app\components\VarDumper;
 use yii\web\View;
 use yii\helpers\Json;
 use yii\web\AssetBundle;
@@ -20,7 +21,7 @@ class UrlManagerBundle extends AssetBundle
 
     public function registerAssetFiles($view) {
 
-        if (RELOAD_ASSETS) {
+        if (YII_DEBUG || $_GET['force_copy'] == 1) {
             $this->compileJS();
         }
         parent::registerAssetFiles($view);
@@ -34,12 +35,14 @@ class UrlManagerBundle extends AssetBundle
         $managerVars = get_object_vars($urlManager);
         $managerVars['urlFormat'] = $urlManager->enablePrettyUrl ? "path" : false;
 
-        $managerVars['rules'] = \Yii::$app->urlManager->rules;
+        $managerVars['rules'] = [];
 
-        foreach ($managerVars['rules'] as $pattern => $route) {
-            //Ignore custom URL classes
-            if(is_array($route) && isset($route['class'])) {
-                unset($managerVars['rules'][$pattern]);
+        if (\Yii::$app->urlManager->rules) {
+            foreach (\Yii::$app->urlManager->rules as $pattern => $route) {
+                //Ignore custom URL classes
+                if (isset($route->name) AND isset($route->route)) {
+                    $managerVars['rules'][$route->name] = $route->route;
+                }
             }
         }
 

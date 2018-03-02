@@ -7,12 +7,13 @@ use aloud_core\web\components\Widget;
 class EUploader extends Widget
 {
 
+    public $assets_path = '@aloud_core/web/widgets/EUploader/assets';
     public $js = [
-        '@app/widgets/EUploader/assets/EUploader.js',
+        'EUploader.js',
     ];
 
     public $css = [
-        '@app/widgets/EUploader/assets/EUploader.css'
+        'EUploader.css'
     ];
 
     public $standalone = true;

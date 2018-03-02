@@ -6,9 +6,9 @@ use aloud_core\web\components\Widget;
 
 class ECropper extends Widget
 {
-
+    public $assets_path = '@aloud_core/web/widgets/ECropper/assets';
     public $js = [
-        '@app/widgets/ECropper/assets/ECropper.js'
+        'ECropper.js'
     ];
 
     public function run()

@@ -7,14 +7,13 @@ use yii\helpers\Url;
 class View extends \yii\web\View
 {
 
-    public function head()
-    {
-        BaseBundle::register($this);
-        return parent::head();
-    }
-
     public function endBody()
     {
+
+        echo $this->render("@aloud_core/web/views/common/controller_modal_template");
+        echo $this->render("@aloud_core/web/views/common/controller_template");
+        echo $this->render("@aloud_core/web/views/common/loading");
+
         $p = \Yii::$app->request->get();
         if (isset($p['z'])) {
             $murl = $p['z'];

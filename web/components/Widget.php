@@ -5,6 +5,7 @@
     class Widget extends \yii\base\Widget
     {
 
+        public $assets_path = null;
         public $js = [];
         public $css = [];
 
@@ -20,17 +21,22 @@
         {
             $c = (new \ReflectionClass($this))->getShortName();
 
-            if (!empty($this->js)) {
-                foreach ($this->js as $js) {
-                    $this->view->registerJsFile($js, [
-                        View::POS_END
-                    ]);
-                }
-            }
+            if (!empty($this->assets_path)) {
 
-            if (!empty($this->css)) {
-                foreach ($this->css as $css) {
-                    $this->view->registerCssFile($css);
+                $bundle = \Yii::$app->assetManager->publish($this->assets_path);
+
+                if (!empty($this->js)) {
+                    foreach ($this->js as $js) {
+                        $this->view->registerJsFile($bundle[1]."/".$js, [
+                            View::POS_END
+                        ]);
+                    }
+                }
+
+                if (!empty($this->css)) {
+                    foreach ($this->css as $css) {
+                        $this->view->registerCssFile($bundle[1]."/".$css);
+                    }
                 }
             }
 

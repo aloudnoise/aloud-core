@@ -1,5 +1,5 @@
 <?php
-(Yii::$app->assetManager->getBundle("tools"))::registerJCrop($this);
+\aloud_core\web\bundles\tools\ToolsBundle::registerJCrop($this);
 ?>
 
 <script type="text/template" id="cropper_modal_template">

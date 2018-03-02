@@ -82,9 +82,11 @@ class ActiveQuery extends \yii\db\ActiveQuery
      * @return $this
      */
     public function byUser($user_id = null) {
-        return $this->andWhere([
-            "$this->alias.user_id" => $user_id ?: \Yii::$app->user->id
-        ]);
+        if (array_key_exists('user_id',(new $this->modelClass())->attributes)) {
+            return $this->andWhere([
+                "$this->alias.user_id" => $user_id ?: \Yii::$app->user->id
+            ]);
+        }
     }
 
     /**

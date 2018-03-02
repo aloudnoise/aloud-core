@@ -7,8 +7,9 @@ use aloud_core\web\components\Widget;
 class ENotifications extends Widget
 {
 
+    public $assets_path = '@aloud_core/web/widgets/ENotifications/assets';
     public $js = [
-        '@app/widgets/ENotifications/assets/ENotifications.js'
+        'ENotifications.js'
     ];
 
     public function run()

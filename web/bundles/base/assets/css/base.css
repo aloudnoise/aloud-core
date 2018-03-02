@@ -87,3 +87,31 @@
 #preloader.top .sk-spinner {
     top:30px;
 }
+
+
+.icon-circle {
+    width: 36px;
+    height: 36px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff !important;
+    text-align: center;
+    display: inline-block;
+}
+
+.icon-circle i {
+    font-size: 18px;
+    line-height: 36px;
+}
+
+.icon-circle-lg {
+    width: 56px;
+    height:56px;
+}
+
+.icon-circle-lg i {
+    font-size: 24px;
+    line-height: 56px;
+}

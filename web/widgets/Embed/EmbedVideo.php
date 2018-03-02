@@ -5,8 +5,9 @@ namespace aloud_core\web\widgets\Embed;
 class EmbedVideo extends \aloud_core\web\components\Widget
 {
 
+    public $assets_path = '@aloud_core/web/widgets/Embed/assets';
     public $js = [
-        '@app/widgets/Embed/assets/EmbedVideo.js'
+        'EmbedVideo.js'
     ];
 
     public $video_id = null;

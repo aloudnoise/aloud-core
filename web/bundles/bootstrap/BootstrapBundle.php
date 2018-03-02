@@ -1,5 +1,5 @@
 <?php
-namespace app\bundles\bootstrap;
+namespace aloud_core\web\bundles\bootstrap;
 
 use yii\web\AssetBundle;
 
@@ -25,8 +25,9 @@ class BootstrapBundle extends AssetBundle
         'js/locales/bootstrap-datepicker.kk-KZ.js',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+
     public $depends = [
-        'aloud_core\web\bundles\jquery\JQueryBundle',
+        'aloud_core\web\bundles\jquery\JQueryBundle'
     ];
 
     public static function registerTimePicker($view)

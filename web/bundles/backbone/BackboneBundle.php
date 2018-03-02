@@ -1,12 +1,14 @@
 <?php
 namespace aloud_core\web\bundles\backbone;
 
+use aloud_core\web\bundles\base\BaseBundle;
+use aloud_core\web\components\View;
 use yii\web\AssetBundle;
 
 class BackboneBundle extends AssetBundle
 {
     public $static = true;
-    public $sourcePath = '@aloud_core/bundles/backbone/assets';
+    public $sourcePath = '@aloud_core/web/bundles/backbone/assets';
     public $css = [
 
     ];

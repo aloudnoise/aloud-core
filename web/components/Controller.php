@@ -21,6 +21,11 @@ class Controller extends yii\base\Controller
     public function beforeAction($action)
     {
 
+        if (!\Yii::$app->request->isAjax) {
+            \aloud_core\web\bundles\tools\ToolsBundle::registerJgrowl($this->view);
+            \aloud_core\web\bundles\tools\ToolsBundle::registerTool($this->view, 'waves');
+        }
+
         if ($this->module->id !== 'app') {
             $modules = [];
             $module = $this->module;
