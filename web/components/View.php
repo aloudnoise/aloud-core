@@ -11,56 +11,60 @@ class View extends \yii\web\View
     public function endBody()
     {
 
-        echo $this->render("@aloud_core/web/views/common/controller_modal_template");
-        echo $this->render("@aloud_core/web/views/common/controller_template");
-        echo $this->render("@aloud_core/web/views/common/loading");
+        if (!in_array(\Yii::$app->controller->module->id, [
+            'gii', 'debug'
+        ])) {
+            echo $this->render("@aloud_core/web/views/common/controller_modal_template");
+            echo $this->render("@aloud_core/web/views/common/controller_template");
+            echo $this->render("@aloud_core/web/views/common/loading");
 
-        $this->registerJs("// Some php vars
+            $this->registerJs("// Some php vars
                 window.CORE = {};
-                CORE.BACKBONE_ASSETS = '".BackboneBundle::register($this)->baseUrl."';
-                CORE.BACKBONE_CLIENT_ASSETS = '".(\Yii::$app->aloud_core['backbone_client_bundle'])::register($this)->baseUrl."';
-                CORE.BASE_ASSETS = '".BaseBundle::register($this)->baseUrl."';
-                CORE.DEBUG = ".intval(YII_DEBUG).";
+                CORE.BACKBONE_ASSETS = '" . BackboneBundle::register($this)->baseUrl . "';
+                CORE.BACKBONE_CLIENT_ASSETS = '" . (\Yii::$app->aloud_core['backbone_client_bundle'])::register($this)->baseUrl . "';
+                CORE.BASE_ASSETS = '" . BaseBundle::register($this)->baseUrl . "';
+                CORE.DEBUG = " . intval(YII_DEBUG) . ";
                 CORE.URL_ROOT = '';
-                CORE.SOCKET_URL = '".\Yii::$app->aloud_core['socket_server']."';
-                CORE.API_URL = '".\Yii::$app->aloud_core['api_url']."';
-                CORE.FILES_HOST = '".\Yii::$app->aloud_core['files_host']."';
+                CORE.SOCKET_URL = '" . \Yii::$app->aloud_core['socket_server'] . "';
+                CORE.API_URL = '" . \Yii::$app->aloud_core['api_url'] . "';
+                CORE.FILES_HOST = '" . \Yii::$app->aloud_core['files_host'] . "';
                 CORE.TRACKING_CODE = false;
             ", View::POS_HEAD, 'constants');
 
-        $p = \Yii::$app->request->get();
-        if (isset($p['z'])) {
-            $murl = $p['z'];
-        }
-        unset($p['z']);
-        $baseUrl = Url::to(array_merge(['/'.\Yii::$app->controller->route], $p));
+            $p = \Yii::$app->request->get();
+            if (isset($p['z'])) {
+                $murl = $p['z'];
+            }
+            unset($p['z']);
+            $baseUrl = Url::to(array_merge(['/' . \Yii::$app->controller->route], $p));
 
-        $model = \Yii::$app->response->getModelData();
+            $model = \Yii::$app->response->getModelData();
 
-        $this->registerJs('
+            $this->registerJs('
                     
-                Yii.app = _.extend(new '.\Yii::$app->aloud_core['js_application_class'].'({}), Yii.app);
+                Yii.app = _.extend(new ' . \Yii::$app->aloud_core['js_application_class'] . '({}), Yii.app);
 
                 // Init current controller
-                Yii.app.user = '.json_encode(\Yii::$app->user->identity ? \Yii::$app->user->identity->backboneArray() : ['isGuest' => true]).';
+                Yii.app.user = ' . json_encode(\Yii::$app->user->identity ? \Yii::$app->user->identity->backboneArray() : ['isGuest' => true]) . ';
 
                 Yii.app.renderController({
-                        model: '.json_encode($model).',
+                        model: ' . json_encode($model) . ',
                     },
                     "normal",
                     {
                         loaded : true,
-                        href : \''.$baseUrl.'\',
-                        baseUrl : \''.$baseUrl.'\',
-                        noState : '.($model['isModal'] ? "true" : "false").',
+                        href : \'' . $baseUrl . '\',
+                        baseUrl : \'' . $baseUrl . '\',
+                        noState : ' . ($model['isModal'] ? "true" : "false") . ',
                         transaction : true
                     }
                 );
 
                 Yii.app.render();
         
-        ', self::POS_READY, 'application_init');
+            ', self::POS_READY, 'application_init');
 
+        }
         parent::endBody();
     }
 
