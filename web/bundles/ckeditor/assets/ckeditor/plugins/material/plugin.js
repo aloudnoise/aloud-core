@@ -7,7 +7,7 @@
 			editor.addCommand("insertMaterial", {
 				exec: function (editor) {
 
-					Yii.app.navigate(Yii.app.createOrganizationUrl('/library/search'), 'modal', {
+					Yii.app.navigate(Yii.app.createOrganizationUrl('/library/index'), 'modal', {
 						transaction : false
 					});
 

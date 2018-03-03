@@ -40,45 +40,34 @@ $(function() {
             jsScripts : {}
         },
         // Виджеты приложения
-        widgets : {
-
-        },
-        templates : {
-
-        },
-        user : {
-
-        },
+        widgets : {},
+        templates : {},
+        user : {},
         socket : null,
         stepsInModal : 0,
-        targetTypes : {
-            user : 1,
-            platform : 2,
-            order : 3,
-            rivalPlatform : 4,
-            rivalOrder : 5,
-            chat : 6
-        },
         top : 0,
-        controllers : {
-
-        },
+        controllers : {},
         // Инициализация приложения
         initialize : function(args) {
 
             var that = this;
 
             $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
-                return that.navigate(event);
+
+                var link = $(event.currentTarget);
+                var target = $(link).attr("target") ? $(link).attr("target") : "normal";
+                var options = {
+                    scroll : $(link).attr("noscroll") ? false : true,
+                    confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null
+                };
+
+                return that.navigate($(link).attr("href"), target, options);
             })
 
-            if (CORE.TRACKING_CODE) {
-                window.ga = window.ga || function () {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', CORE.TRACKING_CODE, 'auto');
-            }
+            this.controllers = new BaseCollection();
+            this.controllers.on("add", function() {
+                console.log('new_controller');
+            });
 
             // Инициируем лонг поллинг
             this.socket = new Socket();
@@ -86,139 +75,68 @@ $(function() {
 
             // Если меняется состояние текущего урла
             window.onpopstate = function(event) {
-                if(event.state){
-                    var state = event.state;
-
-                    if (state.xUrl) {
-
-                        if (state.url != Yii.app.currentController.baseUrl) {
-                            Yii.app.navigate(state.url, 'normal', {
-                                scroll : false,
-                                no_push : true,
-                            });
-                        }
-                        Yii.app.navigate(state.xUrl, 'sidepage', {
-                            scroll : false,
-                            no_push : true,
-                        });
-
-                    } else if (state.url) {
-                        Yii.app.navigate(state.url, state.target ? state.target : null, {
-                            scroll : false,
-                            no_push : true,
-                        });
-                    }
-                }
+                that.returnState(event);
             };
 
-            // Логим подключеные скрипты и стили, для последующей проверки, чтобы не подключать 2 раза одно и тоже
-            $("html script[src!='']").each(function() {
-                if ($(this).attr("src") != undefined) that.assets.js.push($(this).attr("src"));
-            })
-            $("html script[type='text/javascript'][id!='']").each(function() {
-                if ($(this).attr("id") != undefined) {
-                    that.assets.js.push($(this).attr("id"));
-                    that.assets.jsScripts[$(this).attr("id")] = $(this).html();
-                }
-
-            })
-            $("head link").each(function() {
-                if ($(this).attr("href") != undefined) that.assets.css.push($(this).attr("href"));
-            });
+            this.pushAssets();
 
         },
+
         render : function()
         {
-
             // Проверяем есть ли вызванный модал
             if (typeof $_GET['z'] != 'undefined') {
                 this.navigate($_GET['z'], "modal", {
                     no_fade: true
                 });
             }
-
             if (!Yii.app.user.isGuest) {
-
-                this.messages = new EMessages({
-                    el: this.el
-                });
-                this.messages.render();
-
                 if (typeof window.ENotifications != 'undefined') {
                     this.notifications = new ENotifications({
                         el: this.el
                     });
                     this.notifications.render();
                 }
-
             }
-
             Yii.app.loading(false);
 
         },
-        createOrganizationUrl: function(route, params) {
-            var organization = this.currentController.model.get('organization');
-            if (organization) {
-                params = params ? params : {};
-                params.oid = organization.id;
-                return this.createUrl(route, params);
-            }
-        },
+
         /**
          * Направляет по урлу через АЯКС
-         * @param event - нажатая ссылка, либо урл
+         * @param href - нажатая ссылка, либо урл
+         * @param target
+         * @param options
          * @returns {boolean}
          */
-        navigate : function(event, target, options) {
+        navigate : function(href, target, options) {
+
+            var that = this;
 
             _o = {
                 scroll : true,
                 transaction : true,
-                action : null
-            }
+                callback: null,
+                confirm : null
+            };
+
             options = _.extend(_o, options);
 
-            var that = this;
-            // Splitting event href to get controller
-            // Если передан контроллер, то подгружаем его
-            // TODO - сделать более гибкую парсилку урла
-            if (typeof event == "string") {
-                if (target == "_blank")
-                {
-                    window.open(event, '_blank');
+            if (target === "_parent" || $("head base").attr("target") === "_parent") { return true; }
+            if (target === "_full") {
+                window.location.href = href;
+                return false;
+            }
+            if (target === "_blank")
+            {
+                window.open(href, '_blank');
+                return false;
+            }
+
+            if (options.confirm) {
+                if (!confirm(options.confirm)) {
                     return false;
                 }
-                var href = String(event);
-            } else {
-                var link = $(event.currentTarget);
-                if ($(link).attr("confirm")) {
-                    if (!confirm($(link).attr("confirm"))) {
-                        return false;
-                    }
-                }
-
-                href = $(link).attr('href');
-                target = $(link).attr("target");
-
-                if ($(link).attr("noscroll")) {
-                    options.scroll = false;
-                }
-
-                if (target == "_parent" || $("head base").attr("target")=="_parent") {
-                    return true;
-                }
-
-                if (target == "_blank")
-                {
-                    return true;
-                }
-
-                if (target == "_full")
-                {
-                    window.location.href = href;
-                    return false;
-                }
-
             }
 
             if (!target && (Yii.app.currentController != null && Yii.app.currentController.target == "modal")) {
@@ -235,10 +153,12 @@ $(function() {
         },
         /**
          * Загружает скрипт контроллера и вызывает его
-         * @param controller
          * @param href
+         * @param target
+         * @param options
          */
         loadControllers : function(href, target, options) {
+
             Yii.app.loading(true);
             var that = this;
             // Вызываем аяксом данные по контроллеру
@@ -250,6 +170,7 @@ $(function() {
                 url : href,
                 dataType : "json",
                 success : function(response) {
+
                     // Выводим сообщения
                     // Если вернулось перенаправление, то перенаправляем
                     if (response.redirect) {
@@ -353,6 +274,7 @@ $(function() {
                 var templates = {
                     'modal': '#controller_modal_template',
                 }
+
 
 
                 // Удаляем модальное окно, если текущий контроллер открыт в модальном окне
@@ -497,12 +419,14 @@ $(function() {
                 loadControllerScripts(null);
             }
         },
+
         removeModal : function() {
             if ($("#controller_modal").length) {
                 $(".modal-backdrop").remove();
                 $("#controller_modal").remove();
             }
         },
+
         /**
          *
          * TODO Доработать до нормального состояния
@@ -655,6 +579,26 @@ $(function() {
                 callback()
             }
         },
+        pushAssets : function() {
+
+            var that = this;
+
+            // Логим подключеные скрипты и стили, для последующей проверки, чтобы не подключать 2 раза одно и тоже
+            $("html script[src!='']").each(function() {
+                if ($(this).attr("src") != undefined) that.assets.js.push($(this).attr("src"));
+            })
+            $("html script[type='text/javascript'][id!='']").each(function() {
+                if ($(this).attr("id") != undefined) {
+                    that.assets.js.push($(this).attr("id"));
+                    that.assets.jsScripts[$(this).attr("id")] = $(this).html();
+                }
+
+            })
+
+            $("head link").each(function() {
+                if ($(this).attr("href") != undefined) that.assets.css.push($(this).attr("href"));
+            });
+        },
         loading : function(load) {
             if (load) {
                 $("body").find("#preloader").addClass('top').show();
@@ -688,10 +632,19 @@ $(function() {
             this._state("replaceState", c);
 
         },
-
+        returnState : function(event) {
+            if(event.state){
+                var state = event.state;
+                if (state.url) {
+                    Yii.app.navigate(state.url, state.target ? state.target : null, {
+                        scroll : false,
+                        no_push : true,
+                    });
+                }
+            }
+        },
         _state : function(state, c)
         {
-
             var url = c.url;
             var data = {
                 url : c.url,
@@ -722,4 +675,4 @@ $(function() {
 
     Yii = typeof Yii != "undefined" ? Yii : {};
 
-})
+});

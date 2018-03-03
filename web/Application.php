@@ -1,6 +1,8 @@
 <?php
 namespace aloud_core\web;
 
+use aloud_core\common\traits\ApplicationTrait;
+
 class Application extends \yii\web\Application
 {
 

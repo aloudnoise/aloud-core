@@ -157,16 +157,12 @@ $(function() {
             this.loadAction();
 
             Yii.app.trigger("controllerRendered");
-            if (window.MathJax) {
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-            }
 
             //Initialization
             Waves.attach('.wave-init, .left-menu .menu-item, button.btn, a.btn, div.btn', ['waves-block']);
             Waves.init();
 
-            $('body').find(".slim-scroll").each(function() {
-
+            $(this.el).find(".slim-scroll").each(function() {
                 var $el = $(this);
                 var height = $el.height();
                 $el.slimscroll({
@@ -178,7 +174,6 @@ $(function() {
                     railBorderRadius: '0',
                     start : $el.attr("start") ? $el.attr("start") : "top"
                 });
-
             });
 
         },
