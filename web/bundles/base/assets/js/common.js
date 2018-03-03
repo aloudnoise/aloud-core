@@ -596,7 +596,7 @@ for (var i = 0; i < parts.length; i++) {
     $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
 }
 
-PLAYER_READY = 0;
+var PLAYER_READY = 0;
 window.onYouTubePlayerAPIReady = function() {
 
     PLAYER_READY = 1;

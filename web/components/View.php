@@ -1,6 +1,7 @@
 <?php
 namespace aloud_core\web\components;
 
+use aloud_core\web\bundles\backbone\BackboneBundle;
 use aloud_core\web\bundles\base\BaseBundle;
 use yii\helpers\Url;
 
@@ -13,6 +14,19 @@ class View extends \yii\web\View
         echo $this->render("@aloud_core/web/views/common/controller_modal_template");
         echo $this->render("@aloud_core/web/views/common/controller_template");
         echo $this->render("@aloud_core/web/views/common/loading");
+
+        $this->registerJs("// Some php vars
+                window.CORE = {};
+                CORE.BACKBONE_ASSETS = '".BackboneBundle::register($this)->baseUrl."';
+                CORE.BACKBONE_CLIENT_ASSETS = '".(\Yii::$app->aloud_core['backbone_client_bundle'])::register($this)->baseUrl."';
+                CORE.BASE_ASSETS = '".BaseBundle::register($this)->baseUrl."';
+                CORE.DEBUG = ".intval(YII_DEBUG).";
+                CORE.URL_ROOT = '';
+                CORE.SOCKET_URL = '".\Yii::$app->aloud_core['socket_server']."';
+                CORE.API_URL = '".\Yii::$app->aloud_core['api_url']."';
+                CORE.FILES_HOST = '".\Yii::$app->aloud_core['files_host']."';
+                CORE.TRACKING_CODE = false;
+            ", View::POS_HEAD, 'constants');
 
         $p = \Yii::$app->request->get();
         if (isset($p['z'])) {

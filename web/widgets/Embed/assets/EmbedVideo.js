@@ -38,9 +38,14 @@ $(function() {
 
             }
 
-            if (PLAYER_READY) {
+            if (!PLAYER_READY) {
+                window.onYouTubePlayerAPIReady = function () {
+                    showPlayer();
+                };
+            } else {
                 showPlayer();
             }
+
 
             function finished()
             {
