@@ -135,6 +135,7 @@ $(function() {
 
                     // Если контроллер загружается в модальном окне, по добавляем в дом, если нет, то заменяем
                     if (this.target == "modal") {
+                        Yii.app.removeModal();
                         $(Yii.app.el).append($(this.el));
                     } else {
                         var cls = $(this.el).attr("class");

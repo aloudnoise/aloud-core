@@ -55,7 +55,7 @@ $(function() {
             $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
 
                 var link = $(event.currentTarget);
-                var target = $(link).attr("target") ? $(link).attr("target") : "normal";
+                var target = $(link).attr("target") ? $(link).attr("target") : null;
                 var options = {
                     scroll : $(link).attr("noscroll") ? false : true,
                     confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null
@@ -209,9 +209,10 @@ $(function() {
                                 }
                             })
                         }
+                    } else {
+                        that.removeModal();
                     }
 
-                    that.removeModal();
                     // Подключаем возвращенную модель
                     that.registerScripts(response.model, function () {
                         that.renderController(response, target, options);
