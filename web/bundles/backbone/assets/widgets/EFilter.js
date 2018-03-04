@@ -115,7 +115,7 @@ $(function() {
 
             var get = that.parent.controller.model.get("GET");
             get.filter = that.model.attributes;
-            Yii.app.navigate(Yii.app.createOrganizationUrl(that.options.route, get), null, {
+            that.parent.controller.navigate(Yii.app.createOrganizationUrl(that.options.route, get), that.parent.controller.target, {
                 scroll: false
             });
 
@@ -127,7 +127,7 @@ $(function() {
 
             var get = that.parent.controller.model.get("GET");
             get.filter = null;
-            Yii.app.navigate(Yii.app.createOrganizationUrl(that.options.route, get), null, {
+            that.parent.controller.navigate(Yii.app.createOrganizationUrl(that.options.route, get), that.parent.controller.target, {
                 scroll: false
             });
 

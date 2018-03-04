@@ -8,7 +8,18 @@
 				exec: function (editor) {
 
 					Yii.app.navigate(Yii.app.createOrganizationUrl('/library/index'), 'modal', {
-						transaction : false
+						transaction : false,
+						callback : function(action) {
+
+						    $(this.el).find(".assign-item").click(function() {
+
+						        console.log(this);
+
+						        return false;
+
+                            })
+
+						}
 					});
 
 				},

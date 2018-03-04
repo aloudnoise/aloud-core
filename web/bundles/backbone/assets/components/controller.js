@@ -177,6 +177,38 @@ $(function() {
                 });
             });
 
+            $(that.el).on("click", "a[href^='/'],div[href^='/']", function(event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                var options = {
+                    scroll : $(link).attr("noscroll") ? false : true,
+                    confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
+                };
+
+                var link = $(event.currentTarget);
+                var target = that.options.transaction ? ($(link).attr("target") ? $(link).attr("target") : that.target) : that.target;
+
+                return that.navigate($(link).attr("href"), target, options);
+            })
+
+        },
+
+        navigate: function(href, target, options) {
+
+            var that = this;
+
+            var _o = {
+                callback : that.options.callback ? that.options.callback : null,
+                transaction : that.options.transaction !== false,
+                no_fade : (that.target == 'modal' && target == 'modal') ? true : false
+            };
+
+            options = _.extend(_o, options);
+
+            Yii.app.navigate(href, target, options)
+
         },
 
         loadAction: function() {
@@ -274,6 +306,10 @@ $(function() {
                     Yii.app.top = 0;
                 }
 
+            }
+
+            if (that.options.callback) {
+                that.options.callback.call(this, that.action);
             }
 
         },
