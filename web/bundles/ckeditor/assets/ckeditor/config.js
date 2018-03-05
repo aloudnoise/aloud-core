@@ -12,7 +12,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.mathJaxClass = 'mjx';
 
     config.toolbar = [
-        [ 'Bold', 'Fastpicture', 'Mathjax', 'Subscript', 'Superscript', 'Material'  ]
+        [ 'Bold', 'Fastpicture', 'Mathjax', 'Subscript', 'Superscript', 'Material', 'Link'  ]
     ];
 
     config.autoGrow_minHeight = 350;

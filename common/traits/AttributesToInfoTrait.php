@@ -17,8 +17,11 @@ trait AttributesToInfoTrait
         return [];
     }
 
+    private $_properties = -1;
+
     public function __get($name)
     {
+
         if (in_array($name, $this->attributesToInfo())) {
             return $this->infoJson[$name];
         }

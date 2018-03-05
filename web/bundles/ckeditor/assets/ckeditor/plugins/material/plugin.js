@@ -11,9 +11,25 @@
 						transaction : false,
 						callback : function(action) {
 
-						    $(this.el).find(".assign-item").click(function() {
+							$(this.el).find(".assign-item a").click(function() {
 
-						        console.log(this);
+								var material_id = $(this).parents("tr").attr("assign_id");
+
+								var model = _(action.controller.model.get("materials")).findWhere({
+									id : parseInt(material_id)
+								});
+
+								var material = editor.document.createElement("a");
+                                material.setAttribute("data-model-id", material_id);
+                                material.setAttribute("contentEditable", false);
+                                material.setAttribute("href", Yii.app.createOrganizationUrl('/library/view', {'id' : material_id}));
+                                material.setAttribute("class", "material-link icon-" + model.icon);
+                                material.setAttribute("target", "modal");
+                                material.setText(model.name);
+
+                                editor.insertElement(material);
+
+                                $(action.controller.el).modal("hide");
 
 						        return false;
 
