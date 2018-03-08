@@ -182,12 +182,13 @@ $(function() {
                 event.preventDefault();
                 event.stopPropagation();
 
+                var link = $(event.currentTarget);
+
                 var options = {
                     scroll : $(link).attr("noscroll") ? false : true,
                     confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
                 };
 
-                var link = $(event.currentTarget);
                 var target = that.options.transaction ? ($(link).attr("target") ? $(link).attr("target") : that.target) : that.target;
 
                 return that.navigate($(link).attr("href"), target, options);

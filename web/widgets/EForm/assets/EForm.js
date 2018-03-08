@@ -19,6 +19,28 @@ $(function () {
             this.onSuccess = args.onSuccess;
             this.onError = args.onError;
 
+            var stored = window.sessionStorage.getItem(this.model.yModel);
+            if (stored) {
+
+                data = JSON.parse(stored);
+                console.log(data);
+                if (data.id) {
+                    console.log(this.model.get("id"));
+                    if (this.model.get("id") != data.id) {
+                        window.sessionStorage.setItem(this.model.yModel, '');
+                        return;
+                    }
+                } else {
+                    if (this.model.get("id")) {
+                        window.sessionStorage.setItem(this.model.yModel, '');
+                        return;
+                    }
+                }
+
+
+                this.model.set(JSON.parse(stored));
+            }
+
         },
 
         render: function () {
@@ -77,6 +99,7 @@ $(function () {
                 this.model.save(data, {
                     success: function (model, response, options) {
                         Yii.app.loading(false);
+                        window.sessionStorage.setItem(that.model.yModel, '');
                         if (typeof that.onSuccess == "function") {
                             that.onSuccess(model, response, options);
                         }
@@ -150,18 +173,21 @@ $(function () {
 
     Input = BaseItem.extend({
         attribute: null,
-        events: {
-            "change input, change select": "changeAttribute"
-        },
         _initialize: function (args) {
+            var that = this;
             this.parent = args.parent;
             this.setModelEvent();
+            $(this.el).find("input,select,textarea").change(function(event) {
+                that.changeAttribute(event);
+            });
+
         },
 
         render : function() {
             var that = this;
             var input = $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio");
             if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").length && this.model.get(this.attribute)) {
+                console.log(that.model.get(that.attribute));
                 $(this.el).find("input, select, textarea").each(function() {
                     if (($(this).attr("fixed") === undefined || !$(this).val()) && that.model) {
                         $(this).val(that.model.get(that.attribute));
@@ -213,6 +239,7 @@ $(function () {
         changeAttribute: function (event) {
             console.log('Changed !' + this.attribute);
             this.model.set(this.attribute, $(event.currentTarget).attr("value"));
+            window.sessionStorage.setItem(this.model.yModel, JSON.stringify(this.model.toJSON()));
         },
         setModelEvent: function () {
             // При изменении модели представления, полностью перерисовываем его
