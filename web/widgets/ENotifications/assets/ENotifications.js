@@ -36,15 +36,15 @@ $(function() {
                 m.view = view;
 
                 $(socket_notification).find(".popover-body").append($(view.render().el));
-                $(socket_notification).css("display", "block").addClass('show');
+                $(socket_notification).fadeIn(500);
                 $(socket_notification).stopTime('hide-notifications');
                 $(socket_notification).oneTime(10000, 'hide-notifications', function() {
-                    $(socket_notification).removeClass('show');
-                    $(socket_notification).css("display", "none");
-                    that.notifications.each(function(r) {
-                        that.notifications.remove(r);
+                    $(socket_notification).fadeOut(500, function() {
+                        that.notifications.each(function(r) {
+                            that.notifications.remove(r);
+                        });
+                        that.notifications.remove(m);
                     });
-                    that.notifications.remove(m);
                 })
 
             }, this);

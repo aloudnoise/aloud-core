@@ -194,6 +194,13 @@ $(function() {
                 return that.navigate($(link).attr("href"), target, options);
             })
 
+            if (this.model.get("GET").scroll_to) {
+                var el = $(that.el).find("*[scroll-to='"+this.model.get("GET").scroll_to+"']");
+                if (el.length) {
+                    $(this.target == "modal" ? this.el : "html, body").stop().animate({ scrollTop: $(el).offset().top - 85 }, 500);
+                }
+            }
+
         },
 
         navigate: function(href, target, options) {

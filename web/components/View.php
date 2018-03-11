@@ -31,6 +31,9 @@ class View extends \yii\web\View
                 CORE.TRACKING_CODE = false;
             ", View::POS_HEAD, 'constants');
 
+            $this->registerJsFile(\Yii::$app->aloud_core['socket_server']."/socket.io/socket.io.js", [
+            ], 'sockets');
+
             $p = \Yii::$app->request->get();
             if (isset($p['z'])) {
                 $murl = $p['z'];

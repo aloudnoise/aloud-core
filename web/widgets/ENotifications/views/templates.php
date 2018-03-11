@@ -3,7 +3,7 @@
     <div class="notifications-icon relative">
         <a style="font-size:1.4rem;" class="text-white" href="javascript:void(0);"><i class="fa fa-bell"></i></a>
 
-        <div class="enotification-popover popover fade bs-popover-bottom" role="tooltip" style="display:none; width:270px; position:absolute; left:auto; right:-8px; top:30px; ">
+        <div class="enotification-popover popover bs-popover-bottom" role="tooltip" style="display:none; width:270px; position:absolute; left:auto; right:-8px; top:30px; ">
             <div class="arrow" style="right:5px; margin-left:-5px;"></div>
             <div class="popover-header">
                 <div class="row">
