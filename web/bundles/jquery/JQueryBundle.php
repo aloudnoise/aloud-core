@@ -19,7 +19,7 @@ class JQueryBundle extends AssetBundle
         'js/jquery.sticky.js',
         'js/jquery.masked.js',
         //"https://code.jquery.com/jquery-migrate-3.0.1.js"
-        'https://code.jquery.com/jquery-migrate-1.0.0.js'
+        'js/jquery-migrate-1.0.0.js'
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 }
