@@ -607,8 +607,11 @@ var hexDigits = new Array("0","1","2","3","4","5","6","7","8","9","a","b","c","d
 
 //Function to convert rgb color to hex format
 function rgb2hex(rgb) {
-    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    if (rgb) {
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
+    return '';
 }
 
 function hex(x) {

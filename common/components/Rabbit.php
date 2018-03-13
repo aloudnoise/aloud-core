@@ -25,7 +25,8 @@ class Rabbit extends Component
     public $connection = null;
     public $channel = null;
 
-    public $queue_name = 'sdot_rabbit_queue';
+    public $queue_name = '_rabbit_queue';
+    public $queue_prefix = '';
 
     public function init()
     {
@@ -35,7 +36,7 @@ class Rabbit extends Component
 
     public function declareQueue()
     {
-        $this->channel->queue_declare($this->queue_name, false, true, false, false);
+        $this->channel->queue_declare($this->getQueueName(), false, true, false, false);
     }
 
     public function addToQueue($model)
@@ -45,7 +46,12 @@ class Rabbit extends Component
             'attributes' => $model->toArray()
         ]), ['delivery_mode' => 2]);
         $this->declareQueue();
-        $this->channel->basic_publish($msg, '', $this->queue_name);
+        $this->channel->basic_publish($msg, '', $this->getQueueName());
+    }
+
+    public function getQueueName()
+    {
+        return $this->queue_prefix.$this->queue_name;
     }
 
 }

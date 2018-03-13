@@ -24,7 +24,7 @@ class RabbitListenerController extends Controller
         );
 
         $channel->basic_consume(
-            $rabbit->queue_name,
+            $rabbit->getQueueName(),
             '',
             false,
             false,
@@ -34,7 +34,7 @@ class RabbitListenerController extends Controller
         );
 
         while(count($channel->callbacks)) {
-            echo "WAITING \n";
+            echo "WAITING ON ". $rabbit->getQueueName()."  \n";
             $channel->wait();
         }
 
