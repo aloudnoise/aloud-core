@@ -6,6 +6,13 @@ use aloud_core\common\traits\ApplicationTrait;
 class Application extends \yii\web\Application
 {
 
+    public $config = [];
+    public function __construct($config = [])
+    {
+        $this->config = $config;
+        return parent::__construct($config);
+    }
+
     public function bootstrap()
     {
         \Yii::setAlias("@aloud_core", "@vendor/aloudnoise/aloud-core");

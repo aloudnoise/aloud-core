@@ -35,13 +35,13 @@ class UrlManagerBundle extends AssetBundle
         $managerVars = get_object_vars($urlManager);
         $managerVars['urlFormat'] = $urlManager->enablePrettyUrl ? "path" : false;
 
-        $managerVars['rules'] = [];
+        $managerVars['rules'] = \Yii::$app->config['components']['urlManager']['rules'];
 
-        if (\Yii::$app->urlManager->rules) {
-            foreach (\Yii::$app->urlManager->rules as $pattern => $route) {
+        if (\Yii::$app->config['components']['urlManager']['rules']) {
+            foreach (\Yii::$app->config['components']['urlManager']['rules'] as $pattern => $route) {
                 //Ignore custom URL classes
-                if (isset($route->name) AND isset($route->route)) {
-                    $managerVars['rules'][$route->name] = $route->route;
+                if(is_array($route) && isset($route['class'])) {
+                    unset($managerVars['rules'][$pattern]);
                 }
             }
         }
