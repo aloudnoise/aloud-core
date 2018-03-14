@@ -93,7 +93,7 @@ $(function() {
             if (!Yii.app.user.isGuest) {
                 if (typeof window.ENotifications != 'undefined') {
                     this.notifications = new ENotifications({
-                        el: this.el
+                        el: $('#notifications_main')
                     });
                     this.notifications.render();
                 }

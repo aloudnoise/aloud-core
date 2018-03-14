@@ -27,7 +27,7 @@ $(function() {
 
             this.notifications.on('add', function(m) {
 
-                console.log(m);
+                $(that.el).find(".sound").html('<audio autoplay="autoplay"><source src="' + CORE.BASE_ASSETS + '/media/new_message.mp3" type="audio/mpeg" /><embed hidden="true" autostart="true" loop="false" src="' + CORE.BASE_ASSETS + '/media/new_message.mp3" /></audio>');
 
                 var view = new SocketNotificationItem({
                     model : m,

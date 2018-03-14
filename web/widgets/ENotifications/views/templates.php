@@ -1,5 +1,7 @@
 <div id="notifications_main">
 
+    <div style="display:none" class="sound"></div>
+
     <div class="notifications-icon relative">
         <a style="font-size:1.4rem;" class="text-white" href="javascript:void(0);"><i class="fa fa-bell"></i></a>
 
