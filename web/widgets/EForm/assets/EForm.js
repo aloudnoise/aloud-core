@@ -14,31 +14,38 @@ $(function () {
         onSuccess: null,
         onError: null,
         method: "post",
+        store_data : true,
         _initialize: function (args) {
 
             this.onSuccess = args.onSuccess;
             this.onError = args.onError;
 
-            var stored = window.sessionStorage.getItem(this.model.yModel);
-            if (stored) {
+            if ($(this.el).attr("save-data") == 0)  {
+                this.store_data = false;
+            }
 
-                data = JSON.parse(stored);
-                console.log(data);
-                if (data.id) {
-                    console.log(this.model.get("id"));
-                    if (this.model.get("id") != data.id) {
-                        window.sessionStorage.setItem(this.model.yModel, '');
-                        return;
+            if (this.store_data) {
+                var stored = window.sessionStorage.getItem(this.model.yModel);
+                if (stored) {
+
+                    data = JSON.parse(stored);
+                    console.log(data);
+                    if (data.id) {
+                        console.log(this.model.get("id"));
+                        if (this.model.get("id") != data.id) {
+                            window.sessionStorage.setItem(this.model.yModel, '');
+                            return;
+                        }
+                    } else {
+                        if (this.model.get("id")) {
+                            window.sessionStorage.setItem(this.model.yModel, '');
+                            return;
+                        }
                     }
-                } else {
-                    if (this.model.get("id")) {
-                        window.sessionStorage.setItem(this.model.yModel, '');
-                        return;
-                    }
+
+
+                    this.model.set(JSON.parse(stored));
                 }
-
-
-                this.model.set(JSON.parse(stored));
             }
 
         },
@@ -239,7 +246,9 @@ $(function () {
         changeAttribute: function (event) {
             console.log('Changed !' + this.attribute);
             this.model.set(this.attribute, $(event.currentTarget).attr("value"));
-            window.sessionStorage.setItem(this.model.yModel, JSON.stringify(this.model.toJSON()));
+            if (this.parent.store_data) {
+                window.sessionStorage.setItem(this.model.yModel, JSON.stringify(this.model.toJSON()));
+            }
         },
         setModelEvent: function () {
             // При изменении модели представления, полностью перерисовываем его
