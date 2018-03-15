@@ -201,6 +201,15 @@ $(function() {
                 }
             }
 
+            if (!Yii.app.user.isGuest && !this.external && this.target != 'modal') {
+                if (typeof window.ENotifications != 'undefined') {
+                    this.notifications = new ENotifications({
+                        el: $('#notifications_main')
+                    });
+                    this.notifications.render();
+                }
+            }
+
         },
 
         navigate: function(href, target, options) {

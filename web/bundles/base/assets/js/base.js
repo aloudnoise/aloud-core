@@ -90,14 +90,7 @@ $(function() {
                     no_fade: true
                 });
             }
-            if (!Yii.app.user.isGuest) {
-                if (typeof window.ENotifications != 'undefined') {
-                    this.notifications = new ENotifications({
-                        el: $('#notifications_main')
-                    });
-                    this.notifications.render();
-                }
-            }
+
             Yii.app.loading(false);
 
         },

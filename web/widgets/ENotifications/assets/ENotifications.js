@@ -14,7 +14,7 @@ $(function() {
 
             this.notifications = new BaseCollection(null, {
                 yModel: "Notifications",
-                live: "global",
+                live: "local",
                 hash: Yii.app.user.notifications_hash
             });
 
