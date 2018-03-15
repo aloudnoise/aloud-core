@@ -2,7 +2,6 @@ $(function() {
 
     BaseAction = BaseComponent.extend({
 
-        widgets : {},
         controller : null,
         defineArguments : function(args)
         {
@@ -65,15 +64,6 @@ $(function() {
                     }
 
                 });
-            }
-
-            var widgets = this.controller.model.get("widgets");
-            if (widgets) {
-                _(widgets).each(function(widget) {
-                    if (typeof window[widget] != 'undefined') {
-                        that.widgets[widget] = new window[widget];
-                    }
-                })
             }
 
         },

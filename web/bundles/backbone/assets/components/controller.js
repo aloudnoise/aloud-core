@@ -34,6 +34,8 @@ $(function() {
 
         options : {},
 
+        widgets : {},
+
         /**
          * Инициализация контроллера
          * @param args
@@ -208,6 +210,18 @@ $(function() {
                     });
                     this.notifications.render();
                 }
+            }
+
+            var widgets = this.model.get("widgets");
+            if (widgets) {
+                _(widgets).each(function(widget) {
+                    if (typeof window[widget] != 'undefined') {
+                        that.widgets[widget] = new window[widget]({
+                            parent: that
+                        });
+                        that.widgets[widget].render();
+                    }
+                })
             }
 
         },
