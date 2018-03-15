@@ -15,10 +15,13 @@ class Html extends \yii\helpers\Html
 
     public static function encode($content, $doubleEncode = true)
     {
-        if (substr($content, 0, 2) == "<%") {
-            return $content;
+
+        if (is_string($content)) {
+            if (substr($content, 0, 2) == "<%") {
+                return $content;
+            }
         }
-        return htmlspecialchars($content, ENT_QUOTES | ENT_SUBSTITUTE, \Yii::$app ? \Yii::$app->charset : 'UTF-8', $doubleEncode);
+        return parent::encode($content, $doubleEncode);
     }
 
 }

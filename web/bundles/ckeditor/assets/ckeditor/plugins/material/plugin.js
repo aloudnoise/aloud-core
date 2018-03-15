@@ -22,7 +22,7 @@
 								var material = editor.document.createElement("a");
                                 material.setAttribute("data-model-id", material_id);
                                 material.setAttribute("contentEditable", false);
-                                material.setAttribute("href", Yii.app.createOrganizationUrl('/library/view', {'id' : material_id}));
+                                material.setAttribute("href", Yii.app.createOrganizationUrl('/library/view', {'h' : model.hash}));
                                 material.setAttribute("class", "material-link icon-" + model.icon);
                                 material.setAttribute("target", "modal");
                                 material.setText(model.name);
