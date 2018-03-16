@@ -52,17 +52,20 @@ $(function() {
 
             var that = this;
 
-            $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
-
-                var link = $(event.currentTarget);
-                var target = $(link).attr("target") ? $(link).attr("target") : null;
-                var options = {
-                    scroll : $(link).attr("noscroll") ? false : true,
-                    confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null
-                };
-
-                return that.navigate($(link).attr("href"), target, options);
-            })
+            // console.log('attach to base links');
+            // $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
+            //
+            //     console.log('link clicked in base');
+            //
+            //     var link = $(event.currentTarget);
+            //     var target = $(link).attr("target") ? $(link).attr("target") : null;
+            //     var options = {
+            //         scroll : $(link).attr("noscroll") ? false : true,
+            //         confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null
+            //     };
+            //
+            //     return that.navigate($(link).attr("href"), target, options);
+            // });
 
             this.controllers = new BaseCollection();
             this.controllers.on("add", function() {

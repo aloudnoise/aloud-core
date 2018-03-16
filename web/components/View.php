@@ -59,11 +59,11 @@ class View extends \yii\web\View
                         href : \'' . $baseUrl . '\',
                         baseUrl : \'' . $baseUrl . '\',
                         noState : ' . ($model['isModal'] ? "true" : "false") . ',
-                        transaction : true
+                        transaction : true,
                     }
-                );
-
-                Yii.app.render();
+                );                
+        
+                Yii.app.render();   
         
             ', self::POS_READY, 'application_init');
 

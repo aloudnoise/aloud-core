@@ -179,22 +179,27 @@ $(function() {
                 });
             });
 
-            $(that.el).on("click", "a[href^='/'],div[href^='/']", function(event) {
+            if (!that.external) {
+                console.log('attach to controller links');
+                $(that.el).on("click", "a[href^='/'],div[href^='/']", function(event) {
 
-                event.preventDefault();
-                event.stopPropagation();
+                    console.log('link clicked in controller');
 
-                var link = $(event.currentTarget);
+                    event.preventDefault();
+                    event.stopPropagation();
 
-                var options = {
-                    scroll : $(link).attr("noscroll") ? false : true,
-                    confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
-                };
+                    var link = $(event.currentTarget);
 
-                var target = that.options.transaction ? ($(link).attr("target") ? $(link).attr("target") : that.target) : that.target;
+                    var options = {
+                        scroll : $(link).attr("noscroll") ? false : true,
+                        confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
+                    };
 
-                return that.navigate($(link).attr("href"), target, options);
-            })
+                    var target = that.options.transaction ? ($(link).attr("target") ? $(link).attr("target") : that.target) : that.target;
+
+                    return that.navigate($(link).attr("href"), target, options);
+                });
+            }
 
             if (this.model.get("GET").scroll_to) {
                 var el = $(that.el).find("*[scroll-to='"+this.model.get("GET").scroll_to+"']");
