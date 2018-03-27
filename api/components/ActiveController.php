@@ -47,12 +47,11 @@ class ActiveController extends \yii\rest\ActiveController
         unset($actions['update']);
         unset($actions['delete']);
 
-
         $actions['index']['prepareDataProvider'] = [$this, 'fetchRecords'];
         $actions['view']['findModel'] = [$this, 'findModel'];
 
         $actions['options'] = [
-            'class' => 'aloud_core\api\components\OptionsAction',
+            'class' => 'yii\rest\OptionsAction',
         ];
 
         return $actions;
@@ -240,10 +239,6 @@ class ActiveController extends \yii\rest\ActiveController
             'actionTime' => [
                 'class' => 'aloud_core\api\components\ActionTimeFilter',
             ],
-            'authenticator' => [
-                'class' => HttpBearerAuth::className(),
-                'except' => ['options'],
-            ],
         ]);
 
         // remove authentication filter
@@ -260,6 +255,7 @@ class ActiveController extends \yii\rest\ActiveController
                 'Origin' => ['*'],
                 'Access-Control-Request-Headers' => ['*'],
                 'Access-Control-Max-Age' => 3600,
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
             ],
 
         ];
@@ -276,6 +272,7 @@ class ActiveController extends \yii\rest\ActiveController
                 ],
             ],
         ];
+
 
         return $result;
     }
