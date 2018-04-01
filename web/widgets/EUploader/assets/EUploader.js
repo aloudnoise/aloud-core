@@ -4,16 +4,16 @@ $(function() {
         template : "#EUploader_template",
         defaultOptions : {
             id:'uploader',
-            multiple : true,
+            multiple : false,
             files : true,
-            video : true,
+            video : false,
             maxFileSize:1024*1024*500,
             msgFileToBig:Yii.t("main",'Размер файла слишком большой'),
             msgWrongFile:Yii.t('main','Запрещенный тип файла'),
             msgErrorLoading:Yii.t("main","Ошибка загрузки"),
             onSuccess:false,
             dragBoxId:false,
-            cropper : null,
+            cropper : false,
             asyncLoad:false,
             uploadFileTemplate : "#uploaded_file_template",
             uploadFileContainer : null,
@@ -142,7 +142,7 @@ $(function() {
                 "name" : file.name,
                 "file" : file
             });
-            this.collection.add(m);
+            this.collection.set(m);
         },
         addFile : function(model)
         {

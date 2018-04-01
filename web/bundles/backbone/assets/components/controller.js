@@ -270,7 +270,7 @@ $(function() {
                     var ael = that.model.get("action_element");
                     if (!ael)
                     {
-                        ael = ".action-element#action_" + that.model.get("controller") + "_" + a;
+                        ael = ".action-element#action_" + that.model.get("controller") + "_" + that.model.get("action");
                     }
 
                     if (!$(that.el).find(ael).length)
