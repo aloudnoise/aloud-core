@@ -129,109 +129,54 @@ trait BackboneRequestTrait
         if (is_array($models)) {
             $result = [];
             foreach ($models as $k=>$m) {
-
-                if (empty($fields)) {
-                    $fields = $m->fields();
-                }
-
-                $attr = [];
-                foreach ($fields as $f) {
-                    if (method_exists($m, $f)) {
-                        $attr[$f] = $m->$f();
-                    } else $attr[$f] = $m->$f;
-                }
-
-                $types = [];
-                if (method_exists($m, 'fieldTypes')) {
-                    $types = $m->fieldTypes();
-                }
-
-                foreach ($attr as $name=>$value) {
-                    if (!empty($value) || $allowEmpty) {
-                        if ($types[$name]) {
-                            if ($types[$name] == "string") {
-                                $result[$k][$name] = $value;
-                            }
-                        } else {
-                            $result[$k][$name] = is_numeric($value) ? (($value == (int)$value) ? (int)$value : (float)$value) : $value;
-                        }
-                    }
-                }
-                if (!empty($relations))
-                {
-                    foreach ($relations as $r=>$v) {
-                        if (!is_array($v)) {
-                            if (is_object($m->$v) OR is_array($m->$v)) {
-                                $result[$k][$v] = self::arrayAttributes($m->$v, [], [], $allowEmpty);
-                            } else {
-                                $result[$k][$v] = $m->$v;
-                            }
-                        } else {
-
-                            $_rels = [];
-                            if (isset($v['relations'])) {
-                                $_rels = $v['relations'];
-                            }
-                            $r_fields = [];
-                            if (isset($v['fields'])) {
-                                $r_fields = $v['fields'];
-                            }
-
-                            if (!isset($v['relations']) AND !isset($v['fields'])) {
-                                $_rels = $v;
-                            }
-
-                            $result[$k][$r] = self::arrayAttributes($m->$r, $_rels, $r_fields, $allowEmpty);
-                        }
-                    }
-                }
+                $result[$k] = self::arrayAttributes($m, $relations, $fields, $allowEmpty);
             }
-
         } else {
 
-            if (empty($fields)) {
-                $fields = $models->fields();
-            }
-
-            $attr = [];
-            foreach ($fields as $f) {
-                if (method_exists($models, $f)) {
-                    $attr[$f] = $models->$f();
-                } else $attr[$f] = $models->$f;
-            }
-
             if ($models) {
+                if (empty($fields)) {
+                    $result = $models->toArray();
+                } else {
 
-                $types = [];
-                if (method_exists($models, 'fieldTypes')) {
-                    $types = $models->fieldTypes();
-                }
+                    $attr = [];
+                    foreach ($fields as $f) {
+                        if (method_exists($models, $f)) {
+                            $attr[$f] = $models->$f();
+                        } else $attr[$f] = $models->$f;
+                    }
 
-                foreach ($attr as $name => $value) {
-                    if (!empty($value) OR $allowEmpty) {
-                        if ($types[$name]) {
-                            if ($types[$name] == "string") {
-                                $result[$name] = $value;
+
+                    $types = [];
+                    if (method_exists($models, 'fieldTypes')) {
+                        $types = $models->fieldTypes();
+                    }
+
+                    foreach ($attr as $name => $value) {
+                        if (!empty($value) OR $allowEmpty) {
+                            if ($types[$name]) {
+                                if ($types[$name] == "string") {
+                                    $result[$name] = $value;
+                                }
+                            } else {
+                                $result[$name] = is_numeric($value) ? (($value == (int)$value) ? (int)$value : (float)$value) : $value;
                             }
-                        } else {
-                            $result[$name] = is_numeric($value) ? (($value == (int)$value) ? (int)$value : (float)$value) : $value;
-                        }
 
-                        /*
-                        Тут надо ещё учесть что может вызвать не модель, тогда фатал
-                        $newType = $models->getTableSchema()->columns[$name]->phpType;//->type;
-                        if ($newType=='decimal') {
-                            $newType = 'double';
-                        }
+                            /*
+                            Тут надо ещё учесть что может вызвать не модель, тогда фатал
+                            $newType = $models->getTableSchema()->columns[$name]->phpType;//->type;
+                            if ($newType=='decimal') {
+                                $newType = 'double';
+                            }
 
-                        if ($newType === null) {
-                            $newType = 'string';
-                        }
+                            if ($newType === null) {
+                                $newType = 'string';
+                            }
 
-                        // SetType не понимает тип decimal, в итоге все вещественные цисла становяться string
-                        settype($value, $newType);
-                        $result[$name] = $value;
-                        */
+                            // SetType не понимает тип decimal, в итоге все вещественные цисла становяться string
+                            settype($value, $newType);
+                            $result[$name] = $value;
+                            */
+                        }
                     }
                 }
 
