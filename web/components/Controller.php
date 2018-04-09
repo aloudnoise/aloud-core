@@ -58,7 +58,15 @@ class Controller extends yii\base\Controller
 
     public function afterAction($action, $result)
     {
+        if ($this->external) {
+            $this->external = false;
+            $external = true;
+        }
         \Yii::$app->data->body_custom_classes = $this->body_custom_classes." ".$this->layout;
+        if ($external) {
+            $this->external = true;
+        }
+
         return parent::afterAction($action, $result);
     }
 
