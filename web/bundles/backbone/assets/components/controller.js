@@ -216,7 +216,6 @@ $(function() {
                     this.notifications.render();
                 }
             }
-
             var widgets = this.model.get("widgets");
             if (widgets) {
                 _(widgets).each(function(widget) {
@@ -228,6 +227,8 @@ $(function() {
                     }
                 })
             }
+
+            $("body").attr("class", this.model.get("body_custom_classes"));
 
         },
 
