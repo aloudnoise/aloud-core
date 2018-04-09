@@ -215,6 +215,7 @@ $(function() {
                     });
                     this.notifications.render();
                 }
+                $("body").attr("class", this.model.get("body_custom_classes"));
             }
             var widgets = this.model.get("widgets");
             if (widgets) {
@@ -227,9 +228,6 @@ $(function() {
                     }
                 })
             }
-
-            $("body").attr("class", this.model.get("body_custom_classes"));
-
         },
 
         navigate: function(href, target, options) {

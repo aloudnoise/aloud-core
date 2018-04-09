@@ -12,6 +12,7 @@ class Controller extends yii\base\Controller
 
     public $isModal = false;
     public $external = false;
+    public $body_custom_classes = 'h-100 ';
 
     /**
      * Определяем базовые константы АССЕТОВ
@@ -53,6 +54,12 @@ class Controller extends yii\base\Controller
         \Yii::$app->data->language = \Yii::$app->language;
 
         return parent::beforeAction($action);
+    }
+
+    public function afterAction($action, $result)
+    {
+        \Yii::$app->data->body_custom_classes = $this->body_custom_classes." ".$this->layout;
+        return parent::afterAction($action, $result);
     }
 
 
