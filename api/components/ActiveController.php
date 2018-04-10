@@ -239,6 +239,10 @@ class ActiveController extends \yii\rest\ActiveController
             'actionTime' => [
                 'class' => 'aloud_core\api\components\ActionTimeFilter',
             ],
+            'authenticator' => [
+                'class' => HttpBearerAuth::className(),
+                'except' => ['options'],
+            ],
         ]);
 
         // remove authentication filter
