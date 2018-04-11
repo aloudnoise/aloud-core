@@ -44,4 +44,16 @@ class Common {
     {
         return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
     }
+
+    public static function byLang($value, $language = null) {
+
+        $language = $language ?: \Yii::$app->language;
+        $data = !is_array($value) ? json_decode($value, true) : $value;
+        if (is_array($data)) {
+            return (isset($data[$language]) ? (!empty($data[$language]) ? $data[$language] : $value) : $data[key($data)]);
+        }
+        return $value;
+
+    }
+
 }
