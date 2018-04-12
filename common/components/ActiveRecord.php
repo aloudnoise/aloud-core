@@ -102,8 +102,8 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
     // Сохраняет предыдущие значения аттрибутов, перед записью в базу
     public function beforeSave($insert)
     {
-        if (in_array("info", $this->attributes()) && is_array($this->info)) {
-            $this->info = json_encode($this->info);
+        if (in_array("info", $this->attributes()) && !is_array($this->info)) {
+            $this->info = json_decode($this->info, true);
         }
 
         return parent::beforeSave($insert);
