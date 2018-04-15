@@ -31,7 +31,8 @@ $(function() {
                             related_id: $(this).parents(".assign-item").attr("assign_id"),
                             related_model: $(this).parents(".assign-item").attr("assign_item"),
                             target_id: from[1],
-                            target_model: from[0]
+                            target_model: from[0],
+                            params: that.controller.model.get("GET").assign_params ? that.controller.model.get("GET").assign_params : {}
                         }, {
                             route: 'assign'
                         });

@@ -77,6 +77,13 @@ class ActiveQuery extends \yii\db\ActiveQuery
         return $this->andWhere($condition);
     }
 
+    public function byHash($column, $hash) {
+
+        $condition = ['md5('.$this->alias . '.' . $column.' || \''.\Yii::$app->params['secret_word'].'\')' => $hash];
+        return $this->andWhere($condition);
+
+    }
+
     /**
      * @param integer $user_id
      * @return $this
