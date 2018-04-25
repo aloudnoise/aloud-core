@@ -27,6 +27,7 @@ class BaseBundle extends AssetBundle
         'aloud_core\web\bundles\backbone\BackboneBundle',
         'aloud_core\web\bundles\jstrans\JSTransBundle',
         'aloud_core\web\bundles\font_awesome\FontAwesomeBundle',
+        'aloud_core\web\bundles\vue\VueBundle'
     ];
 
 }
