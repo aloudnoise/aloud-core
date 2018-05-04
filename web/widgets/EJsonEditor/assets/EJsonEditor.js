@@ -11,7 +11,8 @@ $(function() {
             var that = this;
 
             var options = {
-                mode: 'code'
+                mode: 'code',
+                sortObjectKeys: false
             };
             var editor = new JSONEditor($(this.el)[0], options);
 

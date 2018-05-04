@@ -28,6 +28,12 @@ $(function() {
                 }
             });
 
+            $(this.inputs).change(function(e) {
+                if ($(this).attr("data-live") == "1") {
+                    that.submit();
+                }
+            });
+
             $(this.resets).click(function(e) {
                 e.stopPropagation();
                 e.preventDefault();

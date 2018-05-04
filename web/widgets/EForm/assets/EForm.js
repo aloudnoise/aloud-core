@@ -195,7 +195,7 @@ $(function () {
             var input = $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio");
             if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").length && this.model.get(this.attribute)) {
                 console.log(that.model.get(that.attribute));
-                $(this.el).find("input, select, textarea").each(function() {
+                $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").each(function() {
                     if (($(this).attr("fixed") === undefined || !$(this).val()) && that.model) {
                         $(this).val(that.model.get(that.attribute));
                     }
