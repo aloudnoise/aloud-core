@@ -142,7 +142,11 @@ $(function() {
                 "name" : file.name,
                 "file" : file
             });
-            this.collection.set(m);
+            if (this.options.multiple) {
+                this.collection.add(m);
+            } else {
+                this.collection.set(m);
+            }
         },
         addFile : function(model)
         {
