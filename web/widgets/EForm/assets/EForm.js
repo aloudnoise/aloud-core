@@ -76,6 +76,22 @@ $(function () {
 
             });
 
+            $(that.el).find(".form-group[attribute]").each(function() {
+
+                if (!that.model.attributes[$(this).attr("attribute")]) {
+                    var i = new Input({
+                        el: $(this),
+                        parent: that,
+                        attribute: $(this).attr("attribute"),
+                        model: that.model,
+                        data: "model"
+                    }).render();
+
+                    that.inputs.push(i);
+                }
+
+            });
+
             this.model.on("change", this.destroyPopover, this);
 
             return this;
@@ -118,8 +134,6 @@ $(function () {
                         _(that.inputs).each(function (i) {
                             if (!first && that.model.getError(i.attribute)) {
                                 first = true;
-                                console.log(i);
-                                console.log($(i.el).offset().top);
                                 var body = $(Yii.app.currentController.target == "modal" ? ".wrapper #controller_modal" : "html, body");
                                 body.stop().animate({
                                     'scrollTop': $(i.el).offset().top - 100
