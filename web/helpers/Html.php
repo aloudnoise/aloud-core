@@ -16,6 +16,10 @@ class Html extends \yii\helpers\Html
             return static::dropDownList($name, $value, $field['data'], $options);
         }
 
+        if ($field['type'] == 'text_area') {
+            return static::textarea($name, $value, $options);
+        }
+
     }
 
     public static function dropDownList($name, $selection = null, $items = [], $options = [])

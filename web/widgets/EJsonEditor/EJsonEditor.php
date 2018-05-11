@@ -24,14 +24,15 @@ class EJsonEditor extends Widget
         'jsoneditor.css'
     ];
 
-    public $model = null;
+    public $value = null;
     public $attribute = null;
+    public $auto_start = true;
 
     public function run()
     {
 
         return $this->render("index", [
-            'model' => $this->model,
+            'value' => $this->value,
             'attribute' => $this->attribute
         ]);
 

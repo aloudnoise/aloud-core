@@ -1,2 +1,2 @@
-<div id="<?=$attribute?>" class="<?=$attribute?>-json-editor" style="height:500px;"></div>
-<input type="hidden" name="<?=$attribute?>" value='<?=is_array($model->$attribute) ? json_encode($model->$attribute) : $model->$attribute?>' />
+<div id="<?=$attribute?>" class="<?=$attribute?>-json-editor json-editor" style="height:500px;"></div>
+<input fixed=1 type="hidden" name="<?=$attribute?>" value='<?=is_array($value) ? \yii\helpers\Json::encode($value) : $value?>' />

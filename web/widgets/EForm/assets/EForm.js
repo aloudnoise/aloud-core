@@ -29,9 +29,7 @@ $(function () {
                 if (stored) {
 
                     data = JSON.parse(stored);
-                    console.log(data);
                     if (data.id) {
-                        console.log(this.model.get("id"));
                         if (this.model.get("id") != data.id) {
                             window.sessionStorage.setItem(this.model.yModel, '');
                             return;
@@ -180,8 +178,6 @@ $(function () {
                 if ($(this).attr("cktype") == "full") {
                     $(this).val(CKEDITOR.instances[$(this).attr("id")].getData());
                 } else {
-                    // console.log($(this));
-                    // console.log($(this).val(CKEDITOR.instances[$(this).attr("id")]));
                     // $(this).val($(this).next(".cke_editable_inline").html());
                     $(this).val(CKEDITOR.instances[$(this).attr("id")].getData());
                 }
@@ -208,7 +204,6 @@ $(function () {
             var that = this;
             var input = $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio");
             if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").length && this.model.get(this.attribute)) {
-                console.log(that.model.get(that.attribute));
                 $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").each(function() {
                     if (($(this).attr("fixed") === undefined || !$(this).val()) && that.model) {
                         $(this).val(that.model.get(that.attribute));
@@ -242,8 +237,6 @@ $(function () {
                 $(this.el).addClass(add_class);
             }
             if (add_class_input && input) {
-                console.log($(input));
-                console.log(add_class_input);
                 $(input).addClass(add_class_input);
             }
 
@@ -258,7 +251,6 @@ $(function () {
             this.attribute = args.attribute;
         },
         changeAttribute: function (event) {
-            console.log('Changed !' + this.attribute);
             this.model.set(this.attribute, $(event.currentTarget).attr("value"));
             if (this.parent.store_data) {
                 window.sessionStorage.setItem(this.model.yModel, JSON.stringify(this.model.toJSON()));
