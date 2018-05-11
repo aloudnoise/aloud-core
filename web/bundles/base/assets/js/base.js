@@ -13,11 +13,6 @@ $(function() {
      * @param msg
      */
 
-    if (!CORE.DEBUG) {
-        console = {};
-        console.log = function(){};
-    }
-
     log = function(msg) {
         if (CORE.DEBUG) {
             console.log(msg);
