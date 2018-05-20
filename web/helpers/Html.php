@@ -2,6 +2,8 @@
 
 namespace aloud_core\web\helpers;
 
+use aloud_core\common\helpers\Common;
+
 class Html extends \yii\helpers\Html
 {
 
@@ -13,7 +15,11 @@ class Html extends \yii\helpers\Html
         }
 
         if ($field['type'] == "select") {
-            return static::dropDownList($name, $value, $field['data'], $options);
+            $data = [];
+            foreach ($field['data'] as $k=>$d) {
+                $data[$k] = Common::byLang($d);
+            }
+            return static::dropDownList($name, $value, $data, $options);
         }
 
         if ($field['type'] == 'text_area') {

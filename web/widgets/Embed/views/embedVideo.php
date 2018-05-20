@@ -1,5 +1,12 @@
 <div class='embedded-video'>
     <?php if ($this->context->type == "youtube") { ?>
+
+        <?php
+        $this->registerJsFile("https://www.youtube.com/player_api", [
+            'position' => \yii\web\View::POS_END
+        ], "youtube_js");
+        ?>
+
         <div class="embed-responsive embed-responsive-16by9">
             <div id="<?=$this->context->video_id?>" class="youtube-video">
             </div>
