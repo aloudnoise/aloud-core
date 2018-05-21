@@ -2,6 +2,7 @@
 
 namespace aloud_core\web\components;
 
+use app\helpers\Url;
 use yii\base\Component;
 use yii\web\Cookie;
 
@@ -20,7 +21,9 @@ class LanguageSetter extends Component
 
             \Yii::$app->language = \Yii::$app->request->get($lparam);
             \Yii::$app->session->set($lparam, \Yii::$app->request->get($lparam));
-            \Yii::$app->response->redirect(\Yii::$app->request->get("return"));
+            $get = \Yii::$app->request->get();
+            unset($get[$lparam]);
+            \Yii::$app->response->redirect(Url::to(\Yii::$app->controller->route, $get));
             
         }
         else if (\Yii::$app->session->get($lparam) AND in_array(\Yii::$app->session->get($lparam),\Yii::$app->urlManager->languages))
