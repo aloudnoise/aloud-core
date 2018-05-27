@@ -181,7 +181,7 @@ $(function() {
 
             if (!that.external) {
                 console.log('attach to controller links');
-                $(that.el).on("click", "a[href^='/'],div[href^='/']", function(event) {
+                $(that.el).on("click", "a[href^='/'], *[href^='/']", function(event) {
 
                     console.log('link clicked in controller');
 
