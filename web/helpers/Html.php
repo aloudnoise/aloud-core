@@ -3,6 +3,11 @@
 namespace aloud_core\web\helpers;
 
 use aloud_core\common\helpers\Common;
+use aloud_core\common\helpers\custom_fields\BaseField;
+use aloud_core\common\helpers\custom_fields\DropDownField;
+use aloud_core\common\helpers\custom_fields\JsonField;
+use aloud_core\common\helpers\custom_fields\TextAreaField;
+use aloud_core\web\widgets\EJsonEditor\EJsonEditor;
 
 class Html extends \yii\helpers\Html
 {
@@ -10,20 +15,25 @@ class Html extends \yii\helpers\Html
     // TODO Дополнить
     public static function customField($name, $value, $field, $options = []) {
 
-        if ($field['type'] == "text") {
-            return static::textInput($name, $value, $options);
+        $field = !is_object($field) ? BaseField::instantiate($field) : $field;
+
+        if ($field instanceof DropDownField) {
+            return static::dropDownList($name, $value, $field->fetchData(), $options);
         }
 
-        if ($field['type'] == "select") {
-            $data = [];
-            foreach ($field['data'] as $k=>$d) {
-                $data[$k] = Common::byLang($d);
-            }
-            return static::dropDownList($name, $value, $data, $options);
-        }
-
-        if ($field['type'] == 'text_area') {
+        if ($field instanceof TextAreaField) {
             return static::textarea($name, $value, $options);
+        }
+
+        if ($field instanceof JsonField) {
+            return EJsonEditor::widget([
+                'attribute' => $name,
+                'value' => $value
+            ]);
+        }
+
+        if ($field instanceof BaseField) {
+            return static::textInput($name, $value, $options);
         }
 
     }
