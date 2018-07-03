@@ -7,6 +7,7 @@ class BaseField extends BaseObject
 {
 
     public $label = null;
+    public $help = null;
 
     public static function instantiate($config) {
 
