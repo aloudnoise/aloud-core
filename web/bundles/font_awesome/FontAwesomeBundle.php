@@ -9,7 +9,7 @@ class FontAwesomeBundle extends AssetBundle
     public $static = true;
     public $sourcePath = '@aloud_core/web/bundles/font_awesome/assets';
     public $css = [
-        'css/font-awesome.min.css'
+        'css/all.min.css'
     ];
 }
 
