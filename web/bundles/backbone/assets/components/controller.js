@@ -228,6 +228,7 @@ $(function() {
                     }
                 })
             }
+
         },
 
         navigate: function(href, target, options) {

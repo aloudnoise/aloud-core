@@ -67,6 +67,14 @@ $(function() {
                 });
             }
 
+            if (this.controller.model.get("GET").exclude) {
+
+                _(this.controller.model.get("GET").exclude).each(function(attr) {
+                    $(that.el).find("*[attribute='"+attr+"']").remove();
+                })
+
+            }
+
         },
         _destroy : function() {
             // override if need
