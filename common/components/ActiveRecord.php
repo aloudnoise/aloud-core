@@ -2,6 +2,7 @@
 
 namespace aloud_core\common\components;
 
+use aloud_core\common\traits\AccessTrait;
 use aloud_core\common\traits\DateFormatTrait;
 use yii;
 
@@ -15,7 +16,7 @@ use yii;
 class ActiveRecord extends yii\db\ActiveRecord implements Filterable
 {
 
-    use DateFormatTrait;
+    use DateFormatTrait, AccessTrait;
 
     public $search = "";
 
