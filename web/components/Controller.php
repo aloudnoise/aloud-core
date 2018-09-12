@@ -2,6 +2,10 @@
 namespace aloud_core\web\components;
 
 use aloud_core\web\components\InstitutionFilter;
+use aloud_core\web\traits\BackboneRequestTrait;
+use app\helpers\OrganizationUrl;
+use app\helpers\Url;
+use common\models\forms\BaseFilterForm;
 use common\models\Organizations;
 use common\models\redis\OnlineUsers;
 use yii;
@@ -89,24 +93,6 @@ class Controller extends yii\base\Controller
         return $data;
     }
 
-    public static $modelClass = null;
-    public static function getModel($id = null, $throwOnEmpty = true)
-    {
-        if (static::$modelClass) {
-            $id = $id ?: \Yii::$app->request->get("id");
-            $modelClass = static::$modelClass;
-            $model = new $modelClass();
-            if ($id) {
-                $model = $modelClass::find()->byPk($id)->notDeleted()->one();
-                if (!$model AND $throwOnEmpty) {
-                    throw new \Exception("NO");
-                }
-            }
-            return $model;
-        }
-        throw new \RuntimeException("specify modelClass property");
-    }
-
 
     public function render($view, $params = [])
     {
@@ -122,6 +108,142 @@ class Controller extends yii\base\Controller
         ]);
         return $this->renderContent($content);
 
+    }
+
+    public $actionParams = [];
+    public $modelClass = null;
+    public $filterClass = BaseFilterForm::class;
+    public function actionsData()
+    {
+        return [
+            'index' => [
+                'modelClass' => $this->modelClass,
+                'filterClass' => $this->filterClass,
+                'provider' => [
+                    'class' => yii\data\ActiveDataProvider::class,
+                    'pagination' => new yii\data\Pagination([
+                        'pageSize' => 50
+                    ]),
+                ],
+                'template' => 'index'
+            ],
+            'add' => [
+                'modelClass' => $this->modelClass,
+                'template' => 'form',
+                'find' => function($model, $get) {
+                    if ($get['id']) {
+                        return $model::find()->byPk($get['id'])->one();
+                    }
+                    return $model;
+                },
+                'serialize' => [
+                    'relations' => [],
+                    'fields' => []
+                ],
+                'success' => function($model, $get) {
+                    return [];
+                }
+            ],
+            'delete' => [
+                'modelClass' => $this->modelClass,
+                'find' => function($model, $get) {
+                    if ($get['id']) {
+                        return $model::find()->byPk($get['id'])->one();
+                    }
+                    return $model;
+                },
+                'redirect' => function($model, $get) {
+                    return [
+                        \Yii::$app->request->referrer
+                    ];
+                }
+            ]
+        ];
+    }
+    public function getActionData($action) {
+        return $this->actionsData($action);
+    }
+
+    public function prepareActionIndex()
+    {
+        $actionData = $this->getActionData('index');
+        $filter = \Yii::createObject($actionData['filter']);
+        if (\Yii::$app->request->get("filter")) {
+            $filter->attributes = \Yii::$app->request->get("filter");
+        }
+
+        $query = (\Yii::$container->get($actionData['modelClass']))::find();
+        $filter->applyFilter($query);
+
+        $provider = Yii::createObject($actionData['provider'], [
+            'query' => $query,
+            'pagination' => $actionData['pagination']
+        ]);;
+
+        \Yii::$app->data->filter = BackboneRequestTrait::arrayAttributes($filter, [], $filter->attributes(), true);
+
+        $this->actionParams = array_merge([
+            "provider" => $provider,
+            "filter" => $filter,
+        ], $this->actionParams);
+    }
+    public function actionIndex()
+    {
+        $this->prepareActionIndex();
+        return $this->renderAction('index');
+    }
+
+    public function renderAction($action) {
+        $actionsData = $this->getActionData($action);
+        return $this->render($actionsData['template'], $this->actionParams);
+    }
+
+    public function prepareActionAdd()
+    {
+        $actionData = $this->getActionData('add');
+        $model = Yii::createObject($actionData['add']['modelClass']);
+        $model = $actionData['add']['find']($model, \Yii::$app->request->get());
+
+        if ($model->isNewRecord) {
+            if (!$model->canAdd) {
+                throw new yii\base\Exception('ACCESS DENIED');
+            }
+        } else {
+            if (!$model->canEdit) {
+                throw new yii\base\Exception('ACCESS DENIED');
+            }
+        }
+
+        if (\Yii::$app->request->post($model::className())) {
+
+            $model->attributes = \Yii::$app->request->post($model::className());
+            if ($model->save()) {
+                return $this->renderJSON($actionData['add']['success']($model, \Yii::$app->request->get()));
+            }
+            return $this->renderJSON($model->getErrors(), true);
+
+        }
+        $this->actionParams = array_merge([
+            "model" => $model,
+        ], $this->actionParams);
+        \Yii::$app->data->model = BackboneRequestTrait::arrayAttributes($model, $actionData['serialize']['relations'], $actionData['serialize']['fields'], true);
+    }
+
+    public function actionAdd()
+    {
+        $this->prepareActionAdd();
+        return $this->renderAction('add');
+    }
+
+    public function actionDelete()
+    {
+        $actionData = $this->getActionData('delete');
+        $model = Yii::createObject($actionData['add']['modelClass']);
+        $model = $actionData['find']($model, \Yii::$app->request->get());
+        if ($model AND $model->canDelete AND $model->delete()) {
+            \Yii::$app->session->setFlash("ok", \Yii::t("main","Запись удалена"));
+        }
+        return \Yii::$app->response->redirect($actionData['redirect']($model, \Yii::$app->request->get));
     }
 
 }
