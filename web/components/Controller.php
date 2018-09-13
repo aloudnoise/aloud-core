@@ -109,15 +109,32 @@ class Controller extends yii\base\Controller
         return $this->renderContent($content);
 
     }
+    
+    public static $modelClass = null;
+    public static function getModel($id = null, $throwOnEmpty = true)
+    {
+        if (static::$modelClass) {
+            $id = $id ?: \Yii::$app->request->get("id");
+            $modelClass = static::$modelClass;
+            $model = new $modelClass();
+            if ($id) {
+                $model = $modelClass::find()->byPk($id)->notDeleted()->one();
+                if (!$model AND $throwOnEmpty) {
+                    throw new \Exception("NO");
+                }
+            }
+            return $model;
+        }
+        throw new \RuntimeException("specify modelClass property");
+    }
 
-    public $actionParams = [];
-    public $modelClass = null;
+    public $actionParams = [];    
     public $filterClass = BaseFilterForm::class;
     public function actionsData()
     {
         return [
             'index' => [
-                'modelClass' => $this->modelClass,
+                'modelClass' => static::$modelClass,
                 'filterClass' => $this->filterClass,
                 'provider' => [
                     'class' => yii\data\ActiveDataProvider::class,
@@ -128,7 +145,7 @@ class Controller extends yii\base\Controller
                 'template' => 'index'
             ],
             'add' => [
-                'modelClass' => $this->modelClass,
+                'modelClass' => static::$modelClass,
                 'template' => 'form',
                 'find' => function($model, $get) {
                     if ($get['id']) {
@@ -145,7 +162,7 @@ class Controller extends yii\base\Controller
                 }
             ],
             'delete' => [
-                'modelClass' => $this->modelClass,
+                'modelClass' => static::$modelClass,
                 'find' => function($model, $get) {
                     if ($get['id']) {
                         return $model::find()->byPk($get['id'])->one();
