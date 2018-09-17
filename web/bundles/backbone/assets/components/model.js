@@ -13,7 +13,7 @@ $(function() {
         },
         live: false,
         hash: null,
-        urlRoot: CORE.API_URL,
+        url: CORE.API_URL,
         rules : [],
         attributeLabels : null,
         fileAttribute: 'file',
@@ -27,7 +27,7 @@ $(function() {
                 this.schema = options.schema;
             }
             if (options && options.route) {
-                this.setUrlRoot(options.route);
+                this.setUrl(options.route);
             }
             if (options && options.noLoading) {
                 this.noLoading = options.noLoading;
@@ -123,9 +123,6 @@ $(function() {
         },
         setAttributeLabels : function(attributeLabels) {
             this.attributeLabels = attributeLabels;
-        },
-        setUrlRoot: function(url) {
-            this.urlRoot = this.urlRoot + url;
         },
         setUrl: function(url, absolute) {
             if (!absolute) {
