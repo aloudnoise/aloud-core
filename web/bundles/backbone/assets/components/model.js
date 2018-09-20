@@ -13,7 +13,7 @@ $(function() {
         },
         live: false,
         hash: null,
-        url: CORE.API_URL,
+        urlRoot: CORE.API_URL,
         rules : [],
         attributeLabels : null,
         fileAttribute: 'file',
@@ -27,7 +27,7 @@ $(function() {
                 this.schema = options.schema;
             }
             if (options && options.route) {
-                this.setUrl(options.route);
+                this.setUrlRoot(options.route);
             }
             if (options && options.noLoading) {
                 this.noLoading = options.noLoading;
@@ -92,7 +92,7 @@ $(function() {
 
                     var fields = r[0];
                     _(fields).each(function(f, k) {
-                         fields[k] = f.trim();
+                        fields[k] = f.trim();
                     })
                     var _r = _.clone(r); delete(_r[0]); delete(_r[1]);
                     _r.fields = fields;
@@ -123,6 +123,9 @@ $(function() {
         },
         setAttributeLabels : function(attributeLabels) {
             this.attributeLabels = attributeLabels;
+        },
+        setUrlRoot: function(url) {
+            this.urlRoot = this.urlRoot + url;
         },
         setUrl: function(url, absolute) {
             if (!absolute) {
@@ -206,6 +209,6 @@ $(function() {
             })
 
         }
-});
+    });
 
 })
