@@ -115,3 +115,17 @@
     font-size: 24px;
     line-height: 56px;
 }
+.modal.show {
+    padding-right:17px;
+    overflow-y:scroll;
+}
+
+#controller_modal_non_transaction {
+    z-index: 1052;
+}
+#controller_modal_non_transaction .modal-dialog {
+    padding:15px;
+}
+#controller_modal_non_transaction + .modal-backdrop {
+    z-index:1051;
+}

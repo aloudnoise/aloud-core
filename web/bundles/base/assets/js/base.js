@@ -100,7 +100,7 @@ $(function() {
          * @param options
          * @returns {boolean}
          */
-        navigate : function(href, target, options) {
+        navigate : function(href, target, options, sender) {
 
             var that = this;
 
@@ -138,7 +138,7 @@ $(function() {
                 $(Yii.app.currentController.el).modal("hide");
             }
 
-            that.loadControllers(href, target, options);
+            that.loadControllers(href, target, options, sender);
 
             return false;
         },
@@ -148,7 +148,7 @@ $(function() {
          * @param target
          * @param options
          */
-        loadControllers : function(href, target, options) {
+        loadControllers : function(href, target, options, sender) {
 
             Yii.app.loading(true);
             var that = this;
@@ -200,13 +200,11 @@ $(function() {
                                 }
                             })
                         }
-                    } else {
-                        that.removeModal();
                     }
 
                     // Подключаем возвращенную модель
                     that.registerScripts(response.model, function () {
-                        that.renderController(response, target, options);
+                        that.renderController(response, target, options, false, sender);
                     });
 
                     Yii.app.loading(false);
@@ -232,7 +230,7 @@ $(function() {
                 }
             });
         },
-        renderController : function(response, target, options, external) {
+        renderController : function(response, target, options, external, sender) {
 
             var that = this;
             var modules = response.model.modules ? response.model.modules : [];
@@ -331,6 +329,9 @@ $(function() {
 
                     }
                 } else {
+                    if (sender && !sender.options.transaction) {
+                        sender.__destroy();
+                    }
                     c.render(response);
                 }
 
@@ -407,14 +408,6 @@ $(function() {
 
             } else {
                 loadControllerScripts(null);
-            }
-        },
-
-        removeModal : function() {
-            console.log('removing modal');
-            if ($("#controller_modal").length) {
-                $(".modal-backdrop").remove();
-                $("#controller_modal").remove();
             }
         },
 
