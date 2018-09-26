@@ -264,10 +264,8 @@ $(function() {
                 }
 
                 var templates = {
-                    'modal': '#controller_modal_template',
+                    'modal': '#controller_modal_template'
                 }
-
-
 
                 // Удаляем модальное окно, если текущий контроллер открыт в модальном окне
                 var c = new obj[controller]({
@@ -413,6 +411,7 @@ $(function() {
         },
 
         removeModal : function() {
+            console.log('removing modal');
             if ($("#controller_modal").length) {
                 $(".modal-backdrop").remove();
                 $("#controller_modal").remove();

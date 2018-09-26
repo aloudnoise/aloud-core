@@ -137,7 +137,9 @@ $(function() {
 
                     // Если контроллер загружается в модальном окне, по добавляем в дом, если нет, то заменяем
                     if (this.target == "modal") {
-                        Yii.app.removeModal();
+                        if (Yii.app.currentController.options.transaction && that.options.transaction) {
+                            Yii.app.removeModal();
+                        }
                         $(Yii.app.el).append($(this.el));
                     } else {
                         var cls = $(this.el).attr("class");
@@ -192,6 +194,7 @@ $(function() {
 
                     var options = {
                         scroll : $(link).attr("noscroll") ? false : true,
+                        transaction : $(link).attr("notransaction") ? false : (that.options.transaction !== false ? true : false),
                         confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
                     };
 
