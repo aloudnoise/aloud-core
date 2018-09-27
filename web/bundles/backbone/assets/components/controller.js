@@ -222,6 +222,7 @@ $(function() {
                 _(widgets).each(function(widget) {
                     if (typeof window[widget] != 'undefined') {
                         that.widgets[widget] = new window[widget]({
+                            el: that.el,
                             parent: that
                         });
                         that.widgets[widget].render();
@@ -346,10 +347,6 @@ $(function() {
                     Yii.app.top = 0;
                 }
 
-            }
-
-            if (that.options.callback) {
-                that.options.callback.call(this, that.action);
             }
 
         },
