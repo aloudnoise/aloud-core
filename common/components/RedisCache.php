@@ -30,18 +30,18 @@ class RedisCache extends \yii\redis\Cache
         return $data;
     }
 
-    protected $is_caching = true;
+    protected $is_caching = false;
     public function getIsCaching()
     {
         return $this->is_caching;
     }
 
-    public function pause()
+    public function stop()
     {
         $this->is_caching = false;
     }
 
-    public function resume()
+    public function start()
     {
         $this->is_caching = true;
     }

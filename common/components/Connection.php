@@ -21,11 +21,11 @@ class Connection extends \yii\db\Connection
 
         $command->bindValues($params);
 
-//        \Yii::trace('CREATING COMMAND');
-//        if (\Yii::$app->cache->getIsCaching()) {
-//            \Yii::trace('CACHING IS ON');
-//            return $command->cache(3600);
-//        }
+        \Yii::trace('CREATING COMMAND');
+        if (\Yii::$app->cache->getIsCaching()) {
+            \Yii::trace('CACHING IS ON');
+            return $command->cache(3600);
+        }
         return $command->noCache();
     }
 

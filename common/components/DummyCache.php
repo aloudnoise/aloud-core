@@ -18,12 +18,12 @@ class DummyCache extends \yii\caching\DummyCache
         return $this->is_caching;
     }
 
-    public function pause()
+    public function stop()
     {
         $this->is_caching = false;
     }
 
-    public function resume()
+    public function start()
     {
         $this->is_caching = true;
     }
