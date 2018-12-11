@@ -23,7 +23,8 @@ trait AttributesToInfoTrait
     {
 
         if (in_array($name, $this->attributesToInfo())) {
-            return $this->infoJson[$name];
+            $info = $this->infoJson;
+            return isset($info[$name]) ? $info[$name] : null;
         }
         return parent::__get($name);
     }
