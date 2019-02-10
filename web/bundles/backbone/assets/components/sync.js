@@ -84,6 +84,7 @@ $(function() {
                 return output;
             }
 
+           
             if (method != 'read' && (options.formData === true
                 || options.formData !== false
                 && this.attributes[ this.fileAttribute ]

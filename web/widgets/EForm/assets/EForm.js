@@ -168,12 +168,6 @@ $(function () {
 
             var that = this;
 
-            // _(this.model.attributes).each(function(a, k) {
-            //     if (a === null) {
-            //         that.model.set(k, "");
-            //     }
-            // })
-
             $(that.el).find("textarea[textareatype='ckeditor']").each(function () {
                 if ($(this).attr("cktype") == "full") {
                     $(this).val(CKEDITOR.instances[$(this).attr("id")].getData());
@@ -184,6 +178,15 @@ $(function () {
             })
 
             var data = Backbone.Syphon.serialize(this);
+
+            _(this.inputs).each(function(input) {
+                var custom_data = input.serialize();
+                if (custom_data) {
+                    data[input.attribute] = custom_data;
+                }
+            })
+
+
             this.model.set(data);
         }
     });
@@ -198,12 +201,25 @@ $(function () {
                 that.changeAttribute(event);
             });
 
+            if ($(this.el).find("input[type='file']").length) {
+                console.log($(this.el).attr("send"));
+                if ($(this.el).attr("send")) {
+                    $(this.el).find("input[type='file']").change(function (e) {
+
+                        that.parent.model.fileAttribute = that.attribute;
+                        var oe = e.originalEvent;
+                        that.files = oe.target.files || oe.dataTransfer.files;
+
+                    });
+                }
+            }
+
         },
 
         render : function() {
             var that = this;
             var input = $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio");
-            if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").length && this.model.get(this.attribute)) {
+            if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").not(":input[type=file]").length && this.model.get(this.attribute)) {
                 $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").each(function() {
                     if (($(this).attr("fixed") === undefined || !$(this).val()) && that.model) {
                         $(this).val(that.model.get(that.attribute));
@@ -263,6 +279,25 @@ $(function () {
         validateAndRender: function (m) {
             this.model.validate();
             this.render();
+        },
+        serialize: function() {
+
+           if ($(this.el).find("input[type='file']").length) {
+
+                if ($(this.el).attr("send")) {
+                    var files = this.files;
+
+                    if (files) {
+                        if (files.length > 1) {
+                            return files;
+                        } else {
+                            return files[0];
+                        }
+                    }
+                }
+            }
+            return null;
+
         }
     })
 });
