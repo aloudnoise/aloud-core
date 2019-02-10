@@ -41,7 +41,16 @@
             }
 
             if ($this->auto_start) {
-                \Yii::$app->data->append("widgets", $c);
+                $widgets = \Yii::$app->data->widgets;
+                $exists = [];
+                if ($widgets) {
+                    $exists = array_filter($widgets, function ($w) use ($c) {
+                        return $c == $w;
+                    });
+                }
+                if (empty($exists)) {
+                    \Yii::$app->data->append("widgets", $c);
+                }
             }
 
             if ($this->id == null) $this->id = $this->getId();

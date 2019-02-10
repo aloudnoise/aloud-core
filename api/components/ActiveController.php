@@ -101,12 +101,7 @@ class ActiveController extends \yii\rest\ActiveController
         }
         // Применяем фильтр к запросу
         $filter->applyFilterOne($query);
-
-        \Yii::$app->cache->pause();
-
         $result = $query->one();
-
-        \Yii::$app->cache->resume();
 
         if (isset($result)) {
             return $result;
@@ -177,7 +172,6 @@ class ActiveController extends \yii\rest\ActiveController
 
     public function actionCreate()
     {
-        \Yii::$app->cache->pause();
         $model = new $this->modelClass();
         $this->checkAccess($this->id, $model);
 
