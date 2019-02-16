@@ -8,6 +8,7 @@ class BaseField extends BaseObject
 
     public $label = null;
     public $help = null;
+    public $languages = false;
 
     public static function instantiate($config) {
 
@@ -21,7 +22,8 @@ class BaseField extends BaseObject
         $type = $config['type'];
         unset($config['type']);
 
-        return new $types[$type]($config);
+        $config['class'] = $types[$type];
+        return \Yii::createObject($config);
 
     }
 
