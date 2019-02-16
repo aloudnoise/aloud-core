@@ -15,6 +15,7 @@ $(function () {
         onError: null,
         method: "post",
         store_data : true,
+        loading: false,
         _initialize: function (args) {
 
             this.onSuccess = args.onSuccess;
@@ -101,6 +102,12 @@ $(function () {
 
             event.preventDefault();
 
+            console.log('loading: ', this.loading);
+            if (this.loading) {
+
+                return false;
+            }
+
             if (this.options.uploader) {
                 if (!this.options.uploader.isFinished()) {
                     $(event.currentTarget).find("input[type='submit']").popover({
@@ -117,9 +124,11 @@ $(function () {
             if (this.method == "post") {
                 this.model.setUrl($(this.el).attr("action"), true);
                 Yii.app.loading(true);
+                this.setLoading(true);
                 this.model.save(data, {
                     success: function (model, response, options) {
                         Yii.app.loading(false);
+                        that.setLoading(false);
                         window.sessionStorage.setItem(that.model.yModel, '');
                         if (typeof that.onSuccess == "function") {
                             that.onSuccess(model, response, options);
@@ -127,6 +136,7 @@ $(function () {
                     },
                     error: function (model, xhr, response) {
                         Yii.app.loading(false);
+                        that.setLoading(false);
                         that.model.callFormError(xhr);
                         var first = false;
                         _(that.inputs).each(function (i) {
@@ -188,6 +198,19 @@ $(function () {
 
 
             this.model.set(data);
+        },
+        setLoading: function(l) {
+
+            this.loading = l;
+            console.log('loading: ', l);
+            if (l === true) {
+                $(this.el).find("button[type='submit']").html($(this.el).find("button[type='submit']").html() + '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>');
+                $(this.el).find("button[type='submit']").prop('disabled', true);
+            } else {
+                $(this.el).find("button[type='submit']").find(".spinner-grow").remove();
+                $(this.el).find("button[type='submit']").prop('disabled', false);
+            }
+
         }
     });
 

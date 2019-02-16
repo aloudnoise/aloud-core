@@ -92,7 +92,7 @@ $(function() {
 
                     var fields = r[0];
                     _(fields).each(function(f, k) {
-                        fields[k] = f.trim();
+                         fields[k] = f.trim();
                     })
                     var _r = _.clone(r); delete(_r[0]); delete(_r[1]);
                     _r.fields = fields;
@@ -209,6 +209,6 @@ $(function() {
             })
 
         }
-    });
+});
 
 })
