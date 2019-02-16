@@ -137,7 +137,6 @@ $(function() {
 
                     // Если контроллер загружается в модальном окне, по добавляем в дом, если нет, то заменяем
                     if (this.target == "modal") {
-                        Yii.app.removeModal();
                         $(Yii.app.el).append($(this.el));
                     } else {
                         var cls = $(this.el).attr("class");
@@ -192,6 +191,7 @@ $(function() {
 
                     var options = {
                         scroll : $(link).attr("noscroll") ? false : true,
+                        transaction : $(link).attr("notransaction") ? false : (that.options.transaction !== false ? true : false),
                         confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null,
                     };
 
@@ -222,6 +222,7 @@ $(function() {
                 _(widgets).each(function(widget) {
                     if (typeof window[widget] != 'undefined') {
                         that.widgets[widget] = new window[widget]({
+                            el: that.el,
                             parent: that
                         });
                         that.widgets[widget].render();
@@ -238,12 +239,12 @@ $(function() {
             var _o = {
                 callback : that.options.callback ? that.options.callback : null,
                 transaction : that.options.transaction !== false,
-                no_fade : (that.target == 'modal' && target == 'modal') ? true : false
+                no_fade : (that.target == 'modal' && target == 'modal') ? true : false,
             };
 
             options = _.extend(_o, options);
 
-            Yii.app.navigate(href, target, options)
+            Yii.app.navigate(href, target, options, this)
 
         },
 
@@ -315,18 +316,22 @@ $(function() {
             if (that.target == "modal") {
                 // Показываем модальное окно
                 $(that.el).modal("show");
-
-                if (that.options.transaction) {
-                    $(this.el).on("hidden.bs.modal", function () {
-                        Yii.app.removeModal();
+                $(this.el).on("hidden.bs.modal", function () {
+                    that.__destroy();
+                    if (that.options.transaction) {
                         if (!that.navigating) {
                             that.target = null;
                             Yii.app.navigate(that.baseUrl, null, {
                                 scroll: false
                             });
                         }
-                    })
-                }
+                    }
+                    if ($('body').find('.modal.show').length) {
+                        if (!$('body').hasClass('modal-open')) {
+                            $('body').addClass('modal-open');
+                        }
+                    }
+                })
 
             } else {
                 // Выставляем титл страницы
@@ -342,10 +347,6 @@ $(function() {
                     Yii.app.top = 0;
                 }
 
-            }
-
-            if (that.options.callback) {
-                that.options.callback.call(this, that.action);
             }
 
         },
@@ -422,6 +423,10 @@ $(function() {
         __destroy: function() {
             if (this.action !== null && typeof this.action != 'function') {
                 this.action.__destroy();
+            }
+            if (this.target == 'modal') {
+                $(this.el).next(".modal-backdrop").remove();
+                $(this.el).remove();
             }
             delete this.model;
             delete this.action;

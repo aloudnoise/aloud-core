@@ -17,7 +17,6 @@ $(function() {
         },
         _afterRender : function(args) {
             var that = this;
-            console.log(this.el);
             $(this.el).data('action', this);
             var from = this.controller.model.get("GET").from;
             if (from) {
@@ -68,11 +67,14 @@ $(function() {
             }
 
             if (this.controller.model.get("GET").exclude) {
-
                 _(this.controller.model.get("GET").exclude).each(function(attr) {
                     $(that.el).find("*[attribute='"+attr+"']").remove();
                 })
 
+            }
+
+            if (that.controller.options.callback) {
+                that.controller.options.callback.call(that.controller, that);
             }
 
         },

@@ -6,16 +6,13 @@ $(function() {
     BaseCollection = Backbone.Collection.extend({
         yModel : null,
         pager : false,
-        urlRoot:CORE.API_URL,
+        url:CORE.API_URL,
         model: BaseModel,
         schema : null,
         sync:BaseSync,
         noLoading : false,
         live: false,
         hash: null,
-        setUrlRoot: function(url) {
-            this.urlRoot = this.urlRoot + url;
-        },
         setUrl: function(url, absolute) {
             if (!absolute) {
                 this.url = this.url + url;
@@ -33,7 +30,7 @@ $(function() {
                 this.schema = options.schema;
             }
             if (options && options.route) {
-                this.setUrlRoot(options.route);
+                this.setUrl(options.route);
             }
             if (options && options.pager) {
                 this.pager = options.pager
