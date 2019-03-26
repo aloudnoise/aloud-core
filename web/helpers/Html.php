@@ -7,6 +7,7 @@ use aloud_core\common\helpers\custom_fields\BaseField;
 use aloud_core\common\helpers\custom_fields\DropDownField;
 use aloud_core\common\helpers\custom_fields\JsonField;
 use aloud_core\common\helpers\custom_fields\TextAreaField;
+use aloud_core\common\helpers\custom_fields\ToggleField;
 use aloud_core\web\widgets\EJsonEditor\EJsonEditor;
 
 class Html extends \yii\helpers\Html
@@ -16,6 +17,7 @@ class Html extends \yii\helpers\Html
     public static function customField($name, $value, $field, $options = []) {
 
         $field = !is_object($field) ? BaseField::instantiate($field) : $field;
+        $options = array_merge($options, $field->options);
 
         if ($field instanceof DropDownField) {
             return static::dropDownList($name, $value, $field->fetchData(), $options);
@@ -23,6 +25,10 @@ class Html extends \yii\helpers\Html
 
         if ($field instanceof TextAreaField) {
             return static::textarea($name, $value, $options);
+        }
+
+        if ($field instanceof ToggleField) {
+            return static::checkbox($name, $value, $options);
         }
 
         if ($field instanceof JsonField) {
