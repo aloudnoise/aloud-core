@@ -15,6 +15,7 @@ $(function () {
         onError: null,
         method: "post",
         store_data : true,
+        loading: false,
         _initialize: function (args) {
 
             this.onSuccess = args.onSuccess;
@@ -101,6 +102,12 @@ $(function () {
 
             event.preventDefault();
 
+            console.log('loading: ', this.loading);
+            if (this.loading) {
+
+                return false;
+            }
+
             if (this.options.uploader) {
                 if (!this.options.uploader.isFinished()) {
                     $(event.currentTarget).find("input[type='submit']").popover({
@@ -117,9 +124,11 @@ $(function () {
             if (this.method == "post") {
                 this.model.setUrl($(this.el).attr("action"), true);
                 Yii.app.loading(true);
+                this.setLoading(true);
                 this.model.save(data, {
                     success: function (model, response, options) {
                         Yii.app.loading(false);
+                        that.setLoading(false);
                         window.sessionStorage.setItem(that.model.yModel, '');
                         if (typeof that.onSuccess == "function") {
                             that.onSuccess(model, response, options);
@@ -127,6 +136,7 @@ $(function () {
                     },
                     error: function (model, xhr, response) {
                         Yii.app.loading(false);
+                        that.setLoading(false);
                         that.model.callFormError(xhr);
                         var first = false;
                         _(that.inputs).each(function (i) {
@@ -168,12 +178,6 @@ $(function () {
 
             var that = this;
 
-            // _(this.model.attributes).each(function(a, k) {
-            //     if (a === null) {
-            //         that.model.set(k, "");
-            //     }
-            // })
-
             $(that.el).find("textarea[textareatype='ckeditor']").each(function () {
                 if ($(this).attr("cktype") == "full") {
                     $(this).val(CKEDITOR.instances[$(this).attr("id")].getData());
@@ -184,7 +188,29 @@ $(function () {
             })
 
             var data = Backbone.Syphon.serialize(this);
+
+            _(this.inputs).each(function(input) {
+                var custom_data = input.serialize();
+                if (custom_data) {
+                    data[input.attribute] = custom_data;
+                }
+            })
+
+
             this.model.set(data);
+        },
+        setLoading: function(l) {
+
+            this.loading = l;
+            console.log('loading: ', l);
+            if (l === true) {
+                $(this.el).find("button[type='submit']").html($(this.el).find("button[type='submit']").html() + '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>');
+                $(this.el).find("button[type='submit']").prop('disabled', true);
+            } else {
+                $(this.el).find("button[type='submit']").find(".spinner-grow").remove();
+                $(this.el).find("button[type='submit']").prop('disabled', false);
+            }
+
         }
     });
 
@@ -198,12 +224,25 @@ $(function () {
                 that.changeAttribute(event);
             });
 
+            if ($(this.el).find("input[type='file']").length) {
+                console.log($(this.el).attr("send"));
+                if ($(this.el).attr("send")) {
+                    $(this.el).find("input[type='file']").change(function (e) {
+
+                        that.parent.model.fileAttribute = that.attribute;
+                        var oe = e.originalEvent;
+                        that.files = oe.target.files || oe.dataTransfer.files;
+
+                    });
+                }
+            }
+
         },
 
         render : function() {
             var that = this;
             var input = $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio");
-            if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").length && this.model.get(this.attribute)) {
+            if ($(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").not(":checkbox").not(":radio").not(":input[type=file]").length && this.model.get(this.attribute)) {
                 $(this.el).find("input[name='"+this.attribute+"'], select[name='"+this.attribute+"'], textarea[name='"+this.attribute+"']").each(function() {
                     if (($(this).attr("fixed") === undefined || !$(this).val()) && that.model) {
                         $(this).val(that.model.get(that.attribute));
@@ -263,6 +302,25 @@ $(function () {
         validateAndRender: function (m) {
             this.model.validate();
             this.render();
+        },
+        serialize: function() {
+
+           if ($(this.el).find("input[type='file']").length) {
+
+                if ($(this.el).attr("send")) {
+                    var files = this.files;
+
+                    if (files) {
+                        if (files.length > 1) {
+                            return files;
+                        } else {
+                            return files[0];
+                        }
+                    }
+                }
+            }
+            return null;
+
         }
     })
 });

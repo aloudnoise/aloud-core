@@ -29,6 +29,11 @@ class DropDownField extends BaseField
             }, $this->data);
         }
 
+        if (is_callable($this->data)) {
+            $func = $this->data;
+            return $func($this);
+        }
+
         return [];
 
     }
