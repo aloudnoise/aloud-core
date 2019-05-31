@@ -620,7 +620,7 @@ $(function() {
             if(event.state){
                 var state = event.state;
                 if (state.url) {
-                    Yii.app.navigate(state.url, state.target ? state.target : null, {
+                    Yii.app.navigate(state.target == 'modal' ? (state.zUrl ? state.zUrl : state.url) : state.url, state.target ? state.target : 'normal', {
                         scroll : false,
                         no_push : true,
                     });
