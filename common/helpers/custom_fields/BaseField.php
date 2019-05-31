@@ -10,6 +10,7 @@ class BaseField extends BaseObject
     public $help = null;
     public $languages = false;
     public $options = [];
+    public $parse = null;
 
     public static function instantiate($config) {
 
