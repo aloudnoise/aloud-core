@@ -56,21 +56,36 @@ $(function() {
 
             $(this.inputs).each(function() {
                 if ($(this).attr("type") == "checkbox") {
-                    if ($(this).attr("name").indexOf("[") !== -1) {
-                        var n = $(this).attr("name").split("[]");
-                        var arr = that.model.get(n[0]);
-                        if (!arr) {
-                            arr = [];
-                        }
+                    var n = $(this).attr("name").split("[");
+                    if (n.length > 1) {
 
-                        if ($(this).prop("checked")) {
-                            if (arr.indexOf($(this).attr("value")) === -1) {
-                                arr.push($(this).attr("value"));
+                        var arr = that.model.get(n[0]);
+                        var l = n[1].split("]");
+                        if (l[0] != '') {
+
+                            if (!arr) {
+                                arr = {};
+                            }
+                            if ($(this).prop("checked")) {
+                                arr[l[0]] = $(this).attr("value");
+                            } else {
+                                arr[l[0]] =  null;
                             }
                         } else {
-                            if (arr.indexOf($(this).attr("value")) !== -1) {
-                                arr.splice(arr.indexOf($(this).attr("value")), 1);
+                            if (!arr) {
+                                arr = [];
                             }
+
+                            if ($(this).prop("checked")) {
+                                if (arr.indexOf($(this).attr("value")) === -1) {
+                                    arr.push($(this).attr("value"));
+                                }
+                            } else {
+                                if (arr.indexOf($(this).attr("value")) !== -1) {
+                                    arr.splice(arr.indexOf($(this).attr("value")), 1);
+                                }
+                            }
+
                         }
                         that.model.set(n[0], arr);
                     } else {
