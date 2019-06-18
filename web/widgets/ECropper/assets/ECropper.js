@@ -257,6 +257,23 @@ $(function() {
             var that = this;
             var item = that.queue[that.currentIndex].item;
             item.model.set("cropCoordinates", that.cropCoordinates);
+
+            var previews = null;
+            if (that.previews) {
+                _(that.previews).each(function(preview) {
+                    if (typeof that.options.crop[preview] != undefined) {
+                        if (!previews) {
+                            previews = {};
+                        }
+                        previews[preview] = that.options.crop[preview];
+                    }
+                });
+                if (previews) {
+                    item.model.set("previews", previews);
+                }
+            }
+
+
             callback = that.queue[that.currentIndex].callback;
             if (typeof callback == "function") {
                 callback.apply(item);
