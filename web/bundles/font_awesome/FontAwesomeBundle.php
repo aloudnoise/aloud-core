@@ -14,7 +14,7 @@ class FontAwesomeBundle extends AssetBundle
     
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
 }
 
 ?>

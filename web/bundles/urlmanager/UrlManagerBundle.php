@@ -28,7 +28,7 @@ class UrlManagerBundle extends AssetBundle
     
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
 
 
     public function compileJS($view)

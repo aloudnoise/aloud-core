@@ -35,7 +35,7 @@ class BackboneBundle extends AssetBundle
     
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
 
     public static function registerWidget($view, $name)
     {

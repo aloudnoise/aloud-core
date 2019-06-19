@@ -24,6 +24,6 @@ class VueBundle extends AssetBundle
 
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
     
 }

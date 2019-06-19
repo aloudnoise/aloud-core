@@ -36,7 +36,7 @@ class ToolsBundle extends AssetBundle
 
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
     
     /**
      * @param View $view

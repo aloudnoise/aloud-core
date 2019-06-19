@@ -15,7 +15,7 @@ class CKEditorBundle extends AssetBundle
 
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
     
     public static function register($view) {
         $r = parent::register($view);

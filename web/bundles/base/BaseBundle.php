@@ -32,6 +32,6 @@ class BaseBundle extends AssetBundle
     
     public $publishOptions = [
         'forceCopy' => false
-    ]
+    ];
 
 }
