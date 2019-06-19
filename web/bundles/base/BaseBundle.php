@@ -29,5 +29,9 @@ class BaseBundle extends AssetBundle
         'aloud_core\web\bundles\font_awesome\FontAwesomeBundle',
         'aloud_core\web\bundles\vue\VueBundle'
     ];
+    
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 
 }

@@ -34,6 +34,10 @@ class ToolsBundle extends AssetBundle
         ], "jgrowl_css");
     }
 
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
+    
     /**
      * @param View $view
      */

@@ -11,6 +11,10 @@ class FontAwesomeBundle extends AssetBundle
     public $css = [
         'css/all.min.css'
     ];
+    
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 }
 
 ?>

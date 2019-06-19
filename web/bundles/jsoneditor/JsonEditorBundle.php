@@ -15,4 +15,7 @@ class JsonEditorBundle extends AssetBundle
         'jsoneditor.min.css',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 }

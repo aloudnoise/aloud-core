@@ -22,4 +22,7 @@ class JQueryBundle extends AssetBundle
         'js/jquery-migrate-1.0.0.js'
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 }

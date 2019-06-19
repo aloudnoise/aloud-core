@@ -32,6 +32,10 @@ class BackboneBundle extends AssetBundle
         'aloud_core\web\bundles\jquery\JQueryBundle',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
+    
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 
     public static function registerWidget($view, $name)
     {

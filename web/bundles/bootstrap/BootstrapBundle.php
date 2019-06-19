@@ -43,4 +43,8 @@ class BootstrapBundle extends AssetBundle
             'depends' => $bundle->depends
         ], 'timepicker-css');
     }
+    
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 }

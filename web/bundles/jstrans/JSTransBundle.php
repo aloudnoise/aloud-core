@@ -23,6 +23,10 @@ class JSTransBundle extends AssetBundle
         $this->registerScript($view);
 
     }
+    
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
 
 
     public function registerScript($view)

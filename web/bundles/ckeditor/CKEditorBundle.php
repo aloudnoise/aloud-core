@@ -13,6 +13,10 @@ class CKEditorBundle extends AssetBundle
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
+    public $publishOptions = [
+        'forceCopy' => false
+    ]
+    
     public static function register($view) {
         $r = parent::register($view);
         $view->registerJs("
