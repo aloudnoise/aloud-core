@@ -260,8 +260,8 @@ $(function() {
 
         options : {},
 
-        MAX_WIDTH : 1024,
-        MAX_HEIGHT : 768,
+        MAX_WIDTH : 3000,
+        MAX_HEIGHT : 3000,
 
         events : {
             "click .close" : "remove"
