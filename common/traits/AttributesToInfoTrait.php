@@ -38,4 +38,9 @@ trait AttributesToInfoTrait
         }
     }
 
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), $this->attributesToInfo());
+    }
+
 }
