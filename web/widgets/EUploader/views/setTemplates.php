@@ -6,7 +6,7 @@
         <div class='file-upload'>
             <div class='uploader-inner text-center'>
                 <div class='uploader-area'>
-                    <span style='margin-right:15px;' class='placeholder text-muted'><?=Yii::t("main","Перетащите файл, или нажмите на кнопку ")?></span>
+                    <span style='margin-right:15px;' class='placeholder text-muted'><?=Yii::t("main","Перетащите файл или нажмите на кнопку ")?></span>
                     <a style="color:#fff; cursor:pointer;" class='btn btn-success upload-button'><li class='fa fa-file'></li> <?=Yii::t("main","Загрузить")?></a>
                 </div>
             </div>
