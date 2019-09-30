@@ -39,6 +39,19 @@ class Html extends \yii\helpers\Html
         }
 
         if ($field instanceof BaseField) {
+            if ($field->data) {
+                $data = $field->fetchData();
+                $options['list'] = $name.'_datalist';
+                $html = static::textInput($name, $value, $options);
+                $html .= static::beginTag('datalist', [
+                    'id' => $name.'_datalist'
+                ]);
+                foreach ($data as $item) {
+                    $html .= static::tag("option", '', ['value' => $item]);
+                }
+                $html .= static::endTag("datalist");
+                return $html;
+            }
             return static::textInput($name, $value, $options);
         }
 
