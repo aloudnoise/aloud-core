@@ -230,6 +230,37 @@ $(function() {
                 })
             }
 
+            if ($(this.el).find('.auto-form').length) {
+                $(this.el).find('.auto-form').each(function() {
+                    var model = new BaseModel(that.model.get($(this).attr("data-attributes")), {
+                        yModel : $(this).attr("data-model")
+                    });
+                    Yii.app.widget("EForm", {
+                        el : $(this),
+                        model : model,
+                        onSuccess : function(model,response) {
+                            if (response.redirect) {
+                                if (response.full) {
+                                    window.location.href = response.redirect;
+                                } else {
+                                    that.navigate(response.redirect, response.target ? response.target : null, {
+                                        scroll: response.scroll
+                                    });
+                                }
+                            } else {
+                                if (that.controller.target == "modal") {
+                                    $(that.controller.el).modal("hide");
+                                } else {
+                                    window.location.href = window.location.href;
+                                }
+                            }
+                        }
+                    }, function(form) {
+                        form.render();
+                    });
+                })
+            }
+
         },
 
         navigate: function(href, target, options) {
