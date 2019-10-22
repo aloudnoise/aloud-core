@@ -20,7 +20,7 @@
   "dependencies": {
     "bunyan": "1.8.10",
     "express": "4.15.3",
-    "js-yaml": "3.8.4",
+    "js-yaml": "3.13.1",
     "redis": "2.7.1",
     "socket.io": "2.0.1",
     "socket.io-redis": "5.0.1",
