@@ -178,23 +178,25 @@ class Controller extends yii\base\Controller
         ];
     }
     public function getActionData($action) {
-        return $this->actionsData($action);
+        return $this->actionsData()[$action];
     }
 
     public function prepareActionIndex()
     {
         $actionData = $this->getActionData('index');
-        $filter = \Yii::createObject($actionData['filter']);
+        $filter = \Yii::createObject($actionData['filterClass']);
         if (\Yii::$app->request->get("filter")) {
             $filter->attributes = \Yii::$app->request->get("filter");
         }
 
         $query = (\Yii::$container->get($actionData['modelClass']))::find();
+
         $filter->applyFilter($query);
 
-        $provider = Yii::createObject($actionData['provider'], [
+        $provider = Yii::createObject([
+            'class' => $actionData['provider']['class'],
             'query' => $query,
-            'pagination' => $actionData['pagination']
+            'pagination' => $actionData['provider']['pagination']
         ]);;
 
         \Yii::$app->data->filter = BackboneRequestTrait::arrayAttributes($filter, [], $filter->attributes(), true);
@@ -218,8 +220,8 @@ class Controller extends yii\base\Controller
     public function prepareActionAdd()
     {
         $actionData = $this->getActionData('add');
-        $model = Yii::createObject($actionData['add']['modelClass']);
-        $model = $actionData['add']['find']($model, \Yii::$app->request->get());
+        $model = Yii::createObject($actionData['modelClass']);
+        $model = $actionData['find']($model, \Yii::$app->request->get());
 
         if ($model->isNewRecord) {
             if (!$model->canAdd) {
@@ -235,7 +237,7 @@ class Controller extends yii\base\Controller
 
             $model->attributes = \Yii::$app->request->post($model::className());
             if ($model->save()) {
-                return $this->renderJSON($actionData['add']['success']($model, \Yii::$app->request->get()));
+                return $this->renderJSON($actionData['success']($model, \Yii::$app->request->get()));
             }
             return $this->renderJSON($model->getErrors(), true);
 
