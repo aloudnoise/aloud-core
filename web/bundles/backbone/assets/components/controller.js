@@ -248,8 +248,8 @@ $(function() {
                                     });
                                 }
                             } else {
-                                if (that.controller.target == "modal") {
-                                    $(that.controller.el).modal("hide");
+                                if (that.target == "modal") {
+                                    $(that.el).modal("hide");
                                 } else {
                                     window.location.href = window.location.href;
                                 }

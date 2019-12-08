@@ -233,9 +233,9 @@ class Controller extends yii\base\Controller
             }
         }
 
-        if (\Yii::$app->request->post($model::className())) {
+        if (\Yii::$app->request->post(yii\helpers\StringHelper::basename($model::className()))) {
 
-            $model->attributes = \Yii::$app->request->post($model::className());
+            $model->attributes = \Yii::$app->request->post(yii\helpers\StringHelper::basename($model::className()));
             if ($model->save()) {
                 return $this->renderJSON($actionData['success']($model, \Yii::$app->request->get()));
             }
@@ -246,12 +246,16 @@ class Controller extends yii\base\Controller
             "model" => $model,
         ], $this->actionParams);
         \Yii::$app->data->model = BackboneRequestTrait::arrayAttributes($model, $actionData['serialize']['relations'], $actionData['serialize']['fields'], true);
+        return true;
     }
 
     public function actionAdd()
     {
-        $this->prepareActionAdd();
-        return $this->renderAction('add');
+        $r = $this->prepareActionAdd();
+        if ($r === true) {
+            return $this->renderAction('add');
+        }
+        return $r;
     }
 
     public function actionDelete()

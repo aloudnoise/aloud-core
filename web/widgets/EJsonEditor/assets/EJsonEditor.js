@@ -18,8 +18,12 @@ $(function() {
                     mode: 'code',
                     sortObjectKeys: false,
                     onChange: function() {
-                        var json = editor.get();
-                        $(input).val(JSON.stringify(json));
+                        try {
+                            var json = editor.get();
+                            $(input).val(JSON.stringify(json));
+                        } catch (e) {
+                            console.log(e.message);
+                        }
                     }
                 };
 
