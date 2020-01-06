@@ -38,7 +38,7 @@ class ActiveQuery extends \yii\db\ActiveQuery
      */
     public function notDeleted($alias = null)
     {
-        if (array_key_exists('is_deleted',(new $this->modelClass())->attributes)) {
+        if (in_array('is_deleted',(new $this->modelClass())->attributes())) {
             return $this->onCondition(
                 ($alias ?: $this->alias) . '.is_deleted != ' . ActiveRecord::DELETED
             );
@@ -89,7 +89,7 @@ class ActiveQuery extends \yii\db\ActiveQuery
      * @return $this
      */
     public function byUser($user_id = null) {
-        if (array_key_exists('user_id',(new $this->modelClass())->attributes)) {
+        if (in_array('is_deleted',(new $this->modelClass())->attributes())) {
             return $this->andWhere([
                 "$this->alias.user_id" => $user_id ?: \Yii::$app->user->id
             ]);
