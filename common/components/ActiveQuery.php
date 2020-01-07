@@ -89,11 +89,12 @@ class ActiveQuery extends \yii\db\ActiveQuery
      * @return $this
      */
     public function byUser($user_id = null) {
-        if (in_array('is_deleted',(new $this->modelClass())->attributes())) {
+        if (in_array('user_id',(new $this->modelClass())->attributes())) {
             return $this->andWhere([
                 "$this->alias.user_id" => $user_id ?: \Yii::$app->user->id
             ]);
         }
+        return $this;
     }
 
     /**
