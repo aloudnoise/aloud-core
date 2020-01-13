@@ -261,12 +261,12 @@ class Controller extends yii\base\Controller
     public function actionDelete()
     {
         $actionData = $this->getActionData('delete');
-        $model = Yii::createObject($actionData['add']['modelClass']);
+        $model = Yii::createObject($actionData['modelClass']);
         $model = $actionData['find']($model, \Yii::$app->request->get());
         if ($model AND $model->canDelete AND $model->delete()) {
             \Yii::$app->session->setFlash("ok", \Yii::t("main","Запись удалена"));
         }
-        return \Yii::$app->response->redirect($actionData['redirect']($model, \Yii::$app->request->get));
+        return \Yii::$app->response->redirect($actionData['redirect']($model, \Yii::$app->request->get()));
     }
 
 }
