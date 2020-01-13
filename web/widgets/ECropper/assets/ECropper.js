@@ -62,6 +62,13 @@ $(function() {
                 $(that.img).attr("src",reader.result);
                 $(that.pr).attr("src",reader.result);
 
+                var image = new Image();
+                image.src = reader.result;
+
+                image.onload = function() {
+                    $(that.el).find(".modal-dialog").css('width', this.width + 'px');
+                };
+
                 $(that.el).find(".modal-body").html($(that.img));
                 $(that.el).modal("show");
 
