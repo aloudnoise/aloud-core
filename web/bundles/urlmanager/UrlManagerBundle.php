@@ -15,7 +15,6 @@ class UrlManagerBundle extends AssetBundle
     public $js = [
         'PHPJS.dependencies.js',
         'Yii.UrlManager.js',
-        'Yii.UrlManager.definitions.js'
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
 
