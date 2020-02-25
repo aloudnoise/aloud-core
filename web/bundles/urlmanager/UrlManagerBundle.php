@@ -20,8 +20,9 @@ class UrlManagerBundle extends AssetBundle
 
     public function registerAssetFiles($view) {
 
-        parent::registerAssetFiles($view);
         $this->compileJS($view);
+        parent::registerAssetFiles($view);
+
 
     }
     
@@ -58,7 +59,7 @@ class UrlManagerBundle extends AssetBundle
             $hostInfo = \Yii::$app->getRequest()->getHostInfo();
 
             $dir = \Yii::getAlias($this->basePath);
-            file_put_contents($dir."/".$this->js[count($this->js)-1], "$(function() {
+            file_put_contents($dir."/Yii.UrlManager.definitions.js", "$(function() {
                 Yii = Yii || {}; Yii.app = $.extend(Yii.app, {scriptUrl: '{$scriptUrl}',baseUrl: '{$baseUrl}',
                 hostInfo: '{$hostInfo}'});
                 Yii.app.urlManager = new UrlManager({$encodedVars});
@@ -68,7 +69,9 @@ class UrlManagerBundle extends AssetBundle
 
         }
         /* @var $view \aloud_core\web\components\View */
-        $view->registerJsFile($this->baseUrl."/"."Yii.UrlManager.definitions.js",$this->jsOptions);
+        $view->registerJsFile($this->baseUrl."/"."Yii.UrlManager.definitions.js",[
+            'position' => View::POS_END
+        ]);
 
 
     }

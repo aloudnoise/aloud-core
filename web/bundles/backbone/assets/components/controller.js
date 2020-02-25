@@ -160,10 +160,6 @@ $(function() {
 
             Yii.app.trigger("controllerRendered");
 
-            //Initialization
-            Waves.attach('.wave-init, .left-menu .menu-item, button.btn, a.btn, div.btn', ['waves-block']);
-            Waves.init();
-
             $(this.el).find(".slim-scroll").each(function() {
                 var $el = $(this);
                 var height = $el.height();

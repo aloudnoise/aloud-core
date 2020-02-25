@@ -80,28 +80,6 @@ class ToolsBundle extends AssetBundle
     /**
      * @param View $view
      */
-    public static function registerRange($view)
-    {
-
-        $bundle = static::register($view);
-
-        $view->registerJsFile($bundle->baseUrl."/range/js/ion.rangeSlider.min.js", [
-            'position' => $bundle->jsOptions['position'],
-            "depends" => $bundle->depends
-        ], "range");
-        $view->registerCssFile($bundle->baseUrl."/range/css/ion.rangeSlider.css", [
-            'position' => $bundle->jsOptions['position'],
-            "depends" => $bundle->depends
-        ], "range_css");
-        $view->registerCssFile($bundle->baseUrl."/range/css/ion.rangeSlider.skinHTML5.css", [
-            'position' => $bundle->jsOptions['position'],
-            "depends" => $bundle->depends
-        ], "range_theme");
-    }
-
-    /**
-     * @param View $view
-     */
     public static function registerInlineChoser($view)
     {
 
