@@ -245,7 +245,9 @@ $(function() {
                                 }
                             } else {
                                 if (that.target == "modal") {
-                                    $(that.el).modal("hide");
+                                    that.navigate(that.baseUrl, 'normal', {
+                                        scroll: false
+                                    });
                                 } else {
                                     window.location.href = window.location.href;
                                 }
@@ -265,6 +267,7 @@ $(function() {
 
             var _o = {
                 callback : that.options.callback ? that.options.callback : null,
+                custom: null,
                 transaction : that.options.transaction !== false,
                 no_fade : (that.target == 'modal' && target == 'modal') ? true : false,
             };
@@ -344,15 +347,35 @@ $(function() {
                 // Показываем модальное окно
                 $(that.el).modal("show");
                 $(this.el).on("hidden.bs.modal", function () {
-                    that.__destroy();
+
                     if (that.options.transaction) {
                         if (!that.navigating) {
                             that.target = null;
-                            Yii.app.navigate(that.baseUrl, null, {
-                                scroll: false
+                            // Yii.app.navigate(that.baseUrl, null, {
+                            //     scroll: false
+                            // });
+
+                            var found = null;
+                            _(Yii.app.controllers).each(function(module) {
+                               _(module).each(function(controller) {
+                                    _(controller).each(function(a) {
+                                        if (a.url == that.baseUrl && !found) {
+                                            found = a;
+                                        }
+                                    });
+                               });
                             });
+
+                            if (found) {
+                                Yii.app.currentController = found;
+                                Yii.app.pushState(found);
+                            }
+
                         }
                     }
+
+                    that.__destroy();
+
                     if ($('body').find('.modal.show').length) {
                         if (!$('body').hasClass('modal-open')) {
                             $('body').addClass('modal-open');
@@ -448,6 +471,11 @@ $(function() {
             }, 300);
         },
         __destroy: function() {
+
+            if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+            }
+
             if (this.action !== null && typeof this.action != 'function') {
                 this.action.__destroy();
             }

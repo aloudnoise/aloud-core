@@ -43,6 +43,7 @@ class Controller extends yii\base\Controller
 
         \Yii::$app->data->GET = \Yii::$app->request->get();
         \Yii::$app->data->controller = $this->id;
+        \Yii::$app->data->module = $this->module->id;
         \Yii::$app->data->action = $action->id;
         \Yii::$app->data->size = 'lg';
 

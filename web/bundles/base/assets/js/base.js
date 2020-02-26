@@ -25,9 +25,6 @@ $(function() {
      */
     BaseApplication = Backbone.View.extend({
         el : "body",
-        currentModule : null,
-        // Текущий загруженный контроллер
-        currentController : null,
         // Загруженные скрипты и стили
         assets : {
             css : [],
@@ -42,30 +39,12 @@ $(function() {
         stepsInModal : 0,
         top : 0,
         controllers : {},
+        modules: {},
+        currentController: null,
         // Инициализация приложения
         initialize : function(args) {
 
             var that = this;
-
-            // console.log('attach to base links');
-            // $("body").on("click", "a[href^='/'],div[href^='/']", function(event) {
-            //
-            //     console.log('link clicked in base');
-            //
-            //     var link = $(event.currentTarget);
-            //     var target = $(link).attr("target") ? $(link).attr("target") : null;
-            //     var options = {
-            //         scroll : $(link).attr("noscroll") ? false : true,
-            //         confirm : $(link).attr("confirm") ? $(link).attr("confirm") : null
-            //     };
-            //
-            //     return that.navigate($(link).attr("href"), target, options);
-            // });
-
-            this.controllers = new BaseCollection();
-            this.controllers.on("add", function() {
-                console.log('new_controller');
-            });
 
             // Инициируем лонг поллинг
             this.socket = new Socket();
@@ -108,7 +87,8 @@ $(function() {
                 scroll : true,
                 transaction : true,
                 callback: null,
-                confirm : null
+                confirm : null,
+                custom: null
             };
 
             options = _.extend(_o, options);
@@ -186,21 +166,29 @@ $(function() {
                         return false;
                     }
 
+                    if (options.custom) {
+                        options.custom.call(Yii.app.currentController, response);
+                        Yii.app.loading(false);
+                        return;
+                    }
+
                     options.href = href;
 
-                    if (options.transaction) {
-                        // Убиваем контроллеры
-                        if (that.controllers) {
-                            _(that.controllers).each(function (controller, c_id) {
-                                if (controller) {
-                                    _(controller).each(function (action, a_id) {
-                                        that.controllers[c_id][a_id].__destroy();
-                                        delete that.controllers[c_id][a_id];
-                                    });
-                                }
-                            })
-                        }
-                    }
+                    // if (options.transaction) {
+                    //     // Убиваем контроллеры
+                    //     if (that.controllers) {
+                    //         _(that.controllers).each(function (module, m_id) {
+                    //             _(module).each(function (controller, c_id) {
+                    //                 if (controller) {
+                    //                     _(controller).each(function (action, a_id) {
+                    //                         that.controllers[m_id][c_id][a_id].__destroy();
+                    //                         delete that.controllers[m_id][c_id][a_id];
+                    //                     });
+                    //                 }
+                    //             });
+                    //         })
+                    //     }
+                    // }
 
                     // Подключаем возвращенную модель
                     that.registerScripts(response.model, function () {
@@ -284,22 +272,24 @@ $(function() {
 
                 if (options.transaction) {
                     if (!external) {
-                        if (that.currentController) {
-                            that.currentController.__destroy();
-                        }
-                        delete that.currentController;
                         that.currentController = c;
-                    } else {
-                        if (that.controllers[controller] && that.controllers[controller][response.model.action]) {
-                            that.controllers[controller][response.model.action].__destroy();
-                            delete that.controllers[controller][response.model.action];
-                        }
-                        if (!that.controllers[controller]) {
-                            that.controllers[controller] = {};
-                        }
-                        that.controllers[controller][response.model.action] = c;
                     }
 
+                    if (that.controllers[response.model.module] && that.controllers[response.model.module][response.model.controller] && that.controllers[response.model.module][response.model.controller][response.model.action]) {
+                        that.controllers[response.model.module][response.model.controller][response.model.action].__destroy();
+                        delete that.controllers[response.model.module][response.model.controller][response.model.action];
+                    }
+
+                    if (!that.controllers[response.model.module]) {
+                        that.controllers[response.model.module] = {};
+                    }
+
+                    if (!that.controllers[response.model.module][response.model.controller]) {
+                        that.controllers[response.model.module][response.model.controller] = {};
+                    }
+
+                    that.controllers[response.model.module][response.model.controller][response.model.action] = c;
+                    console.log(that.controllers);
                     c.render(response);
 
                     if (!external) {
@@ -367,9 +357,9 @@ $(function() {
                     name : module
                 });
 
-                if (!external) {
-                    that.currentModule = m;
-                }
+                               // if (!external) {
+                //     that.currentModule = m;
+                // }
 
                 loadControllerScripts(module_class, module_path);
 
@@ -618,6 +608,7 @@ $(function() {
         },
         returnState : function(event) {
             if(event.state){
+                console.log(event);
                 var state = event.state;
                 if (state.url) {
                     Yii.app.navigate(state.target == 'modal' ? (state.zUrl ? state.zUrl : state.url) : state.url, state.target ? state.target : 'normal', {
@@ -631,6 +622,9 @@ $(function() {
         {
             var url = c.url;
             var data = {
+                module: c.model.get("module"),
+                controller: c.model.get("controller"),
+                action: c.model.get("action"),
                 url : c.url,
                 baseUrl: c.baseUrl,
                 target: c.target
