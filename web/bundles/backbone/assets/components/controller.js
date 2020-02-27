@@ -350,7 +350,7 @@ $(function() {
 
                     if (that.options.transaction) {
                         if (!that.navigating) {
-                            that.target = null;
+                            // that.target = null;
                             // Yii.app.navigate(that.baseUrl, null, {
                             //     scroll: false
                             // });
@@ -472,10 +472,7 @@ $(function() {
         },
         __destroy: function() {
 
-            if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
-                delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
-            }
-
+            console.log(this);
             if (this.action !== null && typeof this.action != 'function') {
                 this.action.__destroy();
             }
@@ -483,11 +480,18 @@ $(function() {
                 $(this.el).next(".modal-backdrop").remove();
                 $(this.el).remove();
             }
-            delete this.model;
-            delete this.action;
+
             if (Yii.app.socket) {
                 Yii.app.socket.clear();
             }
+
+            if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+            }
+
+            delete this.model;
+            delete this.action;
+
         }
     })
 
