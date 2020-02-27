@@ -8,22 +8,27 @@ use yii\web\Cookie;
 
 class LanguageSetter extends Component
 {
+
+    public $aliases = [
+        null => null,
+        'ru' => 'ru-RU',
+        'kz' => 'kk-KZ',
+        'en' => 'en-US',
+    ];
+
     public $langs = [
         "ru-RU"=>1,
         "kk-KZ"=>2,
         "en-US"=>3,
     ];
     public function init()
-    {        
-        
-        $lparam = \Yii::$app->urlManager->langParam;
-        if(\Yii::$app->request->get($lparam) AND in_array(\Yii::$app->request->get($lparam), \Yii::$app->urlManager->languages)) {
+    {
 
-            $this->setLanguage(\Yii::$app->request->get($lparam));
-            $get = \Yii::$app->request->get();
-            unset($get[$lparam]);
-            \Yii::$app->response->redirect(Url::to(\Yii::$app->controller->route, $get));
-            
+        $lparam = \Yii::$app->urlManager->langParam;
+        $language = $this->aliases[\Yii::$app->request->get($lparam)];
+
+        if(\Yii::$app->request->get($lparam) AND in_array($language, \Yii::$app->urlManager->languages)) {
+            $this->setLanguage($language);
         }
         else if (\Yii::$app->session->get($lparam) AND in_array(\Yii::$app->session->get($lparam),\Yii::$app->urlManager->languages))
             \Yii::$app->language = \Yii::$app->session->get($lparam);

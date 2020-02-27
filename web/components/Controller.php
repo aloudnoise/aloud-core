@@ -26,6 +26,8 @@ class Controller extends yii\base\Controller
     public function beforeAction($action)
     {
 
+        \Yii::$app->languageSetter->init();
+
         if (!\Yii::$app->request->isAjax) {
             \aloud_core\web\bundles\tools\ToolsBundle::registerJgrowl($this->view);
             \aloud_core\web\bundles\tools\ToolsBundle::registerTool($this->view, 'waves');
