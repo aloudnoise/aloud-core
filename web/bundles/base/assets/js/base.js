@@ -271,6 +271,11 @@ $(function() {
                 c.scrollTop = options.scroll;
 
                 if (options.transaction) {
+
+                    if (that.currentController && that.currentController.target == 'modal') {
+                        that.currentController.__destroy();
+                    }
+
                     if (!external) {
                         that.currentController = c;
                     }
