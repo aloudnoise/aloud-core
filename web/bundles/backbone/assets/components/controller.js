@@ -485,11 +485,13 @@ $(function() {
                 Yii.app.socket.clear();
             }
 
-            if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
-                delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+            if (this.model) {
+                if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                    delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+                }
+                delete this.model;
             }
 
-            delete this.model;
             delete this.action;
 
         }
