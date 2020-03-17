@@ -11,6 +11,7 @@ $(function() {
             msgFileToBig:Yii.t("main",'Размер файла слишком большой'),
             msgWrongFile:Yii.t('main','Запрещенный тип файла'),
             msgErrorLoading:Yii.t("main","Ошибка загрузки"),
+            msgImageToSmall:Yii.t("main","Изображение слишком маленькое"),
             onSuccess:false,
             dragBoxId:false,
             cropper : false,
@@ -294,6 +295,10 @@ $(function() {
                     if (typeof FileReader != 'undefined') {
                         that.resizeFile.apply(that, [function (response) {
 
+                            if (!response) {
+                                return false;
+                            }
+
                             response.name = file.name;
                             response.filename = file.name;
                             that.model.set("file", response);
@@ -340,6 +345,19 @@ $(function() {
                         if (tempH > that.MAX_HEIGHT) {
                             tempW *= that.MAX_HEIGHT / tempH;
                             tempH = that.MAX_HEIGHT;
+                        }
+                    }
+
+                    if (that.options.cropper) {
+                        err = false;
+                        _(that.options.cropper.options.crop).each(function(sizes) {
+                            if (tempW < sizes[0] || tempH < sizes[1]) {
+                                that.model.set("error", that.options.msgImageToSmall);
+                                err = true;
+                            }
+                        });
+                        if (err) {
+                            return false;
                         }
                     }
 
