@@ -180,5 +180,18 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
         return md5($this->id.\Yii::$app->params['secret_word']);
     }
 
+    /**
+     * Загружает весь список (использовать для небольших таблиц)
+     */
+    public static function cache($reset = false)
+    {
+        if (!\Yii::$app->has('_preloaded_'.static::tableName()) OR $reset) {
+            \Yii::$app->set("_preloaded_".static::tableName(), function() {
+                return static::find()->indexBy('id')->all();
+            });
+        }
+        return \Yii::$app->get("_preloaded_".static::tableName());
+    }
+
 }
 
