@@ -181,7 +181,7 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
     }
 
     /**
-     * Загружает весь список (использовать для небольших таблиц)
+     * Загружает весь список (использовать для небольших таблиц) -- asd
      */
     public static function cache($reset = false)
     {
