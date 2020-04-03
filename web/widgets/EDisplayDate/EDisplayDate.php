@@ -67,15 +67,15 @@ class EDisplayDate extends Widget
                 if (($dtc->getTimestamp() + $dtc->getOffset()) - ($dt->getTimestamp() + $dt->getOffset() ) < 60*60) {
                     $t = ceil((($dtc->getTimestamp() + $dtc->getOffset()) - ($dt->getTimestamp() + $dt->getOffset() ))/60);
                     return $t." ".\common\helpers\Common::multiplier($t, [
-                            \Yii::t("main","w_minutes_1"),
-                            \Yii::t("main","w_minutes_2"),
-                            \Yii::t("main","w_minutes_3"),
-                    ])." ".\Yii::t("main","w_before");
+                            \Yii::t("main","минута"),
+                            \Yii::t("main","минуты"),
+                            \Yii::t("main","минут"),
+                    ])." ".\Yii::t("main","назад");
                 }
-                return \Yii::t("main","w_today_in").' '.$dt->format( 'H:i' );
+                return \Yii::t("main","сегодня в").' '.$dt->format( 'H:i' );
             }
             elseif ( $labelTime == ( $dtc->format( 'd' ) - 1 ).'.'.$dtc->format( 'm.Y' ) ) {
-                return \Yii::t("main","w_yesterday_in").' '.$dt->format( 'H:i' );
+                return \Yii::t("main","вчера в").' '.$dt->format( 'H:i' );
             }
             elseif ( $dt->format( 'Y' ) == $dtc->format( 'Y' ) ) {
                 return $dt->format( 'd' ).' '.$arrM[$dt->format( 'm' )].', '.$dt->format( 'H:i' );
@@ -89,18 +89,18 @@ class EDisplayDate extends Widget
     public function getArrM()
     {
         return [
-            '01'=>\Yii::t("main","w_january_in"),
-            '02'=>\Yii::t("main","w_february_in"),
-            '03'=>\Yii::t("main","w_march_in"),
-            '04'=>\Yii::t("main","w_april_in"),
-            '05'=>\Yii::t("main","w_may_in"),
-            '06'=>\Yii::t("main","w_june_in"),
-            '07'=>\Yii::t("main","w_july_in"),
-            '08'=>\Yii::t("main","w_august_in"),
-            '09'=>\Yii::t("main","w_september_in"),
-            '10'=>\Yii::t("main","w_october_in"),
-            '11'=>\Yii::t("main","w_november_in"),
-            '12'=>\Yii::t("main","w_december_in")
+            '01'=>\Yii::t("main","января"),
+            '02'=>\Yii::t("main","февраля"),
+            '03'=>\Yii::t("main","марта"),
+            '04'=>\Yii::t("main","апреля"),
+            '05'=>\Yii::t("main","мая"),
+            '06'=>\Yii::t("main","июня"),
+            '07'=>\Yii::t("main","июля"),
+            '08'=>\Yii::t("main","августа"),
+            '09'=>\Yii::t("main","сентября"),
+            '10'=>\Yii::t("main","октября"),
+            '11'=>\Yii::t("main","ноября"),
+            '12'=>\Yii::t("main","декабря")
         ];
     }
 
