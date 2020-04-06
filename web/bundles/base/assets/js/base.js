@@ -340,7 +340,13 @@ $(function() {
                     obj = window;
                 }
                 if (obj && typeof obj[controller] == 'undefined') {
-                    $.getScript(CORE.BACKBONE_CLIENT_ASSETS + (module_path ? (module_path) : "") + "/controllers/" + controller + ".js", function (data, textStatus, jqxhr) {
+
+                    var ppath = CORE.BACKBONE_CLIENT_ASSETS;
+                    if (response.model.backbone_assets_path) {
+                        ppath = response.model.backbone_assets_path;
+                    }
+
+                    $.getScript(ppath + (module_path ? (module_path) : "") + "/controllers/" + controller + ".js", function (data, textStatus, jqxhr) {
                         renderCurrentController(module_class);
                     }).fail(function (jqxhr, settings, exception) {
                         // $.jGrowl(exception.message, {
@@ -388,7 +394,13 @@ $(function() {
                 module_class = module_class + module_file_class;
 
                 if (typeof window[module_class] == "undefined") {
-                    $.getScript(CORE.BACKBONE_CLIENT_ASSETS + module_path + "/" + module_file_class + ".js", function (data, textStatus, jqxhr) {
+
+                    var ppath = CORE.BACKBONE_CLIENT_ASSETS;
+                    if (response.model.backbone_assets_path) {
+                        ppath = response.model.backbone_assets_path;
+                    }
+
+                    $.getScript(ppath + module_path + "/" + module_file_class + ".js", function (data, textStatus, jqxhr) {
                         renderCurrentModule(module_class, module, module_path);
                     }).fail(function (jqxhr, settings, exception) {
                         $.jGrowl(exception.message, {
