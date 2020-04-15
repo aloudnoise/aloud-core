@@ -25,6 +25,22 @@ $(function() {
             $(this.inputs).keypress(function(e) {
                 if (e.keyCode == 13) {
                     that.submit();
+                } else if ($(this).attr("data-live") == "1") {
+                    $(this).stopTime('livepress');
+                    $(this).oneTime(700, 'livepress', function() {
+
+                        var el = this;
+                        that.submit(function(controller) {
+
+                            var input = $(controller.el).find('input[name="'+$(el).attr("name")+'"]');
+                            var tmpStr = input.val();
+                            input.focus();
+                            input.val('');
+                            input.val(tmpStr);
+
+                        });
+
+                    })
                 }
             });
 
@@ -50,7 +66,7 @@ $(function() {
 
         },
 
-        submit: function() {
+        submit: function(callback) {
 
             var that = this;
 
@@ -137,7 +153,8 @@ $(function() {
             var get = that.parent.controller.model.get("GET");
             get.filter = that.model.attributes;
             that.parent.controller.navigate(Yii.app.createOrganizationUrl(that.options.route, get), that.parent.controller.target, {
-                scroll: false
+                scroll: false,
+                callback: callback ? callback : null
             });
 
         },
