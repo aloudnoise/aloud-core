@@ -200,7 +200,11 @@ $(function() {
             if (this.model.get("GET").scroll_to) {
                 var el = $(that.el).find("*[scroll-to='"+this.model.get("GET").scroll_to+"']");
                 if (el.length) {
-                    $(this.target == "modal" ? this.el : "html, body").stop().animate({ scrollTop: $(el).offset().top - 85 }, 500);
+                    var speed = 500;
+                    if ($(el).attr('data-scroll-speed')) {
+                        speed = parseInt($(el).attr('data-scroll-speed'));
+                    }
+                    $(this.target == "modal" ? this.el : "html, body").stop().animate({ scrollTop: $(el).offset().top - 85 }, speed);
                 }
             }
 
@@ -486,12 +490,8 @@ $(function() {
             }
 
             if (this.model) {
-                if (Yii.app.controllers[this.model.get("module")]) {
-                    if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")]) {
-                        if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
-                            delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
-                        }
-                    }
+                if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                    delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
                 }
                 delete this.model;
             }
