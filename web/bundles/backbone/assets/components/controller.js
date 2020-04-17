@@ -490,8 +490,12 @@ $(function() {
             }
 
             if (this.model) {
-                if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
-                    delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+                if (Yii.app.controllers[this.model.get("module")]) {
+                    if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")]) {
+                        if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                            delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+                        }
+                    }
                 }
                 delete this.model;
             }
