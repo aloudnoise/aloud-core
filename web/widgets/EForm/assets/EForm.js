@@ -255,12 +255,15 @@ $(function () {
             }
             $(this.el).find(".invalid-feedback").remove();
 
+            $(this.parent.el).find('#' + this.attribute + '-tab-tab').removeClass('text-danger');
+
             var add_class = false;
             var add_class_input = false;
             var add_html = false;
             var errors = this.model.getError(this.attribute);
             var msgs = "";
             if (errors !== false) {
+                $(this.parent.el).find('#' + this.attribute + '-tab-tab').addClass('text-danger');
                 add_class = "has-danger";
                 add_class_input = "is-invalid";
                 _(errors).each(function (e) {
