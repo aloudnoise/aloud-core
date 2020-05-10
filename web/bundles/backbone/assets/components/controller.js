@@ -352,6 +352,7 @@ $(function() {
                 $(that.el).modal("show");
                 $(this.el).on("hidden.bs.modal", function () {
 
+                    console.log($(this).attr('id'));
                     if ($(this).attr("id") != 'controller_modal') {
                         return;
                     }
@@ -494,10 +495,13 @@ $(function() {
             }
 
             if (this.model) {
-                if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
-                    delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+                if (Yii.app.controllers[this.model.get("module")]) {
+                    if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")]) {
+                        if (Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")]) {
+                            delete Yii.app.controllers[this.model.get("module")][this.model.get("controller")][this.model.get("action")];
+                        }
+                    }
                 }
-                delete this.model;
             }
 
             delete this.action;
