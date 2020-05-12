@@ -58,7 +58,7 @@
             <div style='width:40; height:50px;' class='inline-block file-icon'>
                 <img src='<?=\aloud_core\web\bundles\base\BaseBundle::register($this)->baseUrl."/img/icons/"?><%=getFileIcon(data.file)%>.png' />
             </div>
-            <div style='margin-left:10px;' class='inline-block file-name'><%=data.name%></div>
+            <div style='margin-left:10px;' class='inline-block file-name'><a target="_blank" href="<%=data.response ? data.response.url : ''%>"><%=data.name%></a></div>
 
             <span style='font-size:26px; position:absolute; right: 5px; top:50%; margin-top:-13px;' class='close inline-block pull-right'><li class='fa fa-times'></li></span>
             <% if (data.error) { %>
