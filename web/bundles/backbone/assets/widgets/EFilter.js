@@ -152,9 +152,19 @@ $(function() {
 
             var get = that.parent.controller.model.get("GET");
             get.filter = that.model.attributes;
+
+            if (callback) {
+                if (that.parent.controller.options.callback) {
+                    callback = function() {
+                        that.parent.controller.options.callback.apply(that.parent);
+                        callback.apply(that.parent);
+                    }
+                }
+            }
+
             that.parent.controller.navigate(Yii.app.createOrganizationUrl(that.options.route, get), that.parent.controller.target, {
                 scroll: false,
-                callback: callback ? callback : null
+                callback: callback ? callback : (that.parent.controller.options.callback ? that.parent.controller.options.callback : null)
             });
 
         },
