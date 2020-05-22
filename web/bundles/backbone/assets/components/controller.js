@@ -158,8 +158,6 @@ $(function() {
             this.getFlash();
             this.loadAction();
 
-            Yii.app.trigger("controllerRendered");
-
             $(this.el).find(".slim-scroll").each(function() {
                 var $el = $(this);
                 var height = $el.height();
@@ -263,6 +261,8 @@ $(function() {
                 })
             }
 
+            Yii.app.trigger("controllerRendered");
+
         },
 
         navigate: function(href, target, options) {
@@ -351,11 +351,6 @@ $(function() {
                 // Показываем модальное окно
                 $(that.el).modal("show");
                 $(this.el).on("hidden.bs.modal", function () {
-
-                    console.log($(this).attr('id'));
-                    if ($(this).attr("id") != 'controller_modal') {
-                        return;
-                    }
 
                     if (that.options.transaction) {
                         if (!that.navigating) {
@@ -502,6 +497,7 @@ $(function() {
                         }
                     }
                 }
+                delete this.model;
             }
 
             delete this.action;
