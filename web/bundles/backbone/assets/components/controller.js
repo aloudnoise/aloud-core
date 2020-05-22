@@ -352,6 +352,10 @@ $(function() {
                 $(that.el).modal("show");
                 $(this.el).on("hidden.bs.modal", function () {
 
+                    if ($(this).attr("id") != 'controller_modal') {
+                        return;
+                    }
+
                     if (that.options.transaction) {
                         if (!that.navigating) {
                             // that.target = null;
@@ -361,13 +365,13 @@ $(function() {
 
                             var found = null;
                             _(Yii.app.controllers).each(function(module) {
-                               _(module).each(function(controller) {
+                                _(module).each(function(controller) {
                                     _(controller).each(function(a) {
                                         if (a.url == that.baseUrl && !found) {
                                             found = a;
                                         }
                                     });
-                               });
+                                });
                             });
 
                             if (found) {
