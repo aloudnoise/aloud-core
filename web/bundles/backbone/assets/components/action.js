@@ -39,7 +39,9 @@ $(function() {
                         Assign.save({}, {
                             success: function (model, response, xhr) {
                                 if (that.controller.target == "modal") {
-                                    $(that.controller.el).modal("hide");
+                                    that.controller.navigate(that.controller.baseUrl, 'normal', {
+                                        scroll: false
+                                    });
                                 } else {
                                     Yii.app.navigate(that.controller.model.get("GET").return ? that.controller.model.get("GET").return : window.location.href, null, {
                                         scroll: false,
