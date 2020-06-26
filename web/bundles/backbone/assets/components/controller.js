@@ -485,7 +485,7 @@ $(function() {
                 this.action.__destroy();
             }
             if (this.target == 'modal') {
-                $(this.el).next(".modal-backdrop").remove();
+				$(".modal-backdrop").first().remove();
                 $(this.el).remove();
             }
 
