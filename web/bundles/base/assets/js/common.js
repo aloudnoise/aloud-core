@@ -179,12 +179,12 @@ function parseVideo(url) {
     //   - //player.vimeo.com/video/25451551
 
 
-    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    var regExp = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
     var match = url.match(regExp);
-    if (match&&match[7].length==11){
+    if (match&&match[1]){
         return {
             "type" : "youtube",
-            "id" : match[7]
+            "id" : match[1]
         };
     }else{
 

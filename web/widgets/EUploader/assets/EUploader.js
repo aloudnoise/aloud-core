@@ -233,7 +233,7 @@ $(function() {
             var that = this;
 
             if (this.model.get("type") == "youtube") {
-                var url = "http://www.youtube.com/watch?v=" + this.model.get("video_id");;
+                var url = "https://www.youtube.com/watch?v=" + this.model.get("video_id");;
             } else if (this.model.get("type") == "vimeo") {
                 var url = "https://vimeo.com/" + this.model.get("video_id");
             }
