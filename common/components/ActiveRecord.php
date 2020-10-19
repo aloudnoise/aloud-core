@@ -138,7 +138,7 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
             $attr = parent::__get($name);
             $data = json_decode($attr, true);
             if (is_array($data)) {
-                return (isset($data[\Yii::$app->language]) ? ($data[\Yii::$app->language]) : $data[key($data)]);
+                return ((isset($data[\Yii::$app->language]) AND !empty($dat[\Yii::$app->language])) ? ($data[\Yii::$app->language]) : $data[key($data)]);
             }
             return parent::__get($name);
         }

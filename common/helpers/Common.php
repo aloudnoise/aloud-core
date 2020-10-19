@@ -50,7 +50,7 @@ class Common {
         $language = $language ?: \Yii::$app->language;
         $data = !is_array($value) ? json_decode($value, true) : $value;
         if (is_array($data)) {
-            return (isset($data[$language]) ? $data[$language] : $data[key($data)]);
+            return ((isset($data[$language]) AND !empty($data[$language])) ? $data[$language] : $data[key($data)]);
         }
         return $value;
 
