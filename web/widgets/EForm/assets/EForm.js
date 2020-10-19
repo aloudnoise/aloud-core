@@ -109,13 +109,25 @@ $(function () {
             }
 
             if (this.options.uploader) {
-                if (!this.options.uploader.isFinished()) {
+                var uploaders = [this.options.uploader]
+                if (_.isArray(this.options.uploader)) {
+                    uploaders = this.options.uploader;
+                }
+
+                var not_finished = false;
+                _(uploaders).each(function(uploader) {
+                    if (!uploader.isFinished()) {
+                        not_finished = true;
+                    }
+                });
+
+                if (not_finished) {
                     $(event.currentTarget).find("input[type='submit']").popover({
                         content: Yii.t("main", "Файл еще не загрузился на сервер. Пожалуйста, подождите окончания загрузки"),
                         trigger: "manual"
                     }).popover("show");
-                    return false;
                 }
+
             }
 
             var data = this.serialize();
