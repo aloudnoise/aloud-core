@@ -2,6 +2,7 @@
 
 namespace aloud_core\common\components;
 
+use aloud_core\common\helpers\Common;
 use aloud_core\common\traits\AccessTrait;
 use aloud_core\common\traits\DateFormatTrait;
 use yii;
@@ -136,11 +137,7 @@ class ActiveRecord extends yii\db\ActiveRecord implements Filterable
         if (substr($name, strlen($name) - 6, 6) == 'ByLang') {
             $name = substr($name, 0, strlen($name) - 6);
             $attr = parent::__get($name);
-            $data = json_decode($attr, true);
-            if (is_array($data)) {
-                return ((isset($data[\Yii::$app->language]) AND !empty($dat[\Yii::$app->language])) ? ($data[\Yii::$app->language]) : $data[key($data)]);
-            }
-            return parent::__get($name);
+            return Common::byLang($attr);
         }
 
         return parent::__get($name);
