@@ -58,6 +58,7 @@ class Common {
         				return $d;
 					}
 				}
+				return $d;
 			}
         }
         return $value;
