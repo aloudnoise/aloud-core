@@ -27,9 +27,13 @@
 
                 if (!empty($this->js)) {
                     foreach ($this->js as $js) {
-                        $this->view->registerJsFile($bundle[1]."/".$js, [
-                            View::POS_END
-                        ]);
+                    	$path = $bundle[1] . "/" . $js;
+                    	if (strpos($js, 'http') === 0) {
+							$path = $js;
+						}
+						$this->view->registerJsFile($path, [
+							View::POS_END
+						]);
                     }
                 }
 
