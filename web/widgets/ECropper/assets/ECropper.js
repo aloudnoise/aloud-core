@@ -119,6 +119,10 @@ $(function() {
         cropModalInitiate : function() {
 
             var that = this;
+            var close_clicked = false;
+            $(that.el).find('.close').click(function() {
+                close_clicked = true;
+            });
 
             $(Yii.app.el).append($(that.el));
 
@@ -130,6 +134,7 @@ $(function() {
 
             $(that.el).on('shown.bs.modal', function() {
 
+                close_clicked = false;
                 that.cropCoordinates = {};
 
                 that.cropCoordinates.original = {};
@@ -246,7 +251,9 @@ $(function() {
 
             $(that.el).on('hidden.bs.modal', function () {
 
-                that.cropComplete.apply(that);
+                if (!close_clicked) {
+                    that.cropComplete.apply(that);
+                }
                 $(".modal-backdrop").remove();
 
             });
